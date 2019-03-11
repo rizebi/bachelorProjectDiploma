@@ -1,0 +1,21 @@
+Populat:
+	-> codMotor special necunoscut
+	-> marca si model necunoscut
+
+Populat si implementat:
+	-> default cand nu avem cod motor (pentru benzina, pentru diesel, hibrid)
+	-> trebuie sa punem o companie pentru superuser si un superuser
+
+Triggere:
+	-> cand se adauga masina sa se calculeze crestereZilnica
+	-> cand se motifica masian sa se recalculeze crestereZilnica
+
+
+
+Un utilizator normal (fara drepturi) are voie sa adauge si actualizeze masini si documente
+Un admin are voie si sa adauge useri in interiorul companiei
+Un superAdmin are dreptul sa adauge companii, sa stearga companii, useri, etc. Tot
+
+De fapt o sa avem o aplicatie de adminstrare
+
+Mai vedem ce facem si cu SMS
