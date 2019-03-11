@@ -1,0 +1,86 @@
+https://app.quickdatabasediagrams.com/#/
+
+companii
+-
+IDCompanie PK INT(3)
+numeCompanie VARCHAR(20)
+numarUseri INT(2)
+numarMasini INT(4)
+createdOn DATE
+
+useri
+-
+IDUser PK INT(4)
+numeUser VARCHAR(20)
+prenumeUser VARCHAR(20)
+email VARCHAR(30)
+parola PASS
+IDCompanie INT(3) FK >- companii.IDCompanie
+admin BOOL
+superAdmin BOOL
+createdOn DATE
+
+combustibili
+-
+IDCombustibil PK INT(2)
+numeCombustibil VARCHAR(15)
+
+marci
+-
+IDAuto INT(4) PK
+marcaMasina VARCHAR(20)
+modelMasina VARCHAR(20)
+
+numeSchimburi
+-
+IDNumeSchimb INT(2) PK
+numeSchimb VARCHAR(20)
+
+coduriMotor
+-
+IDCodMotor INT(4) PK
+codMotor VARCHR(10)
+
+masini
+-
+IDMasina INT(5) PK
+IDCompanie INT(3) FK >- companii.IDCompanie
+IDAuto INT(4) FK >- marci.IDAuto
+VIN VARCHAR(17)
+IDCombustibil INT(2) FK >- combustibili.IDCombustibil
+capcitateCilindrica INT(5)
+dataFabricatie DATE
+IDCodMotor INT(4) FK >- coduriMotor.IDCodMotor
+numarInmatriculare VARCHAR(10)
+kilometraj INT(7)
+crestereZilnica INT(4)
+lastModifiedOn DATE
+lastModifiedBy INT(4) FK >- useri.IDUser
+
+
+revizii
+-
+IDRevizie INT(4) PK
+IDAuto INT(4) FK >- marci.IDAuto
+IDCodMotor INT(4) FK >- coduriMotor.IDCodMotor
+IDNumeSchimb INT(2) FK >- numeSchimburi.IDNumeSchimb
+viataZile INT(4)
+viataKM INT(6)
+
+
+masiniRevizii
+-
+IDMasina INT(5) FK >- masini.IDMasina
+IDRevizie INT(4) FK >- revizii.IDRevizie
+
+
+documente
+-
+IDDocument INT(6) PK
+numeDocument VARCHAR(20)
+IDMasina INT(5) FK >- masini.IDMasina
+dataExp DATE
+areKM BOOL
+kmExp INT(7)
+lastModifiedOn DATE
+lastModifiedBy INT(4) FK >- useri.IDUser
