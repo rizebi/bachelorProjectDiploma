@@ -1,0 +1,67 @@
+1) Create new venv:
+		virtualenv mynewflaskenv
+
+2) Activate venv:
+		source mynewflaskenv/bin/activate
+
+3) Ca sa salvam configuratia actuala a unui venv:
+		pip freeze --local > requirements.txt
+
+4) Iesire venv:
+		deactivate
+
+5) Ca sa instalez requirements.txt
+			pip install -r requirements.txt
+
+6) In head sunt metadatele
+
+7) Orice HTML element are tag corespunzator
+
+8) <h1>, <p>, <strong>, <em>
+
+9) Codepen, o chestie online de codat web
+
+10) <ul> <ol> unordere/ordered list, si ca elemente dai cu <li>
+
+11) Div and Spans in mare imparte in sectiuni, si atunci cand zici
+			class, se aplica doar la cele de acolo
+
+12) Span cand vrei sa aplici ceva a ceva ce e deja in Span
+
+13) <img src=""> pui imagini (nu are dinaia cu /)
+					-> src poti sa pui si un site, nu doar local
+					-> alt="", in caz ca nu e la src="", spune un mesaj
+
+14) <a href="http://www.google.com">MY LINK HERE</a>
+		<a href="basic2.html">MY LINK HERE</a>
+				Sunt numite anchor tags
+
+15) Forms <form>, <input>
+
+16) <br> face un fel de enter
+
+17) Acum CSS
+
+18) La clase cu . in fata si la id cu # in fata (in CSS)
+
+19) https://fonts.google.com/
+
+20) Acuma Bootsrap
+
+21) Se pun in HTML linkurile direct de pe getboostrap.complete
+
+22) Cheia vietii: Bootstrap -> Documentation -> Components
+
+23) E o chestie misto cu <div class="container"> care iti ajusteaza automat
+
+24) Default links bootstrap (fara slim, direct de pe code.jquery.com)
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+25) LEGB rule = Local / Enclosing / Global / Bulit-in
+
+26) f"Account holder: {self.owner}"

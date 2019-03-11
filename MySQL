@@ -1,0 +1,41 @@
+Tutorial MySQL:
+https://www.tutorialspoint.com/mysql
+
+Descarcare .deb pentru mysql-apt
+https://dev.mysql.com/downloads/repo/apt/
+
+Tutorial mysql-apt:
+https://dev.mysql.com/doc/mysql-apt-repo-quick-guide/en/#apt-repo-fresh-install
+
+Install mysql:
+dpkg -i mysql-apt-config_0.8.10-1_all.deb
+sudo apt update
+sudo apt-get install mysql-server
+
+Log as root:
+mysql -u root -pmysqlpass
+
+Add user:
+CREATE USER 'guest'@'localhost' IDENTIFIED BY 'guestpass';
+FLUSH PRIVILEGES;
+
+Install MySQL - Python:
+sudo apt-get install python-pip python-dev libmysqlclient-dev
+pip install pymysql
+Si apoi a mers import MySQLdb
+
+Unfortunately MySQLdb does not support Python 3.
+
+
+pip install -I Cython==0.28.2
+sudo apt-get install mesa-common-dev
+pip install kivy
+
+
+sudo apt-get remove python-pip
+sudo apt install python-pip=9.0.1-2.3~ubuntu1
+
+
+https://kivy.org/doc/stable/installation/installation-linux.html
+
+MySQL Workbench
