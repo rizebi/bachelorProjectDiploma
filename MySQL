@@ -26,16 +26,4 @@ Si apoi a mers import MySQLdb
 
 Unfortunately MySQLdb does not support Python 3.
 
-
-pip install -I Cython==0.28.2
-sudo apt-get install mesa-common-dev
-pip install kivy
-
-
-sudo apt-get remove python-pip
-sudo apt install python-pip=9.0.1-2.3~ubuntu1
-
-
-https://kivy.org/doc/stable/installation/installation-linux.html
-
-MySQL Workbench
+mysql -uroot -pmypassword -h 172.17.02
