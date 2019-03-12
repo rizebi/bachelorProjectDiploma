@@ -1,0 +1,13 @@
+Compose:
+-> registry
+-> flask
+-> mysql
+-> ala care ruleaza si trimite mailuri
+-> eventual mailul separat
+-> eventual autentificare separata
+
+localhost:444/v2/_catalog
+localhost:444/v2/hello/tags/list
+
+
+docker-compose up -d

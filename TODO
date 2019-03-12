@@ -17,12 +17,3 @@ Un admin are voie si sa adauge useri in interiorul companiei
 Un superAdmin are dreptul sa adauge companii, sa stearga companii, useri, etc. Tot
 
 De fapt o sa avem o aplicatie de adminstrare
-
-
-Compose:
--> registry
--> flask
--> mysql
--> ala care ruleaza si trimite mailuri
--> eventual mailul separat
--> eventual autentificare separata
