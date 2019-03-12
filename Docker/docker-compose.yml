@@ -1,0 +1,17 @@
+version: '3'
+services:
+  registry:
+    restart: unless-stopped
+    image: registry:2
+    container_name: private-registry
+    ports:
+      - 444:444
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:444
+      REGISTRY_STORAGE_MAINTENANCE: |-
+          uploadpurging:
+              enabled: false
+          readonly:
+              enabled: false
+    volumes:
+      - /var/lib/registry:/var/lib/registry

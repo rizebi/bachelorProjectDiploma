@@ -18,4 +18,11 @@ Un superAdmin are dreptul sa adauge companii, sa stearga companii, useri, etc. T
 
 De fapt o sa avem o aplicatie de adminstrare
 
-Mai vedem ce facem si cu SMS
+
+Compose:
+-> registry
+-> flask
+-> mysql
+-> ala care ruleaza si trimite mailuri
+-> eventual mailul separat
+-> eventual autentificare separata
