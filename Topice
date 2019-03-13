@@ -8,6 +8,8 @@ Python (2.7, 3.0)
 Pip
 Flask
 Web Server??
+Gunicorn
+Nginx cu load balancer
 Eventual Server de autentificare
 HTML
 CSS
