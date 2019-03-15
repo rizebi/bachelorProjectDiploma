@@ -1,11 +1,13 @@
 version: '3'
 services:
   registry:
-    restart: unless-stopped
     image: registry:2
-    container_name: private-registry
+    restart: always
+    container_name: registry
     ports:
-      - 444:444
+      - '444:444'
+    expose:
+      - '444'
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:444
       REGISTRY_STORAGE_MAINTENANCE: |-
@@ -14,4 +16,29 @@ services:
           readonly:
               enabled: false
     volumes:
-      - /var/lib/registry:/var/lib/registry
+      - /var/lib/car-planner/registry:/var/lib/registry
+  db:
+    image: mysql
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'car-planner'
+      MYSQL_ROOT_PASSWORD: 'mypassword'
+    ports:
+      - '6767:3306'
+    expose:
+      - '3306'
+    volumes:
+      - /var/lib/car-planner/mysql:/var/lib/mysql
+  web:
+    image: flask-image
+    restart: always
+    container_name: flask
+    ports:
+      - '80:5000'
+    expose:
+      - '5000'
+    depends_on:
+      - db
+    volumes:
+      - /var/lib/car-planner/flask:/app
