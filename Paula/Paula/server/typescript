@@ -1,0 +1,555 @@
+Script started on 2018-11-19 13:54:09+0200
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ged[K[K[Ktouch run
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ls
+app.py  Dockerfile  requirements.txt  run  typescript
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ cd r[Krun[K[K[K[K[K[Kg[Krm run
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit run.sh
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ cjo[K[Khmofd[K[Kd 777 run.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ./run.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ clear
+[3J[H[2J]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ls
+app.py  Dockerfile  requirements.txt  [0m[01;32mrun.sh[0m  typescript
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ cat r
+requirements.txt  run.sh            
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ cat run.sh 
+/bin/bash
+echo "tot"
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ cat run.sh ls[Kclear[3Plscat run d Desktop/ping 172.17.0.1:00005000[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kgediu[Kt run.sj
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit run.sj[Kh
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit run.shj[1Pcat run.sh 
+/bin/bash
+
+echo tot
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ./run.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ lscat run d Desktop/ping 172.17.0.1:00005000[Kdocker attach database[3Prun[C[C[C[C[C[C[C[C[C[21@sudo docker run -it -p 1337:80 [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5@sudo [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[21Pdocker run[C[C[C[C[C[C[C[C[C[3@attach[C[C[C[C[C[C[C[C[C[7Pping 172.17.0.1:50000000[K[K[4Pcd Desktop/[3Pat run ls[K[Klscat run [K[K[K[K[K[K[K[Kgedit run.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit run.sh ls[Kcat run d Desktop/ping 172.17.0.1[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K./run.sh 
+tot
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ pd- au[K[K[K[K[K[K./run.sh [4@gedit [C[C[C[C[C[C[Cls[Kcat run d Desktop/[K[K[K[K[K[K[K[K[K[K[Ksi cre[K[K[K[K[K[Kdocker build -t flask-image:latest .
+Sending build context to Docker daemon  18.43kB
+Step 1/9 : FROM ubuntu:16.04
+ ---> 4a689991aa24
+Step 2/9 : MAINTAINER <<Your Name>>
+ ---> Using cache
+ ---> ed199ea44270
+Step 3/9 : RUN apt-get update -y &&    apt-get install -y python-pip python-dev
+ ---> Using cache
+ ---> ff82a2a88b6e
+Step 4/9 : COPY ./requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 84c1b7bf6843
+Step 5/9 : WORKDIR /app
+ ---> Using cache
+ ---> 6a73fbcd2960
+Step 6/9 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> df3101b6a5df
+Step 7/9 : COPY . /app
+ ---> eb80f7004c3a
+Step 8/9 : ENTRYPOINT [ "python" ]
+ ---> Running in 4f827bae9021
+Removing intermediate container 4f827bae9021
+ ---> 6544ff39a968
+Step 9/9 : CMD [ "app.py" ]
+ ---> Running in 83e23eb7c0cf
+Removing intermediate container 83e23eb7c0cf
+ ---> dc586e66a701
+Successfully built dc586e66a701
+Successfully tagged flask-image:latest
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker build -t flask-image:latest .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./run.sh [K[4@gedit [C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[Kdocker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+flask-image         latest              dc586e66a701        10 seconds ago      412MB
+<none>              <none>              5fccccb3e319        22 minutes ago      412MB
+nginx               latest              e81eb098537d        2 days ago          109MB
+ubuntu              16.04               4a689991aa24        4 weeks ago         116MB
+ubuntu              latest              ea4c82dcd15a        4 weeks ago         85.8MB
+hello-world         latest              4ab4c602aa5e        2 months ago        1.84kB
+mongo               latest              9a63ed32fc2b        4 months ago        378MB
+training/webapp     latest              6fae60ef3446        3 years ago         349MB
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker images[K[K[K[K[K[Krm flask-iamge
+Error: No such container: flask-iamge
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker rm flask-iamge[8Pimages[K[K[K[K[K[K[K[K[K[K[K[K[Kdocker run -d -p 5000:5000 --name flask-container flask-image
+docker: Error response from daemon: Conflict. The container name "/flask-container" is already in use by container "5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm flask-iamge[K[8Pimagesbuild -t flask-image:latest .[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C./run.sh [K[4@gedit [C[C[C[C[C[C[Cls[Kcat run d Desktop/ping 172.17.0.1:00005000[Kdocker attach database[3Prun[C[C[C[C[C[C[C[C[C[21@sudo docker run -it -p 1337:80 [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kclear
+[3J[H[2J]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+5fde5baec56f        5fccccb3e319        "python app.py"          23 minutes ago      Up 19 minutes       0.0.0.0:5000->5000/tcp   flask-container
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp     zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp     test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker ps[4Pcleardocker ps[K[Krestart f;a[K[Klask-container 
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker restart flask-container [1P[1P[1P[1P[1P[1P[1@e[1@m[1@o[1@v[1@e
+
+Usage:	docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/home/ovidiu/.docker")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/ovidiu/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/ovidiu/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/ovidiu/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker remove flask-container [1P[1P[1P[1P[1P[1P[1@k[1@i[1@l[1@l
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker kill flask-container [2@remove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@start[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[K
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker ps[Kdocker pskill flask-container [2@remove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@start[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[K[4Pcleardocker run -d -p 5000:5000 --name flask-container flask-image
+docker: Error response from daemon: Conflict. The container name "/flask-container" is already in use by container "5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[K
+\CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ \[K
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker psrun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[Kkill flask-container [2@remove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@start[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[K[4Pcleardocker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm flask-iamge[K[8Pimagesbuild -t flask-image:latest .
+Sending build context to Docker daemon  34.82kB
+Step 1/9 : FROM ubuntu:16.04
+ ---> 4a689991aa24
+Step 2/9 : MAINTAINER <<Your Name>>
+ ---> Using cache
+ ---> ed199ea44270
+Step 3/9 : RUN apt-get update -y &&    apt-get install -y python-pip python-dev
+ ---> Using cache
+ ---> ff82a2a88b6e
+Step 4/9 : COPY ./requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 84c1b7bf6843
+Step 5/9 : WORKDIR /app
+ ---> Using cache
+ ---> 6a73fbcd2960
+Step 6/9 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> df3101b6a5df
+Step 7/9 : COPY . /app
+ ---> 06c3e5b52036
+Step 8/9 : ENTRYPOINT [ "python" ]
+ ---> Running in a122fb8c1b12
+Removing intermediate container a122fb8c1b12
+ ---> 80b6ef1ab7cb
+Step 9/9 : CMD [ "app.py" ]
+ ---> Running in f74c5b62348d
+Removing intermediate container f74c5b62348d
+ ---> 93f4142cdc86
+Successfully built 93f4142cdc86
+Successfully tagged flask-image:latest
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker build -t flask-image:latest .ps[Krun -d -p 5000:5000 --name flask-container flask-image
+docker: Error response from daemon: Conflict. The container name "/flask-container" is already in use by container "5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container ls 
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container ls run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pbuild -t flask-image:latest .run -d -p 5000:5000 --name flask-container flask-image[C
+docker: Error response from daemon: Conflict. The container name "/flask-container" is already in use by container "5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [K
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container ls run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [Krun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [K[1P[1P[1P[1P[1P[1P[1P[1P[1P[1@s[1@t[1@o[1@p[C[C[C[C [K[1P [1P c o n t [1P [1P [1P [1P / c o n t a i n [1P [1P [1P [1P [1P [1P [1P f [1P [1P f l a s k - c o n t a i n e r 
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker stop flask-container [8Pcontainer ls[Crun -d -p 5000:5000 --name flask-container flask-image
+docker: Error response from daemon: Conflict. The container name "/flask-container" is already in use by container "5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker run -d -p 5000:5000 --name flask-container flask-image[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcp[Kontainer[K[K[K[K[K[K[K[K[Kdocker dc[K[Kcontainer -l[K[Kls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ rn[K[Kdocker container ls[C[1P ls[1P ls[1P ls[1P ls[1P ls[1P ls[1P ls[1P ls[1P lsr lse lsm lso lsv lse ls[C[C[C[K[Kfkas[K[K[Klask0[K- coi[K[K[K[Kcn[Kontainer
+
+Usage:	docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/home/ovidiu/.docker")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/ovidiu/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/ovidiu/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/ovidiu/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker remove flask-container[1@r[1P[C[1@ [1@r[1@u[1@n[C[1@ 
+Unable to find image 'remove:latest' locally
+docker: Error response from daemon: pull access denied for remove, repository does not exist or may require 'docker login'.
+See 'docker run --help'.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker run  remove flask-container[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+Usage:	docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/home/ovidiu/.docker")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/home/ovidiu/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/home/ovidiu/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/home/ovidiu/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  config      Manage Docker configs
+  container   Manage containers
+  image       Manage images
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker COMMAND --help' for more information on a command.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker remove flask-container[5@un  r[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pcontainer ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp   zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp   test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container start flask-run
+Error response from daemon: No such container: flask-run
+Error: failed to start containers: flask-run
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container start flask-run[K[K[Kcontainer 
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container start flask-container [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kremove
+
+Usage:	docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container remove[C fa[Klaa[Ksk-container
+
+Usage:	docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ clear
+[3J[H[2J]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ls
+app.py  Dockerfile  requirements.txt  [0m[01;32mrun.sh[0m  typescript
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ pd[Ks-a[K[K - auz gre[K[K[K[K[K[K[K[K[K[K[K[Kdocker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                    NAMES
+5fde5baec56f        5fccccb3e319        "python app.py"          28 minutes ago      Up 47 seconds       0.0.0.0:5000->5000/tcp   flask-container
+7eee8301a753        training/webapp     "python app.py"          About an hour ago   Up About an hour    0.0.0.0:80->5000/tcp     zealous_stonebraker
+6f4e65bf0d10        nginx:latest        "nginx -g 'daemon of…"   2 hours ago         Up 2 hours          0.0.0.0:8080->80/tcp     test-nginx
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container lsls[Kcleardocker container remove flask-container[C[1P flask-container[1P flask-container[1P flask-container[1P flask-container[1P flask-containerm flask-container
+Error response from daemon: You cannot remove a running container 5fde5baec56f0fc5f61b2143beb997abc0389e315f353e1a052633dd862f8365. Stop the container before attempting removal or force remove
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container rm flask-container[1P flask-container[1P flask-containers flask-containert flask-containero flask-containerp flask-container
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container stop flask-container[C[1P flask-container[1P flask-container[1P flask-container[1P flask-containerr flask-containerm flask-container
+flask-container
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ docker container rm flask-container[2@stop[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Prm[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kls[Kcleardocker container remove flask-container[Kstart flask-container run[Kls[Kremove flask-container[5@un  r[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pcontainer lsrun -d -p 5000:5000 --name flask-container flask-image
+d3e6bcb8f8e3ed8a2c6dfcc2c4cbd366a0acfdfadd6cfd8a35b8169767cd981c
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit rui[Kn.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit run.sh docker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[26Pcontainer rm flask-container[2@stop[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Prm[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Kls[Kcleardocker container remove flask-container[Kstart flask-container run[Kls[Kremove flask-container[5@un  r[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pcontainer lsrun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[33Pstop flask-container [8Pcontainer ls[Crun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [Krun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[25Pbuild -t flask-image:latest .ps[Krun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[Kkill flask-container [2@remove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Pkill[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2@remove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@start[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[K[4Pcleardocker run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cm flask-iamge[K[8Pimagesrm flask-iamge[8Pimagesrm flask-iamgeun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cclear[Kdocker psrestart flask-container [1Pmove[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Pkill[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[Krun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps[Kbuild -t flask-image:latest .run -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [Krun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls [K[8@stop flask-container[Crun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccontainer ls[Kremove flask-container[5@un  r[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[10Pcontainer lsstart flask-runcontainer remove[K flask-container[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cclear[K[3Plsdocker container lsrm flask-container[2@stop[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Prm[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Crun -d -p 5000:5000 --name flask-container flask-image[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgedit run.sh [K[Kgedit run.sh 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ ./run.sh 
+Sending build context to Docker daemon  59.39kB
+Step 1/9 : FROM ubuntu:16.04
+ ---> 4a689991aa24
+Step 2/9 : MAINTAINER <<Your Name>>
+ ---> Using cache
+ ---> ed199ea44270
+Step 3/9 : RUN apt-get update -y &&    apt-get install -y python-pip python-dev
+ ---> Using cache
+ ---> ff82a2a88b6e
+Step 4/9 : COPY ./requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 84c1b7bf6843
+Step 5/9 : WORKDIR /app
+ ---> Using cache
+ ---> 6a73fbcd2960
+Step 6/9 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> df3101b6a5df
+Step 7/9 : COPY . /app
+ ---> 687a49e3a304
+Step 8/9 : ENTRYPOINT [ "python" ]
+ ---> Running in 4f4ca1742c52
+Removing intermediate container 4f4ca1742c52
+ ---> c1b87187f41b
+Step 9/9 : CMD [ "app.py" ]
+ ---> Running in c4dc250d5088
+Removing intermediate container c4dc250d5088
+ ---> def7260b3c26
+Successfully built def7260b3c26
+Successfully tagged flask-image:latest
+flask-container
+flask-container
+cb0950a0ae62810f9ee776c686970e2e5ba9b3bbe85ecf21fa8d9bf695c489e3
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit app.py 
+]0;ovidiu@ovidiu: ~/example[01;32movidiu@ovidiu[00m:[01;34m~/example[00m$ gedit app.py [K./run.sh 
+Sending build context to Docker daemon  59.39kB
+Step 1/9 : FROM ubuntu:16.04
+ ---> 4a689991aa24
+Step 2/9 : MAINTAINER <<Your Name>>
+ ---> Using cache
+ ---> ed199ea44270
+Step 3/9 : RUN apt-get update -y &&    apt-get install -y python-pip python-dev
+ ---> Using cache
+ ---> ff82a2a88b6e
+Step 4/9 : COPY ./requirements.txt /app/requirements.txt
+ ---> Using cache
+ ---> 84c1b7bf6843
+Step 5/9 : WORKDIR /app
+ ---> Using cache
+ ---> 6a73fbcd2960
+Step 6/9 : RUN pip install -r requirements.txt
+ ---> Using cache
+ ---> df3101b6a5df
+Step 7/9 : COPY . /app
+ ---> 1a9f20c3659b
+Step 8/9 : ENTRYPOINT [ "python" ]
+ ---> Running in c43c5a980ad3
+Removing intermediate container c43c5a980ad

@@ -1,0 +1,27 @@
+Cu ce lucrez?
+
+1) uname -a
+		Linux ebi-ubuntu 4.15.0-39-generic #42-Ubuntu SMP Tue Oct 23 15:48:01 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+
+2) python3 --version
+		Python 3.6.7
+
+3) pip3.6 --version
+
+		pip 18.1 from /usr/local/lib/python3.6/dist-packages/pip (python 3.6)
+
+4) mysql --version
+		mysql  Ver 14.14 Distrib 5.7.24, for Linux (x86_64) using  EditLine wrapper
+
+5) apache2 -v
+		Server version: Apache/2.4.29 (Ubuntu)
+		Server built:   2018-10-10T18:59:25
+
+6) pip3.6 install mod_wsgi
+		mod-wsgi-4.6.5
+
+7) mod_wsgi-express module-config
+		LoadModule wsgi_module "/usr/local/lib/python3.6/dist-packages/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so"
+		WSGIPythonHome "/usr"
+
+8) Flask-1.0.2 Jinja2-2.10 Werkzeug-0.14.1 click-7.0 itsdangerous-1.1.0

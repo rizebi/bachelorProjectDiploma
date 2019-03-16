@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Server</title>
+
+</head>
+<body>
+<style>
+    .sizeDiv {
+        font-size: 50px;
+    }
+</style>
+
+<br>
+
+<div class="container">
+    <div class="sizeDiv" >{{source}} <=> {{dest}}</div>
+    <table class="table ">
+        <thead>
+        <tr>
+            <th>Fly</th>
+            <th>Source</th>
+            <th>Dest</th>
+            <th>Hour</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Seats</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for segment in rez[1] %}
+        <tr>
+            <td>{{ segment[0] }}</td>
+            <td>{{ segment[1] }}</td>
+            <td>{{ segment[2] }}</td>
+            <td>{{ segment[3] }}</td>
+            <td>{{ segment[4] }}</td>
+            <td>{{ segment[5] }}</td>
+            <td>{{ segment[6] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form action="http://0.0.0.0:5000" method=post>
+        <button type="submit" class="btn btn-success">BACK</button>
+    </form>
+    <br>
+    <form action="http://0.0.0.0:5001/rezerv" method=post>
+        <button type="submit" class="btn btn-success">Rezerv</button>
+    </form>
+</div>
+
+</body>
+</html>

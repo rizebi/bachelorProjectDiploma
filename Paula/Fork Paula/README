@@ -1,0 +1,36 @@
+# Rizescu Eusebiu
+# 342C2
+# SPRC
+# Tema 2 : Docker, containere si rezervare bilete avion
+
+
+Tema dummy :(
+
+Aceasta tema este neterminata, mai exact nu este scris nici o line de cod care sa rezolve explicit
+tema, in schimb eu consider ca environmentul este creat corect:
+
+a) un container pentru baza de date
+b) un container admin pentru adaugare si stergere zboruri in baza de date
+c) un container client care comunica cu serverul
+d) un container server care comunica cu clientul si cu baza de date
+
+IP-uri si porturi (daca containerele sunt create conform scripturilor)
+
+DB      172.17.0.1  7000:3306
+Client  172.17.0.2  8000:5000
+Server  172.17.0.3  8001:5000
+Admin   172.17.0.4  8002:5000
+
+Baza de date a fost configurata conform tutorialului:
+https://www.youtube.com/watch?v=q5J3rtAGGNU
+
+Cum se "testeaza" tema:
+
+1) Se instaleaza docker, v=18.09.0
+2) Se instaleaza docker-compose, v=1.23.1
+3) Se instalezi cu pip,   mysql.connector   "sudo pip install mysql-connector-python" (pentru populare DB)
+4) Se apeleaza scriptul "script1.sh" din home, si se lasa deschis terminalul (altfel pica baza)
+5) Se apeleaza scriptul "script2.sh" care populeaza baza de date, creaza imaginile celorlalte
+			3 containere si le porneste
+
+

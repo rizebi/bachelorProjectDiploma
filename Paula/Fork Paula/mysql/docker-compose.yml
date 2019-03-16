@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    mysql-dev:
+      image: mysql:8.0.2
+      environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: app
+      ports:
+        - "7000:3306"

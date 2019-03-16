@@ -1,0 +1,19 @@
+Folosind tutorialul https://www.youtube.com/watch?v=q5J3rtAGGNU am creat baze de date 
+baza de date functioneaza pe localhost:10000
+
+Pentru a crea imaginile cu flask urmarit documentatia 
+http://containertutorials.com/docker-compose/flask-simple-app.html.
+Am creat 3 aplicatii cu flask pe porturi diferite
+http://127.0.0.1:5000/  clientul
+http://127.0.0.1:5001/  serverul
+http://127.0.0.1:5002/  administrarea
+
+Am realizat scripturi petru a rula separat fiecare container.
+Am realizat scripturi care sa adauge in baza de date cateva informatii de test.
+Comunicarea se realizeaza prin apeluri de get si post catre localhost dar pe porturi diferite.
+Am creat pagini html pentru a avea o vizualizare mai buna a aplicatiei
+Serverul calculeaza cel mai scurt drum astfel tinand cond atat de timpul pe care
+il face pe drum ca si timpul pe care il asteapta in statii.
+Am pus intr-o lista toate nodurile , am setat ruta, timpul care l-a facut pana 
+atunci si la fiecare pas calculam timpul pe care il face in statii.
+Am facut o parcurgere muchiilor si faceam update la fiecare nod nou gasit
