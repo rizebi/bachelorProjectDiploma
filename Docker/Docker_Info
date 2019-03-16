@@ -11,3 +11,10 @@ localhost:444/v2/hello/tags/list
 
 
 docker-compose up -d
+docker-compose up -d registry
+
+docker build --no-cache . -f FlaskUbuntuDockerfile -t flask-image
+
+docker exec -it flask sh
+
+mysql -h mysql -pmypassword car-planner
