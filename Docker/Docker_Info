@@ -13,8 +13,19 @@ localhost:444/v2/hello/tags/list
 docker-compose up -d
 docker-compose up -d registry
 
-docker build --no-cache . -f FlaskUbuntuDockerfile -t flask-image
+docker build --no-cache . -f FlaskDockerfile -t flask-image
 
 docker exec -it flask sh
 
 mysql -h mysql -pmypassword car-planner
+
+
+Net in containere la munca:
+/etc/default/docker
+DOCKER_OPTS="--dns 10.17.8.8 --dns 10.18.68.22"
+
+Permanent fix
+root@ebi-virtual-machine:/etc/docker# cat daemon.json
+{
+    "dns": ["10.17.8.8", "10.18.68.22"]
+}
