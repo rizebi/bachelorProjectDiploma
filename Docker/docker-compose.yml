@@ -39,3 +39,11 @@ services:
       - mysql
     volumes:
       - /var/lib/car-planner/flask:/app
+  emailer:
+    image: emailer-image
+    restart: always
+    container_name: emailer
+    depends_on:
+      - mysql
+    volumes:
+      - /var/lib/car-planner/flask:/app

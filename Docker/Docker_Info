@@ -29,3 +29,7 @@ root@ebi-virtual-machine:/etc/docker# cat daemon.json
 {
     "dns": ["10.17.8.8", "10.18.68.22"]
 }
+
+
+
+RUN apk add gcc libffi-dev musl-dev
