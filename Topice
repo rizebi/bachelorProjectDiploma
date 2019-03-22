@@ -1,5 +1,6 @@
 Docker
-Docker Compose
+Docker Compose Smarm Stack Services
+Cum sunt izolate containerele, si registry e la vedere
 Docker registry
 MySQL
 MySQL Client

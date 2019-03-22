@@ -32,4 +32,7 @@ root@ebi-virtual-machine:/etc/docker# cat daemon.json
 
 
 
-RUN apk add gcc libffi-dev musl-dev
+docker service ls
+docker service logs car-planner_flask
+
+docker stack services car-planner

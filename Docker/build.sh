@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -e
+#set -e
 
 if [ "$1" == "help" ]; then
   echo "./build.sh help     <-  help"
@@ -13,8 +13,14 @@ if [ "$1" == "help" ]; then
   exit
 fi
 
+
+
+echo Exit Docker Swarm
+sudo docker swarm leave --force
+echo Init Docker Swarm
+sudo docker swarm init
 echo Stopping the containers
-sudo docker-compose down
+sudo docker stack rm car-planner
 
 if [ "$1" == "first" ]; then
   sudo mkdir /var/lib/car-planner
@@ -37,5 +43,5 @@ if [ "$1" == "emailer" ] || [ "$1" == "first" ]; then
 fi
 
 if [ "$1" != "stop" ]; then
-  sudo docker-compose up -d
+  sudo docker stack deploy -c docker-compose.yml car-planner
 fi
