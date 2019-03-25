@@ -1,21 +1,5 @@
-Compose:
--> registry
--> flask
--> mysql
--> ala care ruleaza si trimite mailuri
--> eventual mailul separat
--> eventual autentificare separata
-
 localhost:444/v2/_catalog
 localhost:444/v2/hello/tags/list
-
-
-docker-compose up -d
-docker-compose up -d registry
-
-docker build --no-cache . -f FlaskDockerfile -t flask-image
-
-docker exec -it flask sh
 
 mysql -h mysql -pmypassword car-planner
 
@@ -31,8 +15,11 @@ root@ebi-virtual-machine:/etc/docker# cat daemon.json
 }
 
 
-
+docker stack services car-planner
 docker service ls
+docker service ps car-planner_flask
 docker service logs car-planner_flask
 
-docker stack services car-planner
+
+
+A single container running in a service is called a task.

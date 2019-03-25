@@ -2,12 +2,16 @@ version: '3'
 services:
   registry:
     image: registry:2
-    restart: always
-    container_name: registry
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 100M
+      restart_policy:
+        condition: on-failure
     ports:
       - '444:444'
-    expose:
-      - '444'
     environment:
       REGISTRY_HTTP_ADDR: 0.0.0.0:444
       REGISTRY_STORAGE_MAINTENANCE: |-
@@ -15,23 +19,28 @@ services:
               enabled: false
           readonly:
               enabled: false
-
     volumes:
       - /var/lib/car-planner/registry:/var/lib/registry
 
+
   mysql:
     image: mysql:5.7
-    container_name: mysql
     environment:
       MYSQL_DATABASE: 'car-planner'
       MYSQL_ROOT_PASSWORD: 'mypassword'
-    expose:
-      - '3306'
-
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 100M
+      restart_policy:
+        condition: on-failure
     volumes:
       - /var/lib/car-planner/mysql:/var/lib/mysql
     networks:
       - webnet
+
 
   flask:
     image: flask-image
@@ -43,29 +52,34 @@ services:
           memory: 100M
       restart_policy:
         condition: on-failure
-    container_name: flask
     ports:
       - '80:5000'
-    expose:
-      - '5000'
     depends_on:
       - mysql
-
     volumes:
       - /var/lib/car-planner/flask:/app
     networks:
       - webnet
 
+
   emailer:
     image: emailer-image
-    restart: always
-    container_name: emailer
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "0.2"
+          memory: 100M
+      restart_policy:
+        condition: on-failure
     depends_on:
       - mysql
-
-    networks:
-      - webnet
     volumes:
       - /var/lib/car-planner/emailer:/app
+    networks:
+      - webnet
+
 networks:
   webnet:
+    driver: overlay
+    internal: true

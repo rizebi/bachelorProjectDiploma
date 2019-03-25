@@ -7,20 +7,19 @@ if [ "$1" == "help" ]; then
   echo "./build.sh first    <-  first run on machine"
   echo "./build.sh flask    <-  build flask-image and start docker-compose"
   echo "./build.sh emailer  <-  build emailer-image and start docker-compose"
+  echo "./build.sh all      <-  build all images and start docker-compose"
   echo "./build.sh start    <-  start docker compose"
   echo "./build.sh          <-  start docker compose"
   echo "./build.sh stop     <-  stop docker compose"
   exit
 fi
 
-
-
 echo Exit Docker Swarm
 sudo docker swarm leave --force
-echo Init Docker Swarm
-sudo docker swarm init
-echo Stopping the containers
-sudo docker stack rm car-planner
+if [ "$1" != "stop" ]; then
+  echo Init Docker Swarm
+  sudo docker swarm init
+fi
 
 if [ "$1" == "first" ]; then
   sudo mkdir /var/lib/car-planner
@@ -34,13 +33,22 @@ if [ "$1" == "first" ]; then
 fi
 
 if [ "$1" == "flask" ] || [ "$1" == "first" ]; then
-  sudo docker build --no-cache . -f ./Flask_Docker/FlaskDockerfile -t flask-image
+  echo "Start building flask-image"
+  docker build --no-cache ./Flask_Docker -f ./Flask_Docker/FlaskDockerfile -t flask-image
 fi
 
 if [ "$1" == "emailer" ] || [ "$1" == "first" ]; then
-  sudo docker build --no-cache . -f ./Emailer_Docker/EmailerDockerfile -t emailer-image
-
+  echo "Start building emailer-image"
+  docker build --no-cache ./Emailer_Docker -f ./Emailer_Docker/EmailerDockerfile -t emailer-image
 fi
+
+if [ "$1" == "all" ]; then
+  echo "Start building flask-image"
+  docker build --no-cache ./Flask_Docker -f ./Flask_Docker/FlaskDockerfile -t flask-image
+  echo "Start building emailer-image"
+  docker build --no-cache ./Emailer_Docker -f ./Emailer_Docker/EmailerDockerfile -t emailer-image
+fi
+
 
 if [ "$1" != "stop" ]; then
   sudo docker stack deploy -c docker-compose.yml car-planner
