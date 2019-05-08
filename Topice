@@ -8,6 +8,7 @@ SQLAlchemy
 Python (2.7, 3.0)
 Pip
 Flask
+Bootstrap
 Web Server??
 Gunicorn
 Nginx cu load balancer
@@ -18,3 +19,4 @@ Javascript?
 Atom ca editor
 Gitcracken
 Gitlab
+HTML, CSS
