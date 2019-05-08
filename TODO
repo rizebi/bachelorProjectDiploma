@@ -24,3 +24,13 @@ https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications
 
 
 Raspuns prin sms cu kilometrajul actual
+
+
+Revizii e default
+Cand cineva si-o pune pe masina, se creaza o intrare in documente
+Si daca vrea custom, se adauga direct in IDRevizie
+
+In reviziiDefault o sa fie o revizie la misto, ca sa fie aia cu integritatea
+
+La tabela documente mai trebuie un camp IDRevizie
+Dispare masiniRevizii

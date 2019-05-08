@@ -1,0 +1,51 @@
+useri
+-
+IDUser PK INT(4)
+imagineProfil VARCHAR(50)
+numeUser VARCHAR(20)
+prenumeUser VARCHAR(20)
+email VARCHAR(30)
+parola PASS
+numeCompanie VARCHAR(20)
+
+marci
+-
+IDAuto INT(4) PK
+marcaMasina VARCHAR(20)
+modelMasina VARCHAR(20)
+
+
+masini
+-
+IDMasina INT(5) PK
+IDUser INT(4) FK >- useri.IDUser
+IDAuto INT(4) FK >- marci.IDAuto
+detaliiMasina VARCHR(50)
+VIN VARCHAR(17)
+combustibil VARCHAR(15)
+capcitateCilindrica INT(5)
+dataFabricatie DATE
+codMotor VARCHR(10)
+numarInmatriculare VARCHAR(10)
+kilometraj INT(7)
+crestereZilnica INT(4)
+
+
+reviziiDefault
+-
+IDRevizie INT(4) PK
+IDAuto INT(4) FK >- marci.IDAuto
+numeSchimb VARCHAR(20)
+viataZile INT(4)
+viataKM INT(6)
+
+
+scadente
+-
+IDScadent INT(6) PK
+IDRevizie ING(4) FK >- reviziiDefault.IDRevizie
+numeScadent VARCHAR(20)
+IDMasina INT(5) FK >- masini.IDMasina
+dataExp DATE
+areKM BOOL
+kmExp INT(7)
