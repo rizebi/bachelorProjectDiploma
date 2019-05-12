@@ -9,9 +9,9 @@ RUN apk add --no-cache mysql-client
 
 WORKDIR /app
 
-COPY requirements.txt /app
+COPY EmailerRequirements.txt /app
 
-RUN pip3 --no-cache-dir install -r requirements.txt
+RUN pip3 --no-cache-dir install -r EmailerRequirements.txt
 
 ENTRYPOINT  ["python3"]
 
