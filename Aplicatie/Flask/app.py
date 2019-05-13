@@ -1,4 +1,4 @@
-#! /usr/bin/python3
-print("Sunt din flask")
-while True:
-    pass
+from carplanner import app
+
+if __name__ == '__main__':
+    app.run(debug=True)

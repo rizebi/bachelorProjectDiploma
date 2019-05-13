@@ -26,6 +26,7 @@ if [ "$1" == "copy" ]; then
   exit
 fi
 
+
 echo Exit Docker Swarm
 sudo docker swarm leave --force
 if [ "$1" != "stop" ]; then
@@ -75,4 +76,10 @@ fi
 
 if [ "$1" != "stop" ]; then
   sudo docker stack deploy -c docker-compose.yml car-planner
+fi
+
+if [ "$1" == "stop" ]; then
+# delete all containers
+echo "Delete all containers"
+sudo docker rm -f $(docker ps -a -q)
 fi
