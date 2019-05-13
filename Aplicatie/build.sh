@@ -29,14 +29,18 @@ fi
 
 echo Exit Docker Swarm
 sudo docker swarm leave --force
+sleep 5
 if [ "$1" != "stop" ]; then
   echo Init Docker Swarm
   sudo docker swarm init
 fi
+sleep 5
 
 if [ "$1" == "first" ]; then
   # delete all containers
   sudo docker rm -f $(docker ps -a -q)
+
+  sleep 1
 
   # delete all images
   sudo docker image rm -f $(docker images -q -a)
@@ -52,34 +56,48 @@ if [ "$1" == "first" ]; then
   sudo mkdir /var/lib/car-planner/emailer
 
   # copy application files
-  sudo cp ./Flask/* /var/lib/car-planner/flask
-  sudo cp ./Emailer/* /var/lib/car-planner/emailer
+  sudo cp -R ./Flask/* /var/lib/car-planner/flask
+  sudo cp -R ./Emailer/* /var/lib/car-planner/emailer
+
+  sleep 1
+fi
+
+if [ "$1" != "stop" ] && [ "$1" != "first" ]; then
+  echo "Removing /var/lib/car-planner/flask/*"
+  sudo rm -rf /var/lib/car-planner/flask/*
+  echo "Removing /var/lib/car-planner/emailer/*"
+  sudo rm -rf /var/lib/car-planner/emailer/*
+  echo "Copying to /var/lib/car-planner/flask/*"
+  sudo cp -R ./Flask/* /var/lib/car-planner/flask/
+  echo "Copying to /var/lib/car-planner/emailer/*"
+  sudo cp -R ./Emailer/* /var/lib/car-planner/emailer/
 fi
 
 if [ "$1" == "flask" ] || [ "$1" == "first" ]; then
   echo "Start building flask-image"
-  docker build --no-cache ./Dockerfiles -f ./Dockerfiles/FlaskDockerfile -t flask-image
+  sudo docker build --no-cache ./Dockerfiles -f ./Dockerfiles/FlaskDockerfile -t flask-image
 fi
 
 if [ "$1" == "emailer" ] || [ "$1" == "first" ]; then
   echo "Start building emailer-image"
-  docker build --no-cache ./Dockerfiles -f ./Dockerfiles/EmailerDockerfile -t emailer-image
+  sudo docker build --no-cache ./Dockerfiles -f ./Dockerfiles/EmailerDockerfile -t emailer-image
 fi
 
 if [ "$1" == "all" ]; then
   echo "Start building flask-image"
-  docker build --no-cache ./Dockerfiles -f ./Dockerfiles/FlaskDockerfile -t flask-image
+  sudo docker build --no-cache ./Dockerfiles -f ./Dockerfiles/FlaskDockerfile -t flask-image
   echo "Start building emailer-image"
-  docker build --no-cache ./Dockerfiles -f ./Dockerfiles/EmailerDockerfile -t emailer-image
+  sudo docker build --no-cache ./Dockerfiles -f ./Dockerfiles/EmailerDockerfile -t emailer-image
 fi
 
 
 if [ "$1" != "stop" ]; then
+  sleep 1
   sudo docker stack deploy -c docker-compose.yml car-planner
 fi
 
 if [ "$1" == "stop" ]; then
-# delete all containers
-echo "Delete all containers"
-sudo docker rm -f $(docker ps -a -q)
+  # delete all containers
+  echo "Delete all containers"
+  sudo docker rm -f $(docker ps -a -q)
 fi
