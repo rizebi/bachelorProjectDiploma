@@ -39,6 +39,9 @@ apt-cache madison docker-ce
 
 sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 
+docker service create --name testflask -p 8080:80 --mount type=bind,source=/var/lib/car-planner/flask,destination=/app flask-image
+-v /var/lib/car-planner/flask:/app
+
 
 from flask import Flask
 app = Flask(__name__)
@@ -48,4 +51,4 @@ def index():
     return '<h1>Hello Puppy!</h1>'
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host='0.0.0.0')
