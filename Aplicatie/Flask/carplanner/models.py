@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
   parola = db.Column(db.String(128))
   numeCompanie = db.Column(db.String(30))
 
-  masini = db.relationship('masini', backref='proprietar', lazy='dynamic')
+  masini = db.relationship('Masina', backref='proprietar', lazy='dynamic')
 
   def __init__(self, numeUser, prenumeUser, email, parola, numeCompanie):
     self.numeUser = numeUser
@@ -65,7 +65,7 @@ class Masina(db.Model):
   kilometraj = db.Column(db.Integer, nullable=False)
   crestereZilnica = db.Column(db.Integer)
 
-  scadente = db.relationship('scadente', backref='masina', lazy='dynamic')
+  scadente = db.relationship('Scadent', backref='masina', lazy='dynamic')
 
   def __init__(self, detaliiMasina, VIN, combustibil, capacitateCilindrica, dataFabricatie, codMotor, numarInmatriculare, kilometraj):
     self.detaliiMasina = detaliiMasina
