@@ -18,5 +18,18 @@ CSS
 Javascript?
 Atom ca editor
 Gitcracken
-Gitlab
+Github
 HTML, CSS
+
+Glusterfs?
+Amazon
+
+Probleme mysql cu python3, a trebuit sa instalez
+pip install mysql-connector
+pip install ConfigParser ??
+
+Securitate:
+app.config['SECRET_KEY'] = 'mysecret'
+
+
+backref relationship

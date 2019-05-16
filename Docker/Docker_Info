@@ -29,18 +29,55 @@ Daca la networks, dau internal nu mai are access la net.
 
 docker node inspect self --pretty
 
+Ce dockere am instalate:
 dpkg -l | grep -i docker
+
+Versiuni disponibile ale pachetelor:
+apt-cache madison docker-ce
+
 
 Permission denied la delete containers:
 https://stackoverflow.com/questions/47223280/docker-containers-can-not-be-stopped-or-removed-permission-denied-error
 
-Versiuni disponibile ale pachetelor!!!!
-apt-cache madison docker-ce
 
 sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
 
 docker service create --name testflask -p 8080:80 --mount type=bind,source=/var/lib/car-planner/flask,destination=/app flask-image
 -v /var/lib/car-planner/flask:/app
+
+docker service create --name testnginx -p 8080:80 --replicas 5 nginx
+
+sudo docker swarm init --advertise-addr 172.31.42.177:2377 --listen-addr 172.31.42.177:2377
+sudo docker swarm join-token manager
+sudo docker swarm join-token worker
+
+SWMTKN-1-4u9zaowqeh56xiide93ca3sh201ywlnr5a3fcx3t85dsl6xgkh-0pcmrqt11vbvaeo9ljgftr0vs
+Manager:
+
+sudo docker swarm join --token SWMTKN-1-06yhokvmrz9o0oifnd6vloes8s8yuzr6hytkgxcopfryd6cje2-8ysmv0r21nnz0u10ljebd0aow \
+172.31.42.177:2377 \
+--advertise-addr 172.31.26.25:2377 \
+--listen-addr 172.31.26.25:2377
+
+Worker:
+
+sudo docker swarm join --token SWMTKN-1-06yhokvmrz9o0oifnd6vloes8s8yuzr6hytkgxcopfryd6cje2-5b4ia8pxdamamspmzc01o8jkc \
+172.31.42.177:2377 \
+--advertise-addr 172.31.26.96:2377 \
+--listen-addr 172.31.26.96:2377
+
+
+
+
+
+
+
+
+----> Vizualiser (tutorial docker)
+
+
+
+
 
 
 from flask import Flask
