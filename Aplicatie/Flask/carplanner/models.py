@@ -1,4 +1,4 @@
-from car-planner import db, login_manager
+from carplanner import db, login_manager
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -24,9 +24,9 @@ class User(db.Model, UserMixin):
 
   IDUser = db.Column(db.Integer, primary_key = True)
   imagineProfil = db.Column(db.String(20), nullable=False, default='default_profile.png')
-  numeUser = db.Column(db.String(30))
-  prenumeUser = db.Column(db.String(30))
-  email = db.Column(db.String(30))
+  numeUser = db.Column(db.String(30), nullable=False)
+  prenumeUser = db.Column(db.String(30), nullable=False)
+  email = db.Column(db.String(30), nullable=False)
   parola = db.Column(db.String(128))
   numeCompanie = db.Column(db.String(30))
 
@@ -47,49 +47,94 @@ class User(db.Model, UserMixin):
     return f"Nume: {self.numeUser}, Prenume: {self.prenumeUser}"
 
 
-class User(db.Model, UserMixin):
+class Masina(db.Model):
 
   # Create a table in the db
-  __tablename__ = 'users'
-  # lazy = 'dynamic'
+  __tablename__ = 'masini'
 
-  id = db.Column(db.Integer, primary_key = True)
-  profile_image = db.Column(db.String(20), nullable=False, default='default_profile.png')
-  email = db.Column(db.String(64), unique=True, index=True)
-  username = db.Column(db.String(64), unique=True, index=True)
-  password_hash = db.Column(db.String(128))
-  # This connects BlogPosts to a User Author.
-  posts = db.relationship('BlogPost', backref='author', lazy=True)
+  IDMasina = db.Column(db.Integer, primary_key = True)
+  IDUser = db.Column(db.Integer, db.ForeignKey('useri.IDUser'), nullable=False)
+  IDAuto = db.Column(db.Integer, db.ForeignKey('marci.IDAuto'), nullable=False)
+  detaliiMasina = db.Column(db.String(100))
+  VIN = db.Column(db.String(20))
+  combustibil = db.Column(db.String(20))
+  capacitateCilindrica = db.Column(db.String(20))
+  dataFabricatie = db.Column(db.Date)
+  codMotor = db.Column(db.String(20))
+  numarInmatriculare = db.Column(db.String(20), nullable=False)
+  kilometraj = db.Column(db.Integer, nullable=False)
+  crestereZilnica = db.Column(db.Integer)
 
-  def __init__(self, email, username, password):
-    self.email = email
-    self.username = username
-    self.password_hash = generate_password_hash(password)
+  scadente = db.relationship('scadente', backref='masina', lazy='dynamic')
 
-  def check_password(self,password):
-    # https://stackoverflow.com/questions/23432478/flask-generate-password-hash-not-constant-output
-    return check_password_hash(self.password_hash,password)
-
-  def __repr__(self):
-    return f"UserName: {self.username}"
-
-class BlogPost(db.Model):
-  # Setup the relationship to the User table
-  users = db.relationship(User)
-
-  # Model for the Blog Posts on Website
-  id = db.Column(db.Integer, primary_key=True)
-  # Notice how we connect the BlogPost to a particular author
-  user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-  date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-  title = db.Column(db.String(140), nullable=False)
-  text = db.Column(db.Text, nullable=False)
-
-  def __init__(self, title, text, user_id):
-    self.title = title
-    self.text = text
-    self.user_id =user_id
-
+  def __init__(self, detaliiMasina, VIN, combustibil, capacitateCilindrica, dataFabricatie, codMotor, numarInmatriculare, kilometraj):
+    self.detaliiMasina = detaliiMasina
+    self.VIN = VIN
+    self.combustibil = combustibil
+    self.capacitateCilindrica = capacitateCilindrica
+    self.dataFabricatie = dataFabricatie
+    self.codMotor = codMotor
+    self.numarInmatriculare = numarInmatriculare
+    self.kilometraj = kilometraj
 
   def __repr__(self):
-    return f"Post Id: {self.id} --- Date: {self.date} --- Title: {self.title}"
+    return f"IDMasina: {self.IDMasina}, IDAuto: {self.IDAuto}"
+
+
+class Scadent(db.Model):
+
+  # Create a table in the db
+  __tablename__ = 'scadente'
+
+  IDScadent = db.Column(db.Integer, primary_key = True)
+  IDRevizie = db.Column(db.Integer, db.ForeignKey('reviziiDefault.IDRevizie'), nullable=False)
+  numeScadent = db.Column(db.String(20), nullable=False)
+  IDMasina = db.Column(db.Integer, db.ForeignKey('masini.IDMasina'), nullable=False)
+  dataExp = db.Column(db.Date)
+  areKM = db.Column(db.Boolean)
+  kmExp = db.Column(db.String(20))
+
+  def __init__(self, numeScadent, dataExp, areKM, kmExp):
+    self.numeScadent = numeScadent
+    self.dataExp = dataExp
+    self.areKM = areKM
+    self.kmExp = kmExp
+
+  def __repr__(self):
+    return f"IDScadent: {self.IDScadent}, IDRevizie: {self.IDRevizie}"
+
+
+class RevizieDefault(db.Model):
+
+  # Create a table in the db
+  __tablename__ = 'reviziiDefault'
+
+  IDRevizie = db.Column(db.Integer, primary_key = True)
+  IDAuto = db.Column(db.Integer, db.ForeignKey('marci.IDAuto'), nullable=False)
+  numeSchimb = db.Column(db.String(20), nullable=False)
+  viataZile = db.Column(db.Integer)
+  viataKm = db.Column(db.Integer)
+
+  def __init__(self, numeSchimb, viataZile, viataKm):
+    self.numeSchimb = numeSchimb
+    self.viataZile = viataZile
+    self.viataKm = viataKm
+
+  def __repr__(self):
+    return f"IDRevizie: {self.IDRevizie}, IDAuto: {self.IDAuto}"
+
+class Marca(db.Model):
+
+  # Create a table in the db
+  __tablename__ = 'marci'
+
+  IDAuto = db.Column(db.Integer, primary_key = True)
+  marcaMasina = db.Column(db.String(20))
+  modelMasina = db.Column(db.String(20))
+
+  def __init__(self, marcaMasina, modelMasina):
+    self.marcaMasina = marcaMasina
+    self.modelMasina = modelMasina
+
+  def __repr__(self):
+    return f"IDAuto: {self.IDAuto}, marcaMasina: {self.marcaMasina}"

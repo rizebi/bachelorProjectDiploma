@@ -21,16 +21,17 @@ app.config['SECRET_KEY'] = 'mysecret'
 ###############################
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mypassword@mysql/car-planner'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-'''
+
 ###########################
 #### LOGIN CONFIGS #######
 #########################
 
 login_manager = LoginManager()
-
+'''
 # We can now pass in our app to the login manager
 login_manager.init_app(app)
 

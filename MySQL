@@ -26,4 +26,4 @@ Si apoi a mers import MySQLdb
 
 Unfortunately MySQLdb does not support Python 3.
 
-mysql -uroot -pmypassword -h 172.17.0.2
+mysql -h mysql -pmypassword car-planner
