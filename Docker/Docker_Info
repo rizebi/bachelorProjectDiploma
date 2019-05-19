@@ -77,8 +77,9 @@ sudo docker swarm join --token SWMTKN-1-06yhokvmrz9o0oifnd6vloes8s8yuzr6hytkgxco
 
 
 
+docker image rm -f $(docker images -a | grep "<none>" | tr -s ' ' | cut -d' ' -f3)
 
-
+docker image rm -f $(docker images -f "dangling=true")
 
 from flask import Flask
 app = Flask(__name__)

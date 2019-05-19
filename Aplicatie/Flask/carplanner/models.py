@@ -32,7 +32,8 @@ class User(db.Model, UserMixin):
 
   masini = db.relationship('Masina', backref='proprietar', lazy='dynamic')
 
-  def __init__(self, numeUser, prenumeUser, email, parola, numeCompanie):
+  def __init__(self, imagineProfil, numeUser, prenumeUser, email, parola, numeCompanie):
+    self.imagineProfil = imagineProfil
     self.numeUser = numeUser
     self.prenumeUser = prenumeUser
     self.email = email
@@ -67,7 +68,9 @@ class Masina(db.Model):
 
   scadente = db.relationship('Scadent', backref='masina', lazy='dynamic')
 
-  def __init__(self, detaliiMasina, VIN, combustibil, capacitateCilindrica, dataFabricatie, codMotor, numarInmatriculare, kilometraj):
+  def __init__(self, IDUser, IDAuto, detaliiMasina, VIN, combustibil, capacitateCilindrica, dataFabricatie, codMotor, numarInmatriculare, kilometraj):
+    self.IDUser = IDUser
+    self.IDAuto = IDAuto
     self.detaliiMasina = detaliiMasina
     self.VIN = VIN
     self.combustibil = combustibil
@@ -76,6 +79,7 @@ class Masina(db.Model):
     self.codMotor = codMotor
     self.numarInmatriculare = numarInmatriculare
     self.kilometraj = kilometraj
+    self.crestereZilnica = 0
 
   def __repr__(self):
     return f"IDMasina: {self.IDMasina}, IDAuto: {self.IDAuto}"
@@ -94,11 +98,12 @@ class Scadent(db.Model):
   areKM = db.Column(db.Boolean)
   kmExp = db.Column(db.String(20))
 
-  def __init__(self, numeScadent, dataExp, areKM, kmExp):
+  def __init__(self, IDRevizie, numeScadent, IDMasina, dataExp, areKM, kmExp):
     self.numeScadent = numeScadent
     self.dataExp = dataExp
     self.areKM = areKM
-    self.kmExp = kmExp
+    self.IDRevizie = IDRevizie
+    self.IDMasina = IDMasina
 
   def __repr__(self):
     return f"IDScadent: {self.IDScadent}, IDRevizie: {self.IDRevizie}"
@@ -115,7 +120,8 @@ class RevizieDefault(db.Model):
   viataZile = db.Column(db.Integer)
   viataKm = db.Column(db.Integer)
 
-  def __init__(self, numeSchimb, viataZile, viataKm):
+  def __init__(self, IDAuto, numeSchimb, viataZile, viataKm):
+    self.IDAuto = IDAuto
     self.numeSchimb = numeSchimb
     self.viataZile = viataZile
     self.viataKm = viataKm

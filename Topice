@@ -33,3 +33,7 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 
 backref relationship
+
+Putem face si cutsomizabile reviziile, modificat putin baza de date, si populat cu intervalele date de producator
+
+Cand omu isi adauga masina, o sa ii intre reviziile default in actiune si trebuie sa le editeze.

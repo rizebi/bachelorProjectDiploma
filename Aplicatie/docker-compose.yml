@@ -21,7 +21,11 @@ services:
 #              enabled: false
 #    volumes:
 #      - /var/lib/car-planner/registry:/var/lib/registry
-
+      # sub replicas
+      #resources:
+      #  limits:
+      #    cpus: "0.2"
+      #    memory: 100M
 
   mysql:
     image: mysql:5.7
@@ -30,10 +34,6 @@ services:
       MYSQL_ROOT_PASSWORD: 'mypassword'
     deploy:
       replicas: 1
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 100M
       restart_policy:
         condition: on-failure
     volumes:
@@ -46,10 +46,6 @@ services:
     image: flask-image
     deploy:
       replicas: 3
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 100M
       restart_policy:
         condition: on-failure
     ports:
@@ -57,7 +53,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - /var/lib/car-planner/flask:/app
+      - /home/ebi/Desktop/Git/licenta/Aplicatie/Flask:/app
     networks:
       - webnet
 
@@ -66,16 +62,12 @@ services:
     image: emailer-image
     deploy:
       replicas: 1
-      resources:
-        limits:
-          cpus: "0.2"
-          memory: 100M
       restart_policy:
         condition: on-failure
     depends_on:
       - mysql
     volumes:
-      - /var/lib/car-planner/emailer:/app
+      - /home/ebi/Desktop/Git/licenta/Aplicatie/Emailer:/app
     networks:
       - webnet
 
