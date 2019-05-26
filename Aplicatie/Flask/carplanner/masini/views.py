@@ -1,13 +1,14 @@
-from flask import render_template,url_for,flash, redirect,request, Blueprint
-from flask_login import current_user,login_required
+from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask_login import current_user, login_required
+
+from carplanner import db
+from carplanner.models import Masina
+from carplanner.masini.forms import MasinaForm
+
+masini = Blueprint('masini',__name__)
 '''
-from puppycompanyblog import db
-from puppycompanyblog.models import BlogPost
-from puppycompanyblog.blog_posts.forms import BlogPostForm
+@masini.route('/create',methods=['GET','POST'])
 
-blog_posts = Blueprint('blog_posts',__name__)
-
-@blog_posts.route('/create',methods=['GET','POST'])
 @login_required
 def create_post():
     form = BlogPostForm()

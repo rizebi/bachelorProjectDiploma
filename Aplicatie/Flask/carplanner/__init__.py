@@ -31,28 +31,28 @@ db = SQLAlchemy(app)
 #########################
 
 login_manager = LoginManager()
-'''
+
 # We can now pass in our app to the login manager
 login_manager.init_app(app)
 
 # Tell users what view to go to when they need to login.
-login_manager.login_view = "users.login"
+login_manager.login_view = "useri.login"
 
 
-###########################
+##############################
 #### BLUEPRINT CONFIGS #######
-#########################
+##############################
 
-# Import these at the top if you want
-# We've imported them here for easy reference
-from puppycompanyblog.core.views import core
-from puppycompanyblog.users.views import users
-from puppycompanyblog.blog_posts.views import blog_posts
-from puppycompanyblog.error_pages.handlers import error_pages
+
+from carplanner.core.views import core
+#from carplanner.useri.views import useri
+#from carplanner.masini.views import masini
+#from carplanner.scadente.views import scadente
+#from carplanner.error_pages.handlers import error_pages
 
 # Register the apps
-app.register_blueprint(users)
-app.register_blueprint(blog_posts)
 app.register_blueprint(core)
-app.register_blueprint(error_pages)
-'''
+#app.register_blueprint(useri)
+#app.register_blueprint(masin)
+#app.register_blueprint(scadente)
+#app.register_blueprint(error_pages)
