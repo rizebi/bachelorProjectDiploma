@@ -2,23 +2,24 @@
 {% block content %}
 
 
-<div class="jumbotron bg-transparent">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+<!-- Header - set the background image for the header in the line below -->
+<header class="py-5 bg-image-full" style="background-size: 2500px;background-image: url('/static/chicago-background.jpg');">
+  <img class="img-fluid d-block mx-auto" src="/static/mainlogo.png" width="200" ="200" alt="">
+</header>
+
+
+
+<div class="container jumbotron bg-transparent">
+  <h1 class="display-4 text-center">Gestionează eficient documentele scadente și reviziile pentru flote și vehicule personale</h1>
+  <p class="lead">Fa-ti acum cont gratuit si uita de grija Reviziilor Tehnice si a expirarii RCA-ului, ITP-ului, Vignetei, trusei, stingatorului </p>
+  <p class="lead">Aplicatia este complet GRATIS pentru o singura masina. Pentru mai multe detalii, consulta pagina Tarife</p>
+  <p class="lead">Cum functioneaza?</p>
+  <p class="lead">Iti faci cont, iti adaugi masina in sistem, adaugi documentele scadente si uiti de grija. Vei fi notificat pe mail cand se apropie expirarea unui document sau apropierea unei revizii</p>
+  <div class="text-center">
+    <a class=" btn btn-primary btn-lg" href="#" role="button">Vreau cont</a>
+  </div>
 </div>
 
-<h1 class="intro-text">Gestionează eficient documentele scadente pentru flote și vehicule personale</h1>
 
-<!-- Content section -->
-<section class="py-5">
-  <div class="container">
-    <h1>Section Heading</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
-  </div>
-</section>
 
 {% endblock %}
