@@ -8,6 +8,8 @@ SQLAlchemy
 Python (2.7, 3.0)
 Pip
 Flask
+Blueprints
+Jinja
 Bootstrap
 Web Server??
 Gunicorn

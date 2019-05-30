@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>REGISTER</h1>
+<h1>REGISTER</h1>
+<h1>REGISTER</h1>
+<h1>REGISTER</h1>
+<h1>REGISTER</h1>
+
+<form method="POST">
+    {# This hidden_tag is a CSRF security feature. #}
+    {{ form.hidden_tag() }}
+    {{ form.email.label }} {{ form.email() }}<br>
+    {{ form.numeUser.label }} {{ form.numeUser() }}<br>
+    {{ form.prenumeUser.label }} {{ form.prenumeUser() }}<br>
+    {{ form.numeCompanie.label }} {{ form.numeCompanie() }}<br>
+    {{ form.parola.label }} {{ form.parola() }}<br>
+    {{ form.parolaConfirm.label }} {{ form.parolaConfirm() }}<br>
+    {{ form.submit() }}
+</form>
+
+{% endblock %}
