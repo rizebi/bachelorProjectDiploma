@@ -44,3 +44,6 @@ https://www.datadriven-investment.com/docker-setup-part-8-docker-on-multiple-ser
 
 Putem sa adaugam newsletter.
 Putem sa adaugam SMS
+
+Am belit-o daca nu merge cu 3 containere de flask sa se mentina sesiunea
+Am uitat parola?

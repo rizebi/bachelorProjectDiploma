@@ -45,7 +45,7 @@ services:
   flask:
     image: flask-image
     deploy:
-      replicas: 3
+      replicas: 1
       restart_policy:
         condition: on-failure
     ports:

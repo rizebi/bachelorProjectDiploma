@@ -1,10 +1,11 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
-from carplanner import db
+from carplanner import db, app
 from werkzeug.security import generate_password_hash,check_password_hash
 from carplanner.models import User
-from carplanner.useri.forms import RegistrationForm, LoginForm, UpdateUserForm
+from carplanner.useri.forms import RegistrationForm, LoginForm, UpdateUserForm, ForgotForm
 from carplanner.useri.picture_handler import add_profile_pic
+
 
 
 useri = Blueprint('useri', __name__)
@@ -12,97 +13,113 @@ useri = Blueprint('useri', __name__)
 
 @useri.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm()
+  form = RegistrationForm()
+  app.logger.info("Am intrat in register")
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in register -> validate_on_submit")
+    user = User(email=form.email.data,
+                numeUser=form.numeUser.data,
+                prenumeUser=form.prenumeUser.data,
+                numeCompanie=form.numeCompanie.data,
+                parola=form.parola.data)
 
-    if form.validate_on_submit():
-        user = User(email=form.email.data,
-                    numeUser=form.numeUser.data,
-                    prenumeUser=form.prenumeUser.data,
-                    numeCompanie=form.numeCompanie.data,
-                    parola=form.parola.data)
-
-        db.session.add(user)
-        db.session.commit()
-        flash('Multumim pentru inregistrare! Te poti loga acum.')
-        return redirect(url_for('useri.login'))
-    return render_template('register.html', form=form)
+    db.session.add(user)
+    db.session.commit()
+    flash('Multumim pentru inregistrare! Te poti loga acum.')
+    return redirect(url_for('useri.login'))
+  return render_template('register.html', form=form)
 
 @useri.route('/login', methods=['GET', 'POST'])
 def login():
+  form = LoginForm()
+  app.logger.info("Am intrat in login")
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in login -> validate_on_submit")
+    # Grab the user from our User Models table
+    user = User.query.filter_by(email = form.email.data).first()
 
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Grab the user from our User Models table
-        user = User.query.filter_by(email = form.email.data).first()
+    # Check that the user was supplied and the password is right
+    # The verify_password method comes from the User object
+    # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
+    if user is not None and user.check_password(form.parola.data):
+      #Log in the user
+      app.logger.info("Am intrat in login -> check_password")
+      login_user(user)
+      flash('Autentificare reusita!')
 
-        # Check that the user was supplied and the password is right
-        # The verify_password method comes from the User object
-        # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
+      # If a user was trying to visit a page that requires a login
+      # flask saves that URL as 'next'.
+      next = request.args.get('next')
 
-        if user.check_password(form.parola.data) and user is not None:
-            #Log in the user
+      # So let's now check if that next exists, otherwise we'll go to
+      # the welcome page.
+      if next == None or not next[0]=='/':
+        next = url_for('core.index')
 
-            login_user(user)
-            flash('Autentificare reusita!')
+      return redirect(next)
+  return render_template('login.html', form=form)
 
-            # If a user was trying to visit a page that requires a login
-            # flask saves that URL as 'next'.
-            next = request.args.get('next')
 
-            # So let's now check if that next exists, otherwise we'll go to
-            # the welcome page.
-            if next == None or not next[0]=='/':
-                next = url_for('core.index')
+@useri.route('/uitatparola', methods=['GET', 'POST'])
+def uitatparola():
+  form = ForgotForm()
+  app.logger.info("Am intrat in uitatparola")
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in uitatparola -> validate_on_submit")
 
-            return redirect(next)
-    return render_template('login.html', form=form)
+    # Grab the user from our User Models table
+    user = User.query.filter_by(email = form.email.data).first()
 
+    if user is not None:
+      flash('Un mail cu link de activare a fost trimis la mailul introdus')
+      return redirect(url_for('core.index'))
+  return render_template('uitatparola.html', form=form)
 
 
 
 @useri.route("/logout")
 def logout():
-    logout_user()
-    return redirect(url_for('core.index'))
+  logout_user()
+  return redirect(url_for('core.index'))
 
 
 
-@useri.route("/account", methods=['GET', 'POST'])
+@useri.route("/updateuser", methods=['GET', 'POST'])
 @login_required
-def account():
+def updateuser():
+  form = UpdateUserForm()
+  app.logger.info("Am intrat in updateuser")
 
-    form = UpdateUserForm()
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in updateuser -> validate_on_submit")
+    if form.picture.data:
+      email = current_user.email
+      pic = add_profile_pic(form.picture.data, email)
+      current_user.imagineProfil = pic
 
-    if form.validate_on_submit():
-        print(form)
-        if form.picture.data:
-            email = current_user.email
-            pic = add_profile_pic(form.picture.data, email)
-            current_user.profile_image = pic
+    current_user.email = form.email.data
+    current_user.numeUser = form.numeUser.data
+    current_user.prenumeUser = form.prenumeUser.data
+    current_user.numeCompanie = form.numeCompanie.data
 
-        current_user.email = form.email.data
-        current_user.numeUser = form.numeUser.data
-        current_user.prenumeUser = form.prenumeUser.data
-        current_user.numeCompanie = form.numeCompanie.data
+    db.session.commit()
+    flash('Datele contului au fost actualizate cu succes.')
+    return redirect(url_for('useri.updateuser'))
 
-        db.session.commit()
-        flash('Datele contului au fost actualizate cu succes.')
-        return redirect(url_for('useri.account'))
+  elif request.method == 'GET':
+    form.email.data = current_user.email
+    form.numeUser.data = current_user.numeUser
+    form.prenumeUser.data = current_user.prenumeUser
+    form.numeCompanie.data = current_user.numeCompanie
 
-    elif request.method == 'GET':
-        form.email.data = current_user.email
-        form.numeUser.data = current_user.numeUser
-        form.prenumeUser.data = current_user.prenumeUser
-        form.numeCompanie.data = current_user.numeCompanie
-
-    profile_image = url_for('static', filename='profile_pics/' + current_user.profile_image)
-    return render_template('account.html', profile_image=profile_image, form=form)
+  imagineProfil = url_for('static', filename='profile_pics/' + current_user.imagineProfil)
+  return render_template('updateuser.html', imagineProfil=imagineProfil, form=form)
 
 '''
 @useri.route("/<username>")
 def user_cars(email):
-    page = request.args.get('page', 1, type=int)
-    user = User.query.filter_by(username=username).first_or_404()
-    blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page, per_page=5)
-    return render_template('user_blog_posts.html', blog_posts=blog_posts, user=user)
+  page = request.args.get('page', 1, type=int)
+  user = User.query.filter_by(username=username).first_or_404()
+  blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page, per_page=5)
+  return render_template('user_blog_posts.html', blog_posts=blog_posts, user=user)
 '''

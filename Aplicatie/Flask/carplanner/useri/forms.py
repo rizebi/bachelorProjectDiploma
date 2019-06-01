@@ -13,35 +13,40 @@ from carplanner.models import User
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    parola = PasswordField('Parola', validators=[DataRequired()])
-    submit = SubmitField('Log In')
+    email = StringField(validators=[DataRequired(message = "Introduceti mailul"), Email(message = "Mail invalid")], render_kw={"placeholder": "Email*"})
+    parola = PasswordField(validators=[DataRequired(message = "Introduceti parola")], render_kw={"placeholder": "Parola*"})
+    submit = SubmitField("Log In")
 
+class ForgotForm(FlaskForm):
+    email = StringField(validators=[DataRequired(message = "Introduceti mailul"), Email(message = "Mail invalid")], render_kw={"placeholder": "Email*"})
+    submit = SubmitField("Reseteaza parola")
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(),Email()])
-    numeUser = StringField('Nume', validators=[DataRequired()])
-    prenumeUser = StringField('Prenume', validators=[DataRequired()])
-    numeCompanie = StringField('Nume Companie')
-    parola = PasswordField('Parola', validators=[DataRequired(), EqualTo('pass_confirm', message='Passwords Must Match!')])
-    parolaConfirm = PasswordField('Confirmare Parola', validators=[DataRequired()])
+    email = StringField(validators=[DataRequired(message = "Introduceti mailul"),Email(message = "Mail invalid")], render_kw={"placeholder": "Email*"})
+    numeUser = StringField(render_kw={"placeholder": "Nume"})
+    prenumeUser = StringField(render_kw={"placeholder": "Prenume"})
+    numeCompanie = StringField(render_kw={"placeholder": "Nume Companie"})
+    parola = PasswordField(validators=[DataRequired(message = "Introduceti parola"), EqualTo('parolaConfirm', message='Parolele sunt diferite!')], render_kw={"placeholder": "Parola*"})
+    parolaConfirm = PasswordField(validators=[DataRequired(message = "Reintroduceti parola pentru confirmare")], render_kw={"placeholder": "Confirmare Parola*"})
     submit = SubmitField('Inregistrare!')
 
     def validate_email(self, field):
         # Check if not None for that user email!
         if User.query.filter_by(email = field.data).first():
-            raise ValidationError('Your email has been registered already!')
+            raise ValidationError('Acest email este deja folosit!')
 
 
 class UpdateUserForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(),Email()])
-    numeUser = StringField('Nume', validators=[DataRequired()])
-    prenumeUser = StringField('Prenume', validators=[DataRequired()])
-    numeCompanie = StringField('Nume Companie')
+    email = StringField(validators=[DataRequired(message = "Introduceti mailul"),Email(message = "Mail invalid")], render_kw={"placeholder": "Email*"})
+    numeUser = StringField(render_kw={"placeholder": "Nume"})
+    prenumeUser = StringField(render_kw={"placeholder": "Prenume"})
+    numeCompanie = StringField(render_kw={"placeholder": "Nume Companie"})
     picture = FileField('Incarca fotografie de profil', validators=[FileAllowed(['jpg', 'png'])])
+    parola = PasswordField(validators=[DataRequired(message = "Introduceti parola"), EqualTo('parolaConfirm', message='Parolele sunt diferite!')], render_kw={"placeholder": "Parola*"})
+    parolaConfirm = PasswordField(validators=[DataRequired(message = "Reintroduceti parola pentru confirmare")], render_kw={"placeholder": "Confirmare Parola*"})
     submit = SubmitField('Actualizeaza')
 
     def validate_email(self, field):
         # Check if not None for that user email!
         if User.query.filter_by(email=field.data).first():
-            raise ValidationError('Your email has been registered already!')
+            raise ValidationError('Acest email este deja folosit!')

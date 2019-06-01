@@ -32,8 +32,7 @@ class User(db.Model, UserMixin):
 
   masini = db.relationship('Masina', backref='proprietar', lazy='dynamic')
 
-  def __init__(self, imagineProfil, numeUser, prenumeUser, email, parola, numeCompanie):
-    self.imagineProfil = imagineProfil
+  def __init__(self, numeUser, prenumeUser, email, parola, numeCompanie):
     self.numeUser = numeUser
     self.prenumeUser = prenumeUser
     self.email = email
@@ -47,6 +46,8 @@ class User(db.Model, UserMixin):
   def __repr__(self):
     return f"Nume: {self.numeUser}, Prenume: {self.prenumeUser}"
 
+  def get_id(self):
+    return (self.IDUser)
 
 class Masina(db.Model):
 
