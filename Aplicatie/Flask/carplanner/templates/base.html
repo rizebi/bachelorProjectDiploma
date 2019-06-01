@@ -38,12 +38,21 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li id="menu-item-?????" class="nav-item btn btn-primary btn-sm mr-3">
-            <a class="nav-link" href="/register">Sign Up</a>
-          </li>
-          <li id="menu-item-??????" class="nav-item btn btn-success btn-sm mr-3">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
+            {% if current_user.is_authenticated %}
+            <li id="menu-item-?????" class="nav-item btn btn-success btn-sm mr-3">
+              <a class="nav-link" href="{{ url_for('useri.userhome', email=current_user.email) }}">Contul meu</a>
+            </li>
+            <li id="menu-item-??????" class="nav-item btn btn-secondary btn-sm mr-3">
+              <a class="nav-link" href="{{ url_for('useri.logout') }}">Logout</a>
+            </li>
+          {% else %}
+            <li id="menu-item-?????" class="nav-item btn btn-primary btn-sm mr-3">
+              <a class="nav-link" href="/register">Sign Up</a>
+            </li>
+            <li id="menu-item-??????" class="nav-item btn btn-success btn-sm mr-3">
+              <a class="nav-link" href="/login">Login</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </nav>

@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from carplanner import db, app
 from werkzeug.security import generate_password_hash,check_password_hash
-from carplanner.models import User
+from carplanner.models import User, Masina
 from carplanner.useri.forms import RegistrationForm, LoginForm, UpdateUserForm, ForgotForm
 from carplanner.useri.picture_handler import add_profile_pic
 
@@ -45,7 +45,6 @@ def login():
       #Log in the user
       app.logger.info("Am intrat in login -> check_password")
       login_user(user)
-      flash('Autentificare reusita!')
 
       # If a user was trying to visit a page that requires a login
       # flask saves that URL as 'next'.
@@ -54,9 +53,12 @@ def login():
       # So let's now check if that next exists, otherwise we'll go to
       # the welcome page.
       if next == None or not next[0]=='/':
-        next = url_for('core.index')
+        next = url_for('useri.userhome', email=user.email)
 
       return redirect(next)
+    else:
+      flash('Email sau parola gresita!')
+
   return render_template('login.html', form=form)
 
 
@@ -68,11 +70,13 @@ def uitatparola():
     app.logger.info("Am intrat in uitatparola -> validate_on_submit")
 
     # Grab the user from our User Models table
-    user = User.query.filter_by(email = form.email.data).first()
+    user = User.query.filter_by(email=form.email.data).first()
 
     if user is not None:
       flash('Un mail cu link de activare a fost trimis la mailul introdus')
-      return redirect(url_for('core.index'))
+      # Trebuie sa trimitem si linkul!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    else:
+      flash('Nu avem in baza de date acest mail')
   return render_template('uitatparola.html', form=form)
 
 
@@ -96,11 +100,13 @@ def updateuser():
       email = current_user.email
       pic = add_profile_pic(form.picture.data, email)
       current_user.imagineProfil = pic
+    app.logger.info("Am trecut de functie")
 
     current_user.email = form.email.data
     current_user.numeUser = form.numeUser.data
     current_user.prenumeUser = form.prenumeUser.data
     current_user.numeCompanie = form.numeCompanie.data
+    current_user.parola=generate_password_hash(form.parola.data)
 
     db.session.commit()
     flash('Datele contului au fost actualizate cu succes.')
@@ -112,14 +118,21 @@ def updateuser():
     form.prenumeUser.data = current_user.prenumeUser
     form.numeCompanie.data = current_user.numeCompanie
 
+  if current_user.prenumeUser != None:
+    nume = current_user.prenumeUser
+  else:
+    nume = current_user.email.split("@")[0]
   imagineProfil = url_for('static', filename='profile_pics/' + current_user.imagineProfil)
-  return render_template('updateuser.html', imagineProfil=imagineProfil, form=form)
+  return render_template('updateuser.html', imagineProfil=imagineProfil, form=form, nume=nume)
 
-'''
-@useri.route("/<username>")
-def user_cars(email):
+
+@useri.route("/<email>")
+def userhome(email):
   page = request.args.get('page', 1, type=int)
-  user = User.query.filter_by(username=username).first_or_404()
-  blog_posts = BlogPost.query.filter_by(author=user).order_by(BlogPost.date.desc()).paginate(page=page, per_page=5)
-  return render_template('user_blog_posts.html', blog_posts=blog_posts, user=user)
-'''
+  user = User.query.filter_by(email=email).first_or_404()
+  masini = []#Masina.query.filter_by(proprietar=user).paginate(page=page, per_page=5)
+  if user.prenumeUser != None:
+    nume = user.prenumeUser
+  else:
+    nume = user.email.split("@")[0]
+  return render_template('userhome.html', masini=masini, user=user, nume=nume)

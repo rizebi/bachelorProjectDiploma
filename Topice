@@ -32,6 +32,8 @@ pip install ConfigParser ??
 
 Securitate:
 app.config['SECRET_KEY'] = 'mysecret'
+hiddentag, crtf, sqlalchemy (care face sanitize), parola stocata in hash
+certficcate
 
 
 backref relationship

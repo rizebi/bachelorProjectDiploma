@@ -46,13 +46,13 @@ login_manager.login_view = "useri.login"
 
 from carplanner.core.views import core
 from carplanner.useri.views import useri
-#from carplanner.masini.views import masini
+from carplanner.masini.views import masini
 #from carplanner.scadente.views import scadente
 #from carplanner.error_pages.handlers import error_pages
 
 # Register the apps
 app.register_blueprint(core)
 app.register_blueprint(useri)
-#app.register_blueprint(masini)
+app.register_blueprint(masini)
 #app.register_blueprint(scadente)
 #app.register_blueprint(error_pages)

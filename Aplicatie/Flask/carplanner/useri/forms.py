@@ -37,16 +37,16 @@ class RegistrationForm(FlaskForm):
 
 
 class UpdateUserForm(FlaskForm):
-    email = StringField(validators=[DataRequired(message = "Introduceti mailul"),Email(message = "Mail invalid")], render_kw={"placeholder": "Email*"})
+    email = StringField(validators=[DataRequired(message = "Introduceti mailul"),Email(message = "Mail invalid")], render_kw={"placeholder": "Email"})
     numeUser = StringField(render_kw={"placeholder": "Nume"})
     prenumeUser = StringField(render_kw={"placeholder": "Prenume"})
     numeCompanie = StringField(render_kw={"placeholder": "Nume Companie"})
     picture = FileField('Incarca fotografie de profil', validators=[FileAllowed(['jpg', 'png'])])
-    parola = PasswordField(validators=[DataRequired(message = "Introduceti parola"), EqualTo('parolaConfirm', message='Parolele sunt diferite!')], render_kw={"placeholder": "Parola*"})
-    parolaConfirm = PasswordField(validators=[DataRequired(message = "Reintroduceti parola pentru confirmare")], render_kw={"placeholder": "Confirmare Parola*"})
+    parola = PasswordField(validators=[EqualTo('parolaConfirm', message='Parolele sunt diferite!')], render_kw={"placeholder": "Parola"})
+    parolaConfirm = PasswordField(render_kw={"placeholder": "Confirmare Parola"})
     submit = SubmitField('Actualizeaza')
 
     def validate_email(self, field):
         # Check if not None for that user email!
-        if User.query.filter_by(email=field.data).first():
+        if field.data != current_user.email and User.query.filter_by(email=field.data).first():
             raise ValidationError('Acest email este deja folosit!')

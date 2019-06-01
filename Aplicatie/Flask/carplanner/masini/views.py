@@ -3,7 +3,8 @@ from flask_login import current_user, login_required
 
 from carplanner import db
 from carplanner.models import Masina
-from carplanner.masini.forms import MasinaForm
+
+#from carplanner.masini.forms import MasinaForm
 
 masini = Blueprint('masini',__name__)
 '''
