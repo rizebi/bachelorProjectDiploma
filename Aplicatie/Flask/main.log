@@ -50,3 +50,103 @@
 2019-06-01 18:11:50,569 - INFO - Am trecut de functie
 2019-06-01 18:11:50,652 - INFO - Am intrat in updateuser
 2019-06-01 18:12:55,723 - INFO - Am intrat in updateuser
+2019-06-01 19:21:00,040 - INFO - Am intrat in login
+2019-06-01 19:21:07,181 - INFO - Am intrat in login
+2019-06-01 19:21:07,182 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:10,585 - INFO - Am intrat in login
+2019-06-01 19:21:10,586 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:12,600 - INFO - Am intrat in login
+2019-06-01 19:21:12,601 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:14,280 - INFO - Am intrat in login
+2019-06-01 19:21:14,281 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:17,762 - INFO - Am intrat in login
+2019-06-01 19:21:17,762 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:22,292 - INFO - Am intrat in login
+2019-06-01 19:21:22,293 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:30,875 - INFO - Am intrat in login
+2019-06-01 19:21:30,876 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:21:30,922 - INFO - Am intrat in login -> check_password
+2019-06-01 19:21:54,666 - INFO - Am intrat in login
+2019-06-01 19:22:01,291 - INFO - Am intrat in login
+2019-06-01 19:22:01,292 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:04,067 - INFO - Am intrat in login
+2019-06-01 19:22:04,069 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:05,407 - INFO - Am intrat in login
+2019-06-01 19:22:05,407 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:19,608 - INFO - Am intrat in login
+2019-06-01 19:22:19,609 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:22,066 - INFO - Am intrat in login
+2019-06-01 19:22:22,067 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:22,124 - INFO - Am intrat in login -> check_password
+2019-06-01 19:22:23,091 - INFO - Am intrat in updateuser
+2019-06-01 19:22:26,078 - INFO - Am intrat in updateuser
+2019-06-01 19:22:26,079 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:22:26,080 - INFO - Am trecut de functie
+2019-06-01 19:22:26,151 - INFO - Am intrat in updateuser
+2019-06-01 19:22:36,725 - INFO - Am intrat in login
+2019-06-01 19:22:39,974 - INFO - Am intrat in login
+2019-06-01 19:22:39,974 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:40,018 - INFO - Am intrat in login -> check_password
+2019-06-01 19:22:41,321 - INFO - Am intrat in updateuser
+2019-06-01 19:22:45,330 - INFO - Am intrat in updateuser
+2019-06-01 19:22:45,330 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:22:45,335 - INFO - Am trecut de functie
+2019-06-01 19:22:45,433 - INFO - Am intrat in updateuser
+2019-06-01 19:22:48,402 - INFO - Am intrat in login
+2019-06-01 19:22:50,890 - INFO - Am intrat in login
+2019-06-01 19:22:50,891 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:54,444 - INFO - Am intrat in login
+2019-06-01 19:22:54,445 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:55,966 - INFO - Am intrat in login
+2019-06-01 19:22:55,966 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:57,393 - INFO - Am intrat in login
+2019-06-01 19:22:57,395 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:22:58,455 - INFO - Am intrat in login
+2019-06-01 19:23:01,394 - INFO - Am intrat in login
+2019-06-01 19:23:17,896 - INFO - Am intrat in login
+2019-06-01 19:23:17,897 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:23:17,945 - INFO - Am intrat in login -> check_password
+2019-06-01 19:23:18,952 - INFO - Am intrat in updateuser
+2019-06-01 19:23:22,944 - INFO - Am intrat in updateuser
+2019-06-01 19:23:22,945 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:23:22,945 - INFO - Am trecut de functie
+2019-06-01 19:23:23,026 - INFO - Am intrat in updateuser
+2019-06-01 19:23:25,781 - INFO - Am intrat in login
+2019-06-01 19:23:28,047 - INFO - Am intrat in login
+2019-06-01 19:23:28,048 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:00,826 - INFO - Starting app
+2019-06-01 19:24:05,473 - INFO - Am intrat in login
+2019-06-01 19:24:08,950 - INFO - Am intrat in login
+2019-06-01 19:24:08,954 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:10,505 - INFO - Am intrat in login
+2019-06-01 19:24:10,506 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:10,548 - INFO - Am intrat in login -> check_password
+2019-06-01 19:24:11,469 - INFO - Am intrat in updateuser
+2019-06-01 19:24:14,916 - INFO - Am intrat in updateuser
+2019-06-01 19:24:14,918 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:24:14,919 - INFO - Am trecut de functie
+2019-06-01 19:24:14,967 - INFO - Am intrat in updateuser
+2019-06-01 19:24:17,116 - INFO - Am intrat in login
+2019-06-01 19:24:19,147 - INFO - Am intrat in login
+2019-06-01 19:24:19,147 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:23,403 - INFO - Am intrat in login
+2019-06-01 19:24:23,404 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:23,444 - INFO - Am intrat in login -> check_password
+2019-06-01 19:24:24,788 - INFO - Am intrat in updateuser
+2019-06-01 19:24:27,668 - INFO - Am intrat in updateuser
+2019-06-01 19:24:27,669 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:24:27,669 - INFO - Am trecut de functie
+2019-06-01 19:24:27,771 - INFO - Am intrat in updateuser
+2019-06-01 19:24:30,046 - INFO - Am intrat in login
+2019-06-01 19:24:32,193 - INFO - Am intrat in login
+2019-06-01 19:24:32,194 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:32,234 - INFO - Am intrat in login -> check_password
+2019-06-01 19:24:33,507 - INFO - Am intrat in updateuser
+2019-06-01 19:24:36,838 - INFO - Am intrat in updateuser
+2019-06-01 19:24:36,838 - INFO - Am intrat in updateuser -> validate_on_submit
+2019-06-01 19:24:36,856 - INFO - Am trecut de functie
+2019-06-01 19:24:36,902 - INFO - Am intrat in updateuser
+2019-06-01 19:24:40,336 - INFO - Am intrat in login
+2019-06-01 19:24:42,433 - INFO - Am intrat in login
+2019-06-01 19:24:42,435 - INFO - Am intrat in login -> validate_on_submit
+2019-06-01 19:24:42,480 - INFO - Am intrat in login -> check_password

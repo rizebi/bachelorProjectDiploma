@@ -106,7 +106,8 @@ def updateuser():
     current_user.numeUser = form.numeUser.data
     current_user.prenumeUser = form.prenumeUser.data
     current_user.numeCompanie = form.numeCompanie.data
-    current_user.parola=generate_password_hash(form.parola.data)
+    if form.parola.data:
+      current_user.parola=generate_password_hash(form.parola.data)
 
     db.session.commit()
     flash('Datele contului au fost actualizate cu succes.')
