@@ -9,7 +9,7 @@
     <img align='center' src="{{ url_for('static', filename='profile_pics/' + user.imagineProfil) }}">
     <br><br>
     <a class="btn btn-primary" href="/updateuser" role="button">Editare Cont</a>
-    <a class="btn btn-success" href="#" role="button">Adauga Vehicul</a>
+    <a class="btn btn-success" href="{{ url_for('masini.addVehicle')}}" role="button">Adauga Vehicul</a>
   </div>
 </div>
 

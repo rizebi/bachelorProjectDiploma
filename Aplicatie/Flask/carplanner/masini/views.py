@@ -2,32 +2,33 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 
 from carplanner import db
-from carplanner.models import Masina
+from carplanner.models import Masina, Marca
 
-#from carplanner.masini.forms import MasinaForm
+from carplanner.masini.forms import AddVehicleForm
 
 masini = Blueprint('masini',__name__)
-'''
-@masini.route('/create',methods=['GET','POST'])
 
+
+@masini.route('/addvehicle',methods=['GET','POST'])
 @login_required
-def create_post():
-    form = BlogPostForm()
-
+def addVehicle():
+    form = AddVehicleForm()
+    marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
+    marciModele = Marca.query.filter_by().all()
     if form.validate_on_submit():
 
-        blog_post = BlogPost(title=form.title.data,
+        '''blog_post = BlogPost(title=form.title.data,
                              text=form.text.data,
                              user_id=current_user.id
                              )
         db.session.add(blog_post)
-        db.session.commit()
-        flash("Blog Post Created")
-        return redirect(url_for('core.index'))
+        db.session.commit()'''
+        flash("Vehicul adaugat cu succes")
+        return redirect(url_for('useri.userhome', current_user.email))
 
-    return render_template('create_post.html',form=form)
+    return render_template('addvehicle.html',form=form, marci=marci, marciModele=marciModele)
 
-
+'''
 # int: makes sure that the blog_post_id gets passed as in integer
 # instead of a string so we can look it up later.
 @blog_posts.route('/<int:blog_post_id>')
