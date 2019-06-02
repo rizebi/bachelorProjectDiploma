@@ -1,3 +1,4 @@
+https://www.youtube.com/watch?v=I2dJuNwlIH0   <- cum se fac chained
 Docker
 Docker Compose Smarm Stack Services
 Cum sunt izolate containerele, si registry e la vedere
@@ -52,3 +53,5 @@ Am belit-o daca nu merge cu 3 containere de flask sa se mentina sesiunea
 Am uitat parola?
 
 Model.query is a shortcut to db.session.query(Model)
+
+Problema la login required. Ma loghez pe unu, schimb linkul si merge. WTF?

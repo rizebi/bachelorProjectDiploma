@@ -14,9 +14,9 @@ useri = Blueprint('useri', __name__)
 @useri.route('/register', methods=['GET', 'POST'])
 def register():
   form = RegistrationForm()
-  app.logger.info("Am intrat in register")
+  #app.logger.info("Am intrat in register")
   if form.validate_on_submit():
-    app.logger.info("Am intrat in register -> validate_on_submit")
+    #app.logger.info("Am intrat in register -> validate_on_submit")
     user = User(email=form.email.data,
                 numeUser=form.numeUser.data,
                 prenumeUser=form.prenumeUser.data,
@@ -32,9 +32,9 @@ def register():
 @useri.route('/login', methods=['GET', 'POST'])
 def login():
   form = LoginForm()
-  app.logger.info("Am intrat in login")
+  #app.logger.info("Am intrat in login")
   if form.validate_on_submit():
-    app.logger.info("Am intrat in login -> validate_on_submit")
+    #app.logger.info("Am intrat in login -> validate_on_submit")
     # Grab the user from our User Models table
     user = User.query.filter_by(email = form.email.data).first()
 
@@ -43,7 +43,7 @@ def login():
     # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
     if user is not None and user.check_password(form.parola.data):
       #Log in the user
-      app.logger.info("Am intrat in login -> check_password")
+      #app.logger.info("Am intrat in login -> check_password")
       login_user(user)
 
       # If a user was trying to visit a page that requires a login
@@ -65,9 +65,9 @@ def login():
 @useri.route('/uitatparola', methods=['GET', 'POST'])
 def uitatparola():
   form = ForgotForm()
-  app.logger.info("Am intrat in uitatparola")
+  #app.logger.info("Am intrat in uitatparola")
   if form.validate_on_submit():
-    app.logger.info("Am intrat in uitatparola -> validate_on_submit")
+    #app.logger.info("Am intrat in uitatparola -> validate_on_submit")
 
     # Grab the user from our User Models table
     user = User.query.filter_by(email=form.email.data).first()
@@ -82,6 +82,7 @@ def uitatparola():
 
 
 @useri.route("/logout")
+@login_required
 def logout():
   logout_user()
   return redirect(url_for('core.index'))
@@ -92,15 +93,15 @@ def logout():
 @login_required
 def updateuser():
   form = UpdateUserForm()
-  app.logger.info("Am intrat in updateuser")
+  #app.logger.info("Am intrat in updateuser")
 
   if form.validate_on_submit():
-    app.logger.info("Am intrat in updateuser -> validate_on_submit")
+    #app.logger.info("Am intrat in updateuser -> validate_on_submit")
     if form.picture.data:
       email = current_user.email
       pic = add_profile_pic(form.picture.data, email)
       current_user.imagineProfil = pic
-    app.logger.info("Am trecut de functie")
+    #app.logger.info("Am trecut de functie")
 
     current_user.email = form.email.data
     current_user.numeUser = form.numeUser.data
@@ -128,6 +129,7 @@ def updateuser():
 
 
 @useri.route("/<email>")
+@login_required
 def userhome(email):
   page = request.args.get('page', 1, type=int)
   user = User.query.filter_by(email=email).first_or_404()

@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 
-from carplanner import db
-from carplanner.models import Masina, Marca
+from carplanner import db, app
+from carplanner.models import Masina
 
 from carplanner.masini.forms import AddVehicleForm
 
@@ -12,21 +12,31 @@ masini = Blueprint('masini',__name__)
 @masini.route('/addvehicle',methods=['GET','POST'])
 @login_required
 def addVehicle():
-    form = AddVehicleForm()
-    marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
-    marciModele = Marca.query.filter_by().all()
-    if form.validate_on_submit():
+  app.logger.info("Am intrat in addvehicle")
+  form = AddVehicleForm()
+  app.logger.info("Dupa intrat in addvehicle")
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in addvehicle -> validate_on_submit")
+    app.logger.info("form.marcaMasina.data = " + str(form.marcaMasina.data))
+    app.logger.info("form.modelMasina.data = " + str(form.modelMasina.data))
+    app.logger.info("form.numarInmatriculare.data = " + form.numarInmatriculare.data)
+    app.logger.info("form.kilometraj.data = " + form.kilometraj.data)
+    app.logger.info("form.anFabricatie.data = " + str(form.anFabricatie.data))
+    app.logger.info("form.capacitateCilindrica.data = " + str(form.capacitateCilindrica.data))
+    app.logger.info("form.codMotor.data = " + form.codMotor.data)
+    app.logger.info("form.VIN.data = " + form.VIN.data)
+    app.logger.info("form.detaliiMasina.data = " + form.detaliiMasina.data)
 
-        '''blog_post = BlogPost(title=form.title.data,
-                             text=form.text.data,
-                             user_id=current_user.id
-                             )
-        db.session.add(blog_post)
-        db.session.commit()'''
-        flash("Vehicul adaugat cu succes")
-        return redirect(url_for('useri.userhome', current_user.email))
+    '''blog_post = BlogPost(title=form.title.data,
+                       text=form.text.data,
+                       user_id=current_user.id
+                       )
+    db.session.add(blog_post)
+    db.session.commit()'''
+    flash("Vehicul adaugat cu succes")
+    return redirect(url_for('useri.userhome', email=current_user.email))
 
-    return render_template('addvehicle.html',form=form, marci=marci, marciModele=marciModele)
+  return render_template('addvehicle.html',form=form)
 
 '''
 # int: makes sure that the blog_post_id gets passed as in integer

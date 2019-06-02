@@ -2,19 +2,65 @@
 {% block content %}
 
 <script type="text/javascript" src="static/master.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
-<h1>addvehicle</h1>
-<h1>addvehicle</h1>
-<div class="input-group form-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text"><i class="fas fa-user"></i></span>
-  </div>
-  {{ form.VIN(class_="form-control") }}
-</div>
+<form method="POST">
+  {% if form.marcaMasina.errors or form.modelMasina.errors or form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors%}
+    <div class="alert alert-danger" role="alert">
+  {% endif %}
+
+  {% if form.marcaMasina.errors %}
+    {% for error in form.marcaMasina.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.modelMasina.errors %}
+    {% for error in form.modelMasina.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.numarInmatriculare.errors %}
+    {% for error in form.numarInmatriculare.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.kilometraj.errors %}
+    {% for error in form.kilometraj.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.capacitateCilindrica.errors %}
+    {% for error in form.capacitateCilindrica.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.anFabricatie.errors %}
+    {% for error in form.anFabricatie.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.marcaMasina.errors or form.modelMasina.errors or form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors%}
+    </div>
+  {% endif %}
+</form>
+
+<h1>MAaaaaa</h1>
 
 
-
+<!--{#
 <select class="form-control" id="color">
     <option value=""> choose options </option>
     {%for marca in marci%}
@@ -30,9 +76,77 @@
 
 <script type="text/javascript">
     $('#size').chainedTo('#color');
+</script>#}-->
+
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  {{ form.csrf_token }}
+
+  {{ form.marcaMasina(class_="form-control", id="marca") }}
+  {{ form.modelMasina(class_="form-control", id="model") }}
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.numarInmatriculare(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.kilometraj(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.anFabricatie(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.capacitateCilindrica(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.codMotor(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.VIN(class_="form-control") }}
+  </div>
+
+  <div class="input-group form-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text"><i class="fas fa-user"></i></span>
+    </div>
+    {{ form.detaliiMasina(class_="form-control") }}
+  </div>
+
+  <div class="form-group">
+    {{ form.submit(class_="btn float-right login_btn") }}
+  </div>
+
+</form>
+
+<script type="text/javascript">
+    $('#model').chainedTo('#marca');
 </script>
 
+
 <!--{#
+
 <h1>addvehicle</h1>
 {%for marca in marciModele%}
 <h1>{{marca.modelMasina}}</h1>
