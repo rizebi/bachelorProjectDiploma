@@ -13,8 +13,6 @@ def RepresentsInt(s):
 
 class AddVehicleForm(FlaskForm):
 
-  #f = open("mata.txt", "w")
-
   marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
   marciModele = Marca.query.filter_by().all()
 
@@ -24,12 +22,10 @@ class AddVehicleForm(FlaskForm):
 
   marciModeleForm = []
   for marca in marciModele:
-    marciModeleForm.append((marca.marcaMasina, marca.modelMasina))
+    marciModeleForm.append((marca.IDAuto, marca.modelMasina))
 
-  #f.write(str(marciModeleForm))
-  #f.close()
-  marcaMasina = SelectField(choices=marciForm, validators=[DataRequired(message = "Selectati marca vehiculului")], render_kw={"placeholder": "Marca Vehicul"})
-  modelMasina = SelectField(choices=marciModeleForm, validators=[DataRequired(message = "Selectati modelul vehiculului")], render_kw={"placeholder": "Model Vehicul"})
+  marcaMasina = SelectField('marca', choices=marciForm, render_kw={"placeholder": "Marca Vehicul"})
+  modelMasina = SelectField('model', coerce=str, choices=[], render_kw={"placeholder": "Model Vehicul"})
   numarInmatriculare = StringField(validators=[DataRequired(message = "Introduceti numarul de inmatriculare")], render_kw={"placeholder": "Numar Inmatriculare*"})
   kilometraj = StringField(validators=[DataRequired(message = "Introduceti kilometrajul")], render_kw={"placeholder": "Kilometraj*"})
   anFabricatie = StringField(render_kw={"placeholder": "An Fabricatie"})

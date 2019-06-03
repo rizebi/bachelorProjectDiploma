@@ -57,8 +57,6 @@
   {% endif %}
 </form>
 
-<h1>MAaaaaa</h1>
-
 
 <!--{#
 <select class="form-control" id="color">
@@ -84,8 +82,8 @@
   {{ form.hidden_tag() }}
   {{ form.csrf_token }}
 
-  {{ form.marcaMasina(class_="form-control", id="marca") }}
-  {{ form.modelMasina(class_="form-control", id="model") }}
+  {{ form.marcaMasina(class_="form-control") }}
+  {{ form.modelMasina(class_="form-control") }}
   <div class="input-group form-group">
     <div class="input-group-prepend">
       <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -141,10 +139,35 @@
 
 </form>
 
+
+<script>
+
+
+  var marcaSelect = document.getElementById("marcaMasina");
+  var modelSelect = document.getElementById("modelMasina");
+  marcaSelect.onchange = function() {
+    marca = marcaSelect.value;
+    fetch('/model/' + marca).then(function(response){
+      response.json().then(function(data) {
+        var optionHTML = '';
+        for(var model of data.modele) {
+          optionHTML += '<option value="' + model.IDAuto + '">' + model.modelMasina + '</option>';
+
+        }
+
+        modelSelect.innerHTML = optionHTML;
+      })
+    });
+  }
+</script>
+
+
+
+<!--{#
 <script type="text/javascript">
     $('#model').chainedTo('#marca');
 </script>
-
+#}-->
 
 <!--{#
 

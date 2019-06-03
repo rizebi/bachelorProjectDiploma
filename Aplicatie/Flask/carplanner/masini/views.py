@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
 from flask_login import current_user, login_required
 
 from carplanner import db, app
-from carplanner.models import Masina
+from carplanner.models import Masina, Marca
 
 from carplanner.masini.forms import AddVehicleForm
 
@@ -14,7 +14,7 @@ masini = Blueprint('masini',__name__)
 def addVehicle():
   app.logger.info("Am intrat in addvehicle")
   form = AddVehicleForm()
-  app.logger.info("Dupa intrat in addvehicle")
+  form.modelMasina.choices = [(str(marca.IDAuto), marca.modelMasina) for marca in Marca.query.filter_by().all()]
   if form.validate_on_submit():
     app.logger.info("Am intrat in addvehicle -> validate_on_submit")
     app.logger.info("form.marcaMasina.data = " + str(form.marcaMasina.data))
@@ -27,16 +27,40 @@ def addVehicle():
     app.logger.info("form.VIN.data = " + form.VIN.data)
     app.logger.info("form.detaliiMasina.data = " + form.detaliiMasina.data)
 
-    '''blog_post = BlogPost(title=form.title.data,
-                       text=form.text.data,
-                       user_id=current_user.id
-                       )
-    db.session.add(blog_post)
-    db.session.commit()'''
-    flash("Vehicul adaugat cu succes")
-    return redirect(url_for('useri.userhome', email=current_user.email))
+  '''blog_post = BlogPost(title=form.title.data,
+                     text=form.text.data,
+                     user_id=current_user.id
+                     )
+  db.session.add(blog_post)
+  db.session.commit()'''
+  '''    flash("Vehicul adaugat cu succes")
+  return redirect(url_for('useri.userhome', email=current_user.email))
+  '''
+
+
+
 
   return render_template('addvehicle.html',form=form)
+
+@masini.route('/model/<marca>')
+@login_required
+def model(marca):
+  app.logger.info("Am intrat in model")
+
+  modele = Marca.query.filter_by(marcaMasina = marca).all()
+
+  modelArray = []
+
+  for model in modele:
+    modelObj = {}
+    modelObj['IDAuto'] = str(model.IDAuto)
+    modelObj['modelMasina'] = model.modelMasina
+    modelArray.append(modelObj)
+
+  app.logger.info(modelArray)
+
+  return jsonify({'modele' : modelArray})
+
 
 '''
 # int: makes sure that the blog_post_id gets passed as in integer
