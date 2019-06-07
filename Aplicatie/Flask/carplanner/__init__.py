@@ -24,7 +24,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
 ###########################
 #### LOGIN CONFIGS #######
 #########################
@@ -36,6 +35,14 @@ login_manager.init_app(app)
 
 # Tell users what view to go to when they need to login.
 login_manager.login_view = "useri.login"
+
+
+
+from carplanner.models import User, Masina, Scadent, Marca, RevizieDefault
+# Create the tables in the database
+db.create_all()
+db.session.commit()
+
 
 
 ##############################
