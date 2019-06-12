@@ -9,9 +9,9 @@ from carplanner.masini.forms import AddVehicleForm
 masini = Blueprint('masini',__name__)
 
 
-@masini.route('/addvehicle',methods=['GET','POST'])
+@masini.route('/<email>/addvehicle',methods=['GET','POST'])
 @login_required
-def addVehicle():
+def addVehicle(email):
   app.logger.info("Am intrat in addvehicle")
   form = AddVehicleForm()
   form.modelMasina.choices = [(str(marca.IDAuto), marca.modelMasina) for marca in Marca.query.filter_by().all()]
@@ -22,20 +22,31 @@ def addVehicle():
     app.logger.info("form.numarInmatriculare.data = " + form.numarInmatriculare.data)
     app.logger.info("form.kilometraj.data = " + form.kilometraj.data)
     app.logger.info("form.anFabricatie.data = " + str(form.anFabricatie.data))
+    app.logger.info("form.combustibil.data = " + str(form.combustibil.data))
     app.logger.info("form.capacitateCilindrica.data = " + str(form.capacitateCilindrica.data))
     app.logger.info("form.codMotor.data = " + form.codMotor.data)
     app.logger.info("form.VIN.data = " + form.VIN.data)
     app.logger.info("form.detaliiMasina.data = " + form.detaliiMasina.data)
+    app.logger.info("current_user.email = " + current_user.email)
 
-  '''blog_post = BlogPost(title=form.title.data,
-                     text=form.text.data,
-                     user_id=current_user.id
-                     )
-  db.session.add(blog_post)
-  db.session.commit()'''
-  '''    flash("Vehicul adaugat cu succes")
-  return redirect(url_for('useri.userhome', email=current_user.email))
-  '''
+    if form.anFabricatie.data == "":
+      form.anFabricatie.data = 1900
+    if form.capacitateCilindrica.data == "":
+      form.capacitateCilindrica.data = 0
+    if form.codMotor.data == "":
+      form.codMotor.data = " "
+    if form.VIN.data == "":
+      form.VIN.data = " "
+    if form.detaliiMasina.data == "":
+      form.detaliiMasina.data = " "
+
+    masina = Masina(current_user.IDUser, form.modelMasina.data, form.detaliiMasina.data, form.VIN.data, form.combustibil.data, form.capacitateCilindrica.data, form.anFabricatie.data, form.codMotor.data, form.numarInmatriculare.data, form.kilometraj.data, 0)
+    db.session.add(masina)
+    db.session.commit()
+    flash("Vehicul adaugat cu succes")
+
+    return redirect(url_for('scadente.defaultScadent', email=current_user.email, numarInmatriculare=form.numarInmatriculare.data))
+
 
 
 

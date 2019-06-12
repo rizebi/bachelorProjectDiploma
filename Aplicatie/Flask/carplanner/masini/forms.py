@@ -24,11 +24,15 @@ class AddVehicleForm(FlaskForm):
   for marca in marciModele:
     marciModeleForm.append((marca.IDAuto, marca.modelMasina))
 
+  choicesCombustibil = [("Benzina", "Benzina"), ("Motorina","Motorina"), ("Electric","Electric"), ("Hibrid","Hibrid"), ("Benzina + GPL","Benzina + GPL"), ("Hidrogen","Hidrogen")]
+
   marcaMasina = SelectField('marca', choices=marciForm, render_kw={"placeholder": "Marca Vehicul"})
   modelMasina = SelectField('model', coerce=str, choices=[], render_kw={"placeholder": "Model Vehicul"})
   numarInmatriculare = StringField(validators=[DataRequired(message = "Introduceti numarul de inmatriculare")], render_kw={"placeholder": "Numar Inmatriculare*"})
   kilometraj = StringField(validators=[DataRequired(message = "Introduceti kilometrajul")], render_kw={"placeholder": "Kilometraj*"})
   anFabricatie = StringField(render_kw={"placeholder": "An Fabricatie"})
+  combustibil = SelectField('combustibil', choices=choicesCombustibil, render_kw={"placeholder": "Combustibil"})
+
   capacitateCilindrica = StringField(render_kw={"placeholder": "Capacitate Cilindrica"})
   codMotor = StringField(render_kw={"placeholder": "Cod Motor"})
   VIN = StringField(render_kw={"placeholder": "VIN"})

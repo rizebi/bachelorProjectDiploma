@@ -27,6 +27,7 @@ Jquery    https://www.appelsiini.net/download/jquery.chained.js
 Glusterfs?
 Amazon
 Pagini 404 custom
+Probleme master.css la paginile gen /email@email.com/1
 
 Probleme mysql cu python3, a trebuit sa instalez
 pip install mysql-connector
@@ -54,4 +55,3 @@ Am belit-o daca nu merge cu 3 containere de flask sa se mentina sesiunea
 Am uitat parola?
 
 Model.query is a shortcut to db.session.query(Model)
-

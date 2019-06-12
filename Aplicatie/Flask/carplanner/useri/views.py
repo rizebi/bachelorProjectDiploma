@@ -89,9 +89,9 @@ def logout():
 
 
 
-@useri.route("/updateuser", methods=['GET', 'POST'])
+@useri.route("/<email>/updateuser", methods=['GET', 'POST'])
 @login_required
-def updateuser():
+def updateuser(email):
   form = UpdateUserForm()
   #app.logger.info("Am intrat in updateuser")
 

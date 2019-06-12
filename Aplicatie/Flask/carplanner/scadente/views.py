@@ -3,9 +3,21 @@ from flask_login import current_user, login_required
 
 from carplanner import db
 from carplanner.models import Scadent
-from carplanner.scadente.forms import ScadentForm
+from carplanner.scadente.forms import DefaultScadentForm
 
 scadente = Blueprint('scadente',__name__)
+
+
+@scadente.route('/<email>/<numarInmatriculare>/defaultscadent',methods=['GET','POST'])
+@login_required
+def defaultScadent(email, numarInmatriculare):
+
+  form = DefaultScadentForm(current_user.IDUser, numarInmatriculare)
+  return render_template('defaultscadent.html', form=form)
+
+
+
+
 '''
 @scadente.route('/create',methods=['GET','POST'])
 

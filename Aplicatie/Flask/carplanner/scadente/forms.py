@@ -1,12 +1,14 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
+from carplanner import db
+from carplanner.models import Marca, Scadent
 
-'''
-class BlogPostForm(FlaskForm):
+
+class DefaultScadentForm(FlaskForm):
     # no empty titles or text possible
     # we'll grab the date automatically from the Model later
-    title = StringField('Title', validators=[DataRequired()])
-    text = TextAreaField('Text', validators=[DataRequired()])
-    submit = SubmitField('BlogPost')
-'''
+    #title = StringField('Title', validators=[DataRequired()])
+    #text = TextAreaField('Text', validators=[DataRequired()])
+    #submit = SubmitField('BlogPost')
+    pass
