@@ -12,7 +12,8 @@ scadente = Blueprint('scadente',__name__)
 @login_required
 def defaultScadent(email, numarInmatriculare):
 
-  form = DefaultScadentForm(current_user.IDUser, numarInmatriculare)
+  form = DefaultScadentForm()
+  form.init2("banaaaaaa")
   return render_template('defaultscadent.html', form=form)
 
 
