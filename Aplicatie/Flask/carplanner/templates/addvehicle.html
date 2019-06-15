@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-<script type="text/javascript" src="static/master.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/addvehicle.css"/>
+
+
+<script type="text/javascript" src="/static/master.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
@@ -77,75 +80,85 @@
 </script>#}-->
 
 
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Introdu detaliile masinii</h3>
+			</div>
+			<div class="card-body card-body-custom">
 
-<form method="POST">
-  {{ form.hidden_tag() }}
-  {{ form.csrf_token }}
+        <form method="POST">
+          {{ form.hidden_tag() }}
+          {{ form.csrf_token }}
 
-  {{ form.marcaMasina(class_="form-control") }}
-  {{ form.modelMasina(class_="form-control") }}
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
+          {{ form.marcaMasina(class_="form-control") }}
+          {{ form.modelMasina(class_="form-control") }}
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.numarInmatriculare(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.kilometraj(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.anFabricatie(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.combustibil(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.capacitateCilindrica(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.codMotor(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.VIN(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            {{ form.detaliiMasina(class_="form-control") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.submit(class_="btn float-right login_btn") }}
+          </div>
+
+        </form>
+      </div>
     </div>
-    {{ form.numarInmatriculare(class_="form-control") }}
   </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.kilometraj(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.anFabricatie(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.combustibil(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.capacitateCilindrica(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.codMotor(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.VIN(class_="form-control") }}
-  </div>
-
-  <div class="input-group form-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text"><i class="fas fa-user"></i></span>
-    </div>
-    {{ form.detaliiMasina(class_="form-control") }}
-  </div>
-
-  <div class="form-group">
-    {{ form.submit(class_="btn float-right login_btn") }}
-  </div>
-
-</form>
-
+</div>
 
 <script>
 

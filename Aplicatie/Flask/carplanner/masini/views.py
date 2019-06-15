@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint,
 from flask_login import current_user, login_required
 
 from carplanner import db, app
-from carplanner.models import Masina, Marca
+from carplanner.models import Masina, Marca, Scadent
 
 from carplanner.masini.forms import AddVehicleForm
 
@@ -30,7 +30,7 @@ def addVehicle(email):
     app.logger.info("current_user.email = " + current_user.email)
 
     if form.anFabricatie.data == "":
-      form.anFabricatie.data = 1900
+      form.anFabricatie.data = 0
     if form.capacitateCilindrica.data == "":
       form.capacitateCilindrica.data = 0
     if form.codMotor.data == "":
@@ -71,6 +71,54 @@ def model(marca):
   app.logger.info(modelArray)
 
   return jsonify({'modele' : modelArray})
+
+
+
+@masini.route('/<email>/<IDMasina>/details',methods=['GET','POST'])
+@login_required
+def detailsVehicle(email, IDMasina):
+
+  masina, marca = db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.IDMasina == IDMasina).first()
+  scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
+  scadentMaximKm = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.kmExp.asc()).first()
+
+  if scadentMaximDate is None:
+    scadentMaximDateAfis = "NA"
+  else:
+    scadentMaximDateAfis = scadentMaximDate.dataExp
+  if scadentMaximKm is None:
+    scadentMaximKmAfis = "NA"
+  else:
+    scadentMaximKmAfis = scadentMaximKm.kmExp
+
+  masinaPregatita = {"marcaMasina" : marca.marcaMasina, "modelMasina" : marca.modelMasina,
+                     "numarInmatriculare" : masina.numarInmatriculare, "kilometraj" : masina.kilometraj,
+                     "scadentData" : scadentMaximDateAfis, "scadentKm" : scadentMaximKmAfis,
+                     "detaliiMasina" : masina.detaliiMasina, "VIN" : masina.VIN,
+                     "combustibil" : masina.combustibil, "capacitateCilindrica" : masina.capacitateCilindrica,
+                     "anFabricatie" : masina.anFabricatie, "codMotor" : masina.codMotor,
+                     "crestereZilnica" : masina.crestereZilnica, "IDMasina" : masina.IDMasina}
+
+  scadente = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).all()
+
+
+
+  return render_template('detailsvehicle.html', masina=masinaPregatita, scadente=scadente)
+
+
+
+
+
+@masini.route('/<email>/<IDMasina>/remove',methods=['GET','POST'])
+@login_required
+def removeVehicle(email, IDMasina):
+  return render_template('removevehicle.html')
+
+
+@masini.route('/<email>/<IDMasina>/edit',methods=['GET','POST'])
+@login_required
+def editVehicle(email, IDMasina):
+  return render_template('editvehicle.html')
 
 
 '''

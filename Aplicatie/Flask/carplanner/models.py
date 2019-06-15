@@ -97,7 +97,7 @@ class Scadent(db.Model):
   IDMasina = db.Column(db.Integer, db.ForeignKey('masini.IDMasina'), nullable=False)
   dataExp = db.Column(db.Date)
   areKM = db.Column(db.Boolean)
-  kmExp = db.Column(db.String(20))
+  kmExp = db.Column(db.Integer)
 
   def __init__(self, IDRevizie, numeScadent, IDMasina, dataExp, areKM, kmExp):
     self.numeScadent = numeScadent
@@ -105,6 +105,7 @@ class Scadent(db.Model):
     self.areKM = areKM
     self.IDRevizie = IDRevizie
     self.IDMasina = IDMasina
+    self.kmExp = kmExp
 
   def __repr__(self):
     return f"IDScadent: {self.IDScadent}, IDRevizie: {self.IDRevizie}"

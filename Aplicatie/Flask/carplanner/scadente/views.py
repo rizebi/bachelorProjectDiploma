@@ -1,9 +1,10 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import current_user, login_required
 
-from carplanner import db
-from carplanner.models import Scadent
+from carplanner import db, app
+from carplanner.models import Scadent, Masina, RevizieDefault
 from carplanner.scadente.forms import DefaultScadentForm
+import datetime
 
 scadente = Blueprint('scadente',__name__)
 
@@ -12,11 +13,67 @@ scadente = Blueprint('scadente',__name__)
 @login_required
 def defaultScadent(email, numarInmatriculare):
 
+  now = datetime.datetime.now()
   form = DefaultScadentForm()
-  form.init2("banaaaaaa")
+
+  if form.validate_on_submit():
+    app.logger.info("Am intrat in defaultScadent -> validate_on_submit")
+    app.logger.info("form.default1.data = " + str(form.default1.data))
+    app.logger.info("form.default2.data = " + str(form.default2.data))
+    app.logger.info("form.default3.data = " + str(form.default3.data))
+    app.logger.info("form.default4.data = " + str(form.default4.data))
+    scadente = []
+    if form.default1.data is True:
+      masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
+      revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Ulei + filtre").first()
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadente.append(scadenta)
+
+    if form.default2.data is True:
+      masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
+      revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Distributie").first()
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadente.append(scadenta)
+
+    if form.default3.data is True:
+      masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
+      revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Elemente franare").first()
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadente.append(scadenta)
+
+    if form.default4.data is True:
+      masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
+      revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Baterie").first()
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadente.append(scadenta)
+
+
+    db.session.add_all(scadente)
+    db.session.commit()
+    flash("Reviziile default selectate au fost adaugate cu succes masinii tale")
+
+    return redirect(url_for('useri.userhome', email=current_user.email))
+
+
+
   return render_template('defaultscadent.html', form=form)
 
 
+@scadente.route('/<email>/<IDMasina>/add',methods=['GET','POST'])
+@login_required
+def addScadent(email, IDMasina):
+  return render_template('addscadent.html')
+
+@scadente.route('/<email>/<IDMasina>/<IDScadent>/edit',methods=['GET','POST'])
+@login_required
+def editScadent(email, IDMasina, IDScadent):
+  return render_template('editscadent.html')
+
+
+@scadente.route('/<email>/<IDMasina>/<IDScadent>/remove',methods=['GET','POST'])
+@login_required
+def removeScadent(email, IDMasina, IDScadent):
+  return render_template('removescadent.html')
 
 
 '''

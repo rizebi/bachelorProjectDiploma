@@ -2,10 +2,9 @@ from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from carplanner import db, app
 from werkzeug.security import generate_password_hash,check_password_hash
-from carplanner.models import User, Masina
+from carplanner.models import User, Masina, Marca, Scadent
 from carplanner.useri.forms import RegistrationForm, LoginForm, UpdateUserForm, ForgotForm
 from carplanner.useri.picture_handler import add_profile_pic
-
 
 
 useri = Blueprint('useri', __name__)
@@ -133,7 +132,27 @@ def updateuser(email):
 def userhome(email):
   page = request.args.get('page', 1, type=int)
   user = User.query.filter_by(email=email).first_or_404()
-  masini = []#Masina.query.filter_by(proprietar=user).paginate(page=page, per_page=5)
+  masini = []
+  i = 0
+  #Masina.query.filter_by(proprietar=user).paginate(page=page, per_page=10)
+  for masina, marca in db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
+    scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
+    scadentMaximKm = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.kmExp.asc()).first()
+    #app.logger.info("scadentMaximDate = " + str(scadentMaximDate))
+    #app.logger.info("scadentMaximKm = " + str(scadentMaximKm))
+    if scadentMaximDate is None:
+      scadentMaximDateAfis = "NA"
+    else:
+      scadentMaximDateAfis = scadentMaximDate.dataExp
+    if scadentMaximKm is None:
+      scadentMaximKmAfis = "NA"
+    else:
+      scadentMaximKmAfis = scadentMaximKm.kmExp
+
+    i = i + 1
+    masini.append({"id" : i, "IDMasina" : masina.IDMasina,"marcaMasina" : marca.marcaMasina, "modelMasina" : marca.modelMasina, "numarInmatriculare" : masina.numarInmatriculare, "kilometraj" : masina.kilometraj, "scadentData" : scadentMaximDateAfis, "scadentKm" : scadentMaximKmAfis})
+
+  app.logger.info("masini = " + str(masini))
   if user.prenumeUser != None:
     nume = user.prenumeUser
   else:

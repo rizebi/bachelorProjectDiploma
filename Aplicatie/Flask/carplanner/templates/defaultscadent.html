@@ -1,14 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
 
+<link rel="stylesheet" type="text/css" href="/static/defaultscadent.css"/>
+<!--Fontawesome CDN-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-<h1>defaultscaent</h1><h1>defaultscaent</h1><h1>defaultscaent</h1><h1>defaultscaent</h1>
 
 
-<div class="input-group form-group">
-  <div class="input-group-prepend">
-    <span class="input-group-text"><i class="fas fa-user"></i></span>
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Selecteaza scadentele default pe care doresti sa le adaugi vehiculului</h3>
+			</div>
+			<div class="card-body card-body-custom">
+				<form method="POST">
+          {{ form.hidden_tag() }}
+          {{ form.csrf_token }}
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <p>Ulei + Filtre</p>
+            {{ form.default1(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <p>Distributie</p>
+            {{ form.default2(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <p>Elemente Franare</p>
+            {{ form.default3(class_="form-control") }}
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <p>Baterie</p>
+            {{ form.default4(class_="form-control") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.submit(class_="btn float-right login_btn") }}
+					</div>
+
+        </form>
+      </div>
+    </div>
   </div>
-  {{ form.name(class_="form-control") }}
 </div>
+
+
+
+
 {% endblock content %}

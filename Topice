@@ -55,3 +55,11 @@ Am belit-o daca nu merge cu 3 containere de flask sa se mentina sesiunea
 Am uitat parola?
 
 Model.query is a shortcut to db.session.query(Model)
+
+Extra se pot adauga (in DB) reviziiDefault specifice pentru fiecare model in parte
+
+De ce se fute cand sterg baza de date? :/
+
+Vorbit de pagini 403 401
+
+Stergere cont (daca mai facem)

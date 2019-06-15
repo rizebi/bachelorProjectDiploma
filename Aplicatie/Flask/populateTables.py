@@ -41,7 +41,7 @@ def populateMasina():
   masini = []
   masini.append(Masina(1, 562, "Sotie", "VWER543ED354W1265", "Benzina", 1500, 2013, "BMN", "AG16UNU", "95435", "12"))
   masini.append(Masina(1, 536, "Andrei", "TRER343ED354AA262", "Motorina", 1900, 2016, "AF45R", "AG99UNU", "135433", "34"))
-  masini.append(Masina(1, 485, "Andrei", "WDB9061352N438162", "Motorina", 5000, 2019, "W629", "AG01UNU", "15430", "50"))
+  masini.append(Masina(1, 485, "Personala", "WDB9061352N438162", "Motorina", 5000, 2019, "W629", "AG01UNU", "15430", "50"))
   masini.append(Masina(1, 430, "Roxana", "LRF9061352R438100", "Electric", 0, 2017, "400W", "AG77UNU", "23430", "17"))
 
   masini.append(Masina(2, 562, "Angajat1", "WDB9061352N438234", "Motorina", 2200, 2018, "W629", "AG13DOI", "195435", "102"))
@@ -55,7 +55,7 @@ def populateMasina():
   db.session.commit()
 
 if __name__ == '__main__':
-  #populateMarca()
-  #populateRevizieDefault()
+  populateMarca()
+  populateRevizieDefault()
   populateUser()
   populateMasina()

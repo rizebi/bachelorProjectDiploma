@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="/static/detailsvehicle.css"/>
+
+
+<h2>Detalii suplimentare</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nr. Inmatriculare</th>
+      <th scope="col">{{ masina["numarInmatriculare"]}}</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <th scope="row">Marca Masina</th>
+        <td>{{ masina["marcaMasina"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Model Masina</th>
+        <td>{{ masina["modelMasina"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Kilometraj</th>
+        <td>{{ masina["kilometraj"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Urmatorul Scadent (Data)</th>
+        <td>{{ masina["scadentData"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Urmatorul Scadent (Km)</th>
+        <td>{{ masina["scadentKm"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">An Fabricatie</th>
+        <td>{{ masina["anFabricatie"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Combustibil</th>
+        <td>{{ masina["combustibil"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Capacitate Cilindrica</th>
+        <td>{{ masina["capacitateCilindrica"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Cod Motor</th>
+        <td>{{ masina["codMotor"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">VIN</th>
+        <td>{{ masina["VIN"]}}</td>
+      </tr>
+      <tr>
+        <th scope="row">Estimare Zilnica</th>
+        <td>{{ masina["crestereZilnica"]}} km</td>
+      </tr>
+      <tr>
+        <th scope="row">Detalii</th>
+        <td>{{ masina["detaliiMasina"]}}</td>
+      </tr>
+  </tbody>
+</table>
+
+
+<h2>Scadentele pentru aceasta masina:</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nume Scadent</th>
+      <th scope="col">Data Expirare</th>
+      <th scope="col">Km Expirare</th>
+      <th scope="col">Editeaza Scadent</th>
+      <th scope="col">Sterge Scadent</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for scadent in scadente %}
+      <tr>
+        <th scope="row">{{ scadent.numeScadent }}</th>
+        <td>{{ scadent.dataExp }}</td>
+        <td>{{ scadent.kmExp }}</td>
+        <td><a href="{{ url_for('scadente.editScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent)}}">Editeaza</a></td>
+        <td><a href="{{ url_for('scadente.removeScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent )}}">Sterge</a></td>
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="form-group btn float-left login_btn">
+  <a href="{{ url_for('scadente.addScadent', email=current_user.email, IDMasina=masina['IDMasina'])}}">Adauga Scadent Nou</a>
+</div>
+
+
+
+{% endblock %}
