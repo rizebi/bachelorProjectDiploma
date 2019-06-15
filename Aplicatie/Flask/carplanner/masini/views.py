@@ -80,7 +80,7 @@ def detailsVehicle(email, IDMasina):
 
   masina, marca = db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.IDMasina == IDMasina).first()
   scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
-  scadentMaximKm = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.kmExp.asc()).first()
+  scadentMaximKm = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina, Scadent.areKM == 1).order_by(Scadent.kmExp.asc()).first()
 
   if scadentMaximDate is None:
     scadentMaximDateAfis = "NA"

@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from carplanner import db, app
 from carplanner.models import Scadent, Masina, RevizieDefault
-from carplanner.scadente.forms import DefaultScadentForm
+from carplanner.scadente.forms import DefaultScadentForm, AddScadentForm
 import datetime
 
 scadente = Blueprint('scadente',__name__)
@@ -62,7 +62,31 @@ def defaultScadent(email, numarInmatriculare):
 @scadente.route('/<email>/<IDMasina>/add',methods=['GET','POST'])
 @login_required
 def addScadent(email, IDMasina):
-  return render_template('addscadent.html')
+
+
+  form = AddScadentForm()
+
+  if form.validate_on_submit():
+    now = datetime.datetime.now()
+    masina = Masina.query.filter_by(IDMasina = IDMasina).first()
+    if form.viataKm.data == 0 or form.viataKm.data is None or form.viataKm.data == "" :
+      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), False, 0)
+    else:
+      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), True, masina.kilometraj + int(form.viataKm.data))
+
+    db.session.add(scadent)
+    db.session.commit()
+    flash('Scadentul a fost adaugat cu succces!')
+    return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))
+
+
+
+  return render_template('addscadent.html', form=form)
+
+
+
+
+
 
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/edit',methods=['GET','POST'])
 @login_required
@@ -73,7 +97,9 @@ def editScadent(email, IDMasina, IDScadent):
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/remove',methods=['GET','POST'])
 @login_required
 def removeScadent(email, IDMasina, IDScadent):
-  return render_template('removescadent.html')
+
+  scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
+  return render_template('removescadent.html', scadent=scadent)
 
 
 '''

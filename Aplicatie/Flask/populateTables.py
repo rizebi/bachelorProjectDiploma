@@ -16,6 +16,9 @@ def populateMarca():
 def populateRevizieDefault():
   toateMarcile = Marca.query.all()
   reviziiDefault = []
+  revizieDefault = RevizieDefault(1, "Custom", 0, 0)
+  reviziiDefault.append(revizieDefault)
+  
   for marca in toateMarcile:
     revizieDefault = RevizieDefault(marca.IDAuto, "Ulei + Filtre", 365, 15000)
     reviziiDefault.append(revizieDefault)

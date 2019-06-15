@@ -82,7 +82,11 @@
       <tr>
         <th scope="row">{{ scadent.numeScadent }}</th>
         <td>{{ scadent.dataExp }}</td>
-        <td>{{ scadent.kmExp }}</td>
+        {% if scadent.kmExp == 0 %}
+          <td>NA</td>
+        {% else %}
+          <td>{{ scadent.kmExp }}</td>
+        {% endif %}
         <td><a href="{{ url_for('scadente.editScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent)}}">Editeaza</a></td>
         <td><a href="{{ url_for('scadente.removeScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent )}}">Sterge</a></td>
 
@@ -91,10 +95,12 @@
   </tbody>
 </table>
 
-<div class="form-group btn float-left login_btn">
-  <a href="{{ url_for('scadente.addScadent', email=current_user.email, IDMasina=masina['IDMasina'])}}">Adauga Scadent Nou</a>
-</div>
 
+<a type="button" class="btn float-left login_btn" href="{{ url_for('scadente.addScadent', email=current_user.email, IDMasina=masina['IDMasina'])}}">Adauga Scadent Nou</a>
 
+<br>
+<br>
+<br>
+<br>
 
 {% endblock %}

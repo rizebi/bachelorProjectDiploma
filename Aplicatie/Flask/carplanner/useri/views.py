@@ -137,7 +137,8 @@ def userhome(email):
   #Masina.query.filter_by(proprietar=user).paginate(page=page, per_page=10)
   for masina, marca in db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
     scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
-    scadentMaximKm = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.kmExp.asc()).first()
+    scadentMaximKm = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina, Scadent.areKM == 1).order_by(Scadent.kmExp.asc()).first()
+
     #app.logger.info("scadentMaximDate = " + str(scadentMaximDate))
     #app.logger.info("scadentMaximKm = " + str(scadentMaximKm))
     if scadentMaximDate is None:
