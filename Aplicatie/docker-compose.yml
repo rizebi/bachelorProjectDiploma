@@ -38,6 +38,7 @@ services:
         condition: on-failure
     volumes:
       - /var/lib/car-planner/mysql:/var/lib/mysql
+      - /home/ebi/Desktop/Git/licenta/Aplicatie/MySQL/mycustom.cnf:/etc/mysql/conf.d/mycustom.cnf
     networks:
       - webnet
 

@@ -17,12 +17,12 @@ fi
 
 echo Exit Docker Swarm
 sudo docker swarm leave --force
-sleep 5
+sleep 3
 if [ "$1" != "stop" ]; then
   echo Init Docker Swarm
   sudo docker swarm init
 fi
-sleep 5
+sleep 3
 
 if [ "$1" == "first" ]; then
   # delete all containers

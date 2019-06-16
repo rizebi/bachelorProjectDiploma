@@ -92,8 +92,16 @@
           {{ form.hidden_tag() }}
           {{ form.csrf_token }}
 
-          {{ form.marcaMasina(class_="form-control") }}
-          {{ form.modelMasina(class_="form-control") }}
+        <div class="selector">
+          <label for="mark">Marca Autovehicul</label>
+          <div class="mark-and-model-selector">
+            {{ form.marcaMasina(class_="form-control") }}
+          </div>
+          <label for="model">Model Autovehicul</label>
+          <div class="mark-and-model-selector">
+              {{ form.modelMasina(class_="form-control") }}
+          </div>
+        </div>
           <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -181,6 +189,16 @@
     });
   }
 </script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 
 

@@ -21,6 +21,7 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:mypassword@mysql/car-planner'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 3600
 
 db = SQLAlchemy(app)
 

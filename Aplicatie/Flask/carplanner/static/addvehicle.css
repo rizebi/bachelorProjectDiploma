@@ -3,33 +3,35 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-height: 100%;
-font-family: 'Numans', sans-serif;
+	height: 100%;
+	font-family: 'Numans', sans-serif;
 }
 
 .container{
-height: 100%;
-align-content: center;
+	padding-top: 50px;
+	height: 100%;
+	align-content: center;
 }
 
 .card{
-height: 670px;
-margin-top: auto;
-margin-bottom: auto;
-width: 500px;
-background-color: rgba(0,0,0,0.5) !important;
+	height: 800px;
+	margin-top: auto;
+	margin-bottom: auto;
+	width: 600px;
+	background-color: rgba(0,0,0,0.5) !important;
 }
 
 .card-header h3{
-color: white;
+	color: white;
 }
 
 .card-body-custom{
+	/* padding:30px; */
+	padding-top: 10px;
 	display:flex;
 	justify-content: center;
 	flex-direction: column;
 	align-content: center;
-	height: 570px;
 }
 
 .input-group-prepend span{
@@ -58,4 +60,16 @@ color: white;
 .links a{
 margin-left: 4px;
 color: #261E73;
+}
+
+.mark-and-model-selector{
+	margin-bottom: 1rem;
+}
+.selector{
+	padding-bottom: 20px;
+}
+label{
+	color: white;
+	font-weight: normal;
+	font-size: 20px;
 }

@@ -60,3 +60,9 @@ color: white;
 margin-left: 4px;
 color: #261E73;
 }
+
+label{
+	color: white;
+	font-weight: normal;
+	font-size: 17px;
+}

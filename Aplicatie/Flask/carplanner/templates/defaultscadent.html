@@ -19,15 +19,15 @@
           {{ form.csrf_token }}
 
 
-          <div class="input-group form-group">
+          <!--{# <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
             <p>Ulei + Filtre</p>
             {{ form.default1(class_="form-control") }}
-          </div>
+          </div> #}-->
 
-          <div class="input-group form-group">
+          <!--{# <div class="input-group form-group">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
@@ -49,7 +49,26 @@
             </div>
             <p>Baterie</p>
             {{ form.default4(class_="form-control") }}
-          </div>
+          </div> #}-->
+				<div class="check-box">
+					{{ form.default1(class_="checkmark") }}
+					<p class="">Ulei si Filtre</p>
+				</div>
+
+				<div class="check-box">
+					{{ form.default2(class_="checkmark") }}
+					<p class="">Distributie</p>
+				</div>
+
+				<div class="check-box">
+					{{ form.default3(class_="checkmark") }}
+					<p class="">Elemente Franare</p>
+				</div>
+
+				<div class="check-box">
+					{{ form.default4(class_="checkmark") }}
+					<p class="">Batere</p>
+				</div>
 
           <div class="form-group">
             {{ form.submit(class_="btn float-right login_btn") }}
