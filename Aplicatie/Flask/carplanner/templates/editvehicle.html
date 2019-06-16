@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 
+
 <form method="POST">
-  {% if form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors%}
+  {% if form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors or form.codMotor.errors or form.VIN.errors or form.detaliiMasina.errors%}
     <div class="alert alert-danger" role="alert">
   {% endif %}
 
@@ -42,11 +43,32 @@
     {% endfor %}
   {% endif %}
 
-  {% if form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors%}
+
+  {% if form.codMotor.errors %}
+    {% for error in form.codMotor.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.VIN.errors %}
+    {% for error in form.VIN.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.detaliiMasina.errors %}
+    {% for error in form.detaliiMasina.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.numarInmatriculare.errors or form.kilometraj.errors or form.capacitateCilindrica.errors or form.anFabricatie.errors or form.codMotor.errors or form.VIN.errors or form.detaliiMasina.errors%}
     </div>
   {% endif %}
 </form>
-
 
 
 <div class="container">

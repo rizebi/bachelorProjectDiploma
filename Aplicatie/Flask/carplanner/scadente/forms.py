@@ -33,11 +33,18 @@ class AddScadentForm(FlaskForm):
   def validate_viataZile(form, field):
     if RepresentsInt(field.data) is False:
       raise ValidationError('Viata zile trebuie sa fie un numar')
+    if (len(str(field.data))) > 4:
+      raise ValidationError('Viata zile introdusa este prea mare')
 
   def validate_viataKm(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Viata kilometri trebuie sa fie un numar')
+    if (len(str(field.data))) > 7:
+      raise ValidationError('Viata kilometri introdusa este prea mare')
 
+  def validate_numeScadent(form, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Nume scadent introdus este prea lung')
 
 class EditScadentForm(FlaskForm):
 
@@ -49,10 +56,19 @@ class EditScadentForm(FlaskForm):
 
   submit = SubmitField('Actualizeaza Scadent!')
 
+
   def validate_viataZile(form, field):
     if RepresentsInt(field.data) is False:
       raise ValidationError('Viata zile trebuie sa fie un numar')
+    if (len(str(field.data))) > 4:
+      raise ValidationError('Viata zile introdusa este prea mare')
 
   def validate_viataKm(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Viata kilometri trebuie sa fie un numar')
+    if (len(str(field.data))) > 7:
+      raise ValidationError('Viata kilometri introdusa este prea mare')
+
+  def validate_numeScadent(form, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Nume scadent introdus este prea lung')

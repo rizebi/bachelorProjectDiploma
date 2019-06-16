@@ -12,17 +12,6 @@ def RepresentsInt(s):
     return False
 
 class AddVehicleForm(FlaskForm):
-  '''
-  marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
-  marciModele = Marca.query.filter_by().all()
-
-  marciForm = []
-  for marca in marci:
-    marciForm.append((marca[0], marca[0]))
-
-  marciModeleForm = []
-  for marca in marciModele:
-    marciModeleForm.append((marca.IDAuto, marca.modelMasina))'''
 
   choicesCombustibil = [("Benzina", "Benzina"), ("Motorina","Motorina"), ("Electric","Electric"), ("Hibrid","Hibrid"), ("Benzina + GPL","Benzina + GPL"), ("Hidrogen","Hidrogen")]
 
@@ -40,18 +29,39 @@ class AddVehicleForm(FlaskForm):
 
   submit = SubmitField('Adauga Vehicul')
 
-
   def validate_kilometraj(form, field):
     if RepresentsInt(field.data) is False:
       raise ValidationError('Kilometrajul trebuie sa fie un numar')
+    if (len(str(field.data))) > 7:
+      raise ValidationError('Kilometrajul introdus este prea mare')
 
   def validate_capacitateCilindrica(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Capacitatea cilindrica trebuie sa fie un numar')
+    if (len(str(field.data))) > 6:
+      raise ValidationError('Capacitatea cilindrica introdusa este prea lunga')
 
   def validate_anFabricatie(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Anul de fabricatie trebuie sa fie un numar')
+    if (len(str(field.data))) > 4:
+      raise ValidationError('Anul de fabricatie introdus este prea mare')
+
+  def validate_detaliiMasina(self, field):
+    if (len(str(field.data))) > 99:
+      raise ValidationError('Detaliile masinii introduse sunt prea lungi')
+
+  def validate_VIN(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('VIN-ul introdus este prea lung')
+
+  def validate_codMotor(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Codul motor introdus este prea lung')
+
+  def validate_numarInmatriculare(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Numarul de inmatriculare introdus este prea lung')
 
 class EditVehicleForm(FlaskForm):
 
@@ -73,11 +83,33 @@ class EditVehicleForm(FlaskForm):
   def validate_kilometraj(form, field):
     if RepresentsInt(field.data) is False:
       raise ValidationError('Kilometrajul trebuie sa fie un numar')
+    if (len(str(field.data))) > 7:
+      raise ValidationError('Kilometrajul introdus este prea mare')
 
   def validate_capacitateCilindrica(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Capacitatea cilindrica trebuie sa fie un numar')
+    if (len(str(field.data))) > 6:
+      raise ValidationError('Capacitatea cilindrica introdusa este prea lunga')
 
   def validate_anFabricatie(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Anul de fabricatie trebuie sa fie un numar')
+    if (len(str(field.data))) > 4:
+      raise ValidationError('Anul de fabricatie introdus este prea mare')
+
+  def validate_detaliiMasina(self, field):
+    if (len(str(field.data))) > 99:
+      raise ValidationError('Detaliile masinii introduse sunt prea lungi')
+
+  def validate_VIN(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('VIN-ul introdus este prea lung')
+
+  def validate_codMotor(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Codul motor introdus este prea lung')
+
+  def validate_numarInmatriculare(self, field):
+    if (len(str(field.data))) > 19:
+      raise ValidationError('Numarul de inmatriculare introdus este prea lung')
