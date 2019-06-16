@@ -12,22 +12,9 @@ masini = Blueprint('masini',__name__)
 @masini.route('/<email>/addvehicle',methods=['GET','POST'])
 @login_required
 def addVehicle(email):
-  app.logger.info("Am intrat in addvehicle")
   form = AddVehicleForm()
   form.modelMasina.choices = [(str(marca.IDAuto), marca.modelMasina) for marca in Marca.query.filter_by().all()]
   if form.validate_on_submit():
-    app.logger.info("Am intrat in addvehicle -> validate_on_submit")
-    app.logger.info("form.marcaMasina.data = " + str(form.marcaMasina.data))
-    app.logger.info("form.modelMasina.data = " + str(form.modelMasina.data))
-    app.logger.info("form.numarInmatriculare.data = " + form.numarInmatriculare.data)
-    app.logger.info("form.kilometraj.data = " + form.kilometraj.data)
-    app.logger.info("form.anFabricatie.data = " + str(form.anFabricatie.data))
-    app.logger.info("form.combustibil.data = " + str(form.combustibil.data))
-    app.logger.info("form.capacitateCilindrica.data = " + str(form.capacitateCilindrica.data))
-    app.logger.info("form.codMotor.data = " + form.codMotor.data)
-    app.logger.info("form.VIN.data = " + form.VIN.data)
-    app.logger.info("form.detaliiMasina.data = " + form.detaliiMasina.data)
-    app.logger.info("current_user.email = " + current_user.email)
 
     if form.anFabricatie.data == "":
       form.anFabricatie.data = 0
@@ -53,7 +40,6 @@ def addVehicle(email):
 @masini.route('/model/<marca>')
 @login_required
 def model(marca):
-  app.logger.info("Am intrat in model")
 
   modele = Marca.query.filter_by(marcaMasina = marca).all()
 
@@ -64,8 +50,6 @@ def model(marca):
     modelObj['IDAuto'] = str(model.IDAuto)
     modelObj['modelMasina'] = model.modelMasina
     modelArray.append(modelObj)
-
-  app.logger.info(modelArray)
 
   return jsonify({'modele' : modelArray})
 

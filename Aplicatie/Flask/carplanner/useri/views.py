@@ -13,9 +13,7 @@ useri = Blueprint('useri', __name__)
 @useri.route('/register', methods=['GET', 'POST'])
 def register():
   form = RegistrationForm()
-  #app.logger.info("Am intrat in register")
   if form.validate_on_submit():
-    #app.logger.info("Am intrat in register -> validate_on_submit")
     user = User(email=form.email.data,
                 numeUser=form.numeUser.data,
                 prenumeUser=form.prenumeUser.data,
@@ -32,9 +30,7 @@ def register():
 @useri.route('/login', methods=['GET', 'POST'])
 def login():
   form = LoginForm()
-  #app.logger.info("Am intrat in login")
   if form.validate_on_submit():
-    #app.logger.info("Am intrat in login -> validate_on_submit")
     # Grab the user from our User Models table
     user = User.query.filter_by(email = form.email.data).first()
 
@@ -43,7 +39,6 @@ def login():
     # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
     if user is not None and user.check_password(form.parola.data):
       #Log in the user
-      #app.logger.info("Am intrat in login -> check_password")
       login_user(user)
 
       # If a user was trying to visit a page that requires a login
@@ -65,9 +60,7 @@ def login():
 @useri.route('/uitatparola', methods=['GET', 'POST'])
 def uitatparola():
   form = ForgotForm()
-  #app.logger.info("Am intrat in uitatparola")
   if form.validate_on_submit():
-    #app.logger.info("Am intrat in uitatparola -> validate_on_submit")
 
     # Grab the user from our User Models table
     user = User.query.filter_by(email=form.email.data).first()
@@ -91,15 +84,12 @@ def logout():
 @login_required
 def updateuser(email):
   form = UpdateUserForm()
-  #app.logger.info("Am intrat in updateuser")
 
   if form.validate_on_submit():
-    #app.logger.info("Am intrat in updateuser -> validate_on_submit")
     if form.picture.data:
       email = current_user.email
       pic = add_profile_pic(form.picture.data, email)
       current_user.imagineProfil = pic
-    #app.logger.info("Am trecut de functie")
 
     current_user.email = form.email.data
     current_user.numeUser = form.numeUser.data
@@ -110,7 +100,7 @@ def updateuser(email):
 
     db.session.commit()
     flash('Datele contului au fost actualizate cu succes.')
-    return redirect(url_for('useri.updateuser'))
+    return redirect(url_for('useri.userhome', email=current_user.email))
 
   elif request.method == 'GET':
     form.email.data = current_user.email
@@ -118,12 +108,9 @@ def updateuser(email):
     form.prenumeUser.data = current_user.prenumeUser
     form.numeCompanie.data = current_user.numeCompanie
 
-  if current_user.prenumeUser != None:
-    nume = current_user.prenumeUser
-  else:
-    nume = current_user.email.split("@")[0]
+
   imagineProfil = url_for('static', filename='profile_pics/' + current_user.imagineProfil)
-  return render_template('updateuser.html', imagineProfil=imagineProfil, form=form, nume=nume)
+  return render_template('updateuser.html', imagineProfil=imagineProfil, form=form)
 
 
 @useri.route("/<email>/removeuser", methods=['GET', 'POST'])
@@ -140,6 +127,9 @@ def removeuseryes(email):
   for masina in masini:
     scadente = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina).delete()
     masina = db.session.query(Masina).filter(Masina.IDMasina == masina.IDMasina).delete()
+
+  logout_user()
+
   db.session.delete(user)
 
   db.session.commit()
@@ -158,13 +148,10 @@ def userhome(email):
   user = User.query.filter_by(email=email).first_or_404()
   masini = []
   i = 0
-  #Masina.query.filter_by(proprietar=user).paginate(page=page, per_page=10)
   for masina, marca in db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
     scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
     scadentMaximKm = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina, Scadent.areKM == 1).order_by(Scadent.kmExp.asc()).first()
 
-    #app.logger.info("scadentMaximDate = " + str(scadentMaximDate))
-    #app.logger.info("scadentMaximKm = " + str(scadentMaximKm))
     if scadentMaximDate is None:
       scadentMaximDateAfis = "NA"
     else:
@@ -177,9 +164,9 @@ def userhome(email):
     i = i + 1
     masini.append({"id" : i, "IDMasina" : masina.IDMasina,"marcaMasina" : marca.marcaMasina, "modelMasina" : marca.modelMasina, "numarInmatriculare" : masina.numarInmatriculare, "kilometraj" : masina.kilometraj, "scadentData" : scadentMaximDateAfis, "scadentKm" : scadentMaximKmAfis})
 
-  app.logger.info("masini = " + str(masini))
-  if user.prenumeUser != None:
-    nume = user.prenumeUser
+  if current_user.prenumeUser is None or current_user.prenumeUser == "" or current_user.prenumeUser == " ":
+    nume = current_user.email.split("@")[0]
   else:
-    nume = user.email.split("@")[0]
+    nume = current_user.prenumeUser
+
   return render_template('userhome.html', masini=masini, user=user, nume=nume)

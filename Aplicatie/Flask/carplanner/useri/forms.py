@@ -34,7 +34,20 @@ class RegistrationForm(FlaskForm):
         # Check if not None for that user email!
         if User.query.filter_by(email = field.data).first():
             raise ValidationError('Acest email este deja folosit!')
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Mailul introdus este prea lung')
 
+    def validate_numeUser(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Numele introdus este prea lung')
+
+    def validate_prenumeUser(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Prenumele introdus este prea lung')
+
+    def validate_numeCompanie(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Numele companiei introduse este prea lung')
 
 class UpdateUserForm(FlaskForm):
     email = StringField(validators=[DataRequired(message = "Introduceti mailul"),Email(message = "Mail invalid")], render_kw={"placeholder": "Email"})
@@ -50,3 +63,15 @@ class UpdateUserForm(FlaskForm):
         # Check if not None for that user email!
         if field.data != current_user.email and User.query.filter_by(email=field.data).first():
             raise ValidationError('Acest email este deja folosit!')
+
+    def validate_numeUser(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Numele introdus este prea lung')
+
+    def validate_prenumeUser(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Prenumele introdus este prea lung')
+
+    def validate_numeCompanie(self, field):
+        if (len(str(field.data))) > 29:
+          raise ValidationError('Numele companiei introduse este prea lung')

@@ -17,11 +17,7 @@ def defaultScadent(email, numarInmatriculare):
   form = DefaultScadentForm()
 
   if form.validate_on_submit():
-    app.logger.info("Am intrat in defaultScadent -> validate_on_submit")
-    app.logger.info("form.default1.data = " + str(form.default1.data))
-    app.logger.info("form.default2.data = " + str(form.default2.data))
-    app.logger.info("form.default3.data = " + str(form.default3.data))
-    app.logger.info("form.default4.data = " + str(form.default4.data))
+
     scadente = []
     if form.default1.data is True:
       masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()

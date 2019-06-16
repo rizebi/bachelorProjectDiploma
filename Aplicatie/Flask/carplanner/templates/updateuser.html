@@ -6,35 +6,57 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 <form method="POST">
-  {% if form.email.errors or form.parola.errors or form.parolaConfirm.errors%}
+  {% if form.email.errors or form.parola.errors or form.parolaConfirm.errors or form.numeUser.errors or form.prenumeUser.errors or form.numeCompanie.errors%}
     <div class="alert alert-danger" role="alert">
   {% endif %}
   {% if form.email.errors %}
-        {% for error in form.email.errors %}
-          {{ error }}
-          <br>
-        {% endfor %}
+    {% for error in form.email.errors %}
+      {{ error }}
+      <br>
+    {% endfor %}
 
   {% endif %}
 
   {% if form.parola.errors %}
-        {% for error in form.parola.errors %}
-        {{ error }}
-        <br>
-        {% endfor %}
+    {% for error in form.parola.errors %}
+    {{ error }}
+    <br>
+    {% endfor %}
   {% endif %}
 
   {% if form.parolaConfirm.errors %}
-        {% for error in form.parolaConfirm.errors %}
-        {{ error }}
-        <br>
-        {% endfor %}
+    {% for error in form.parolaConfirm.errors %}
+    {{ error }}
+    <br>
+    {% endfor %}
   {% endif %}
 
-  {% if form.email.errors or form.parola.errors or form.parolaConfirm.errors%}
+  {% if form.numeUser.errors %}
+    {% for error in form.numeUser.errors %}
+    {{ error }}
+    <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.prenumeUser.errors %}
+    {% for error in form.prenumeUser.errors %}
+    {{ error }}
+    <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.numeCompanie.errors %}
+    {% for error in form.numeCompanie.errors %}
+    {{ error }}
+    <br>
+    {% endfor %}
+  {% endif %}
+
+  {% if form.email.errors or form.parola.errors or form.parolaConfirm.errors or form.numeUser.errors or form.prenumeUser.errors or form.numeCompanie.errors%}
     </div>
   {% endif %}
 </form>
+
 
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
