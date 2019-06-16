@@ -46,6 +46,10 @@ background-color: #FFC312;
 width: 210px;
 }
 
+.butonadauga{
+	margin-top: 15px;
+}
+
 .login_btn:hover{
 color: black;
 background-color: white;

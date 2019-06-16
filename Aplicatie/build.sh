@@ -3,26 +3,14 @@
 #set -e
 
 if [ "$1" == "help" ]; then
-  echo "./build.sh help     <-  help"
-  echo "./build.sh first    <-  first run on machine"
-  echo "./build.sh flask    <-  build flask-image and start docker-compose"
-  echo "./build.sh emailer  <-  build emailer-image and start docker-compose"
-  echo "./build.sh all      <-  build all images and start docker-compose"
-  echo "./build.sh start    <-  start docker compose"
-  echo "./build.sh stop     <-  stop docker compose"
-  echo "./build.sh copy     <-  copy the files to /var/lib/car-planner/X"
-  exit
-fi
-
-if [ "$1" == "copy" ]; then
-  echo "Removing /var/lib/car-planner/flask/*"
-  sudo rm -rf /var/lib/car-planner/flask/*
-  echo "Removing /var/lib/car-planner/emailer/*"
-  sudo rm -rf /var/lib/car-planner/emailer/*
-  echo "Copying to /var/lib/car-planner/flask/*"
-  sudo cp -R ./Flask/* /var/lib/car-planner/flask/
-  echo "Copying to /var/lib/car-planner/emailer/*"
-  sudo cp -R ./Emailer/* /var/lib/car-planner/emailer/
+  echo "./build.sh help      <-  help"
+  echo "./build.sh first     <-  first run on machine"
+  echo "./build.sh flask     <-  build flask-image and start docker-compose"
+  echo "./build.sh emailer   <-  build emailer-image and start docker-compose"
+  echo "./build.sh all       <-  build all images and start docker-compose"
+  echo "./build.sh start     <-  start docker compose"
+  echo "./build.sh stop      <-  stop docker compose"
+  echo "./build.sh populate  <-  populate database tables"
   exit
 fi
 
@@ -100,4 +88,8 @@ if [ "$1" == "stop" ]; then
   # delete all containers
   echo "Delete all containers"
   sudo docker rm -f $(docker ps -a -q)
+fi
+
+if [ "$1" == "populate" ]; then
+  docker exec $(docker ps | grep flask | cut -d " " -f1 | head -1) python3 populateTables.py
 fi
