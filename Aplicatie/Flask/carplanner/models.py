@@ -98,14 +98,18 @@ class Scadent(db.Model):
   dataExp = db.Column(db.Date)
   areKM = db.Column(db.Boolean)
   kmExp = db.Column(db.Integer)
+  viataZile = db.Column(db.Integer)
+  viataKm = db.Column(db.Integer)
 
-  def __init__(self, IDRevizie, numeScadent, IDMasina, dataExp, areKM, kmExp):
+  def __init__(self, IDRevizie, numeScadent, IDMasina, dataExp, areKM, kmExp, viataZile, viataKm):
     self.numeScadent = numeScadent
     self.dataExp = dataExp
     self.areKM = areKM
     self.IDRevizie = IDRevizie
     self.IDMasina = IDMasina
     self.kmExp = kmExp
+    self.viataZile = viataZile
+    self.viataKm = viataKm
 
   def __repr__(self):
     return f"IDScadent: {self.IDScadent}, IDRevizie: {self.IDRevizie}"

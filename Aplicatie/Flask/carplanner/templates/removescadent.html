@@ -4,12 +4,11 @@
 
 <div class="container jumbotron bg-transparent">
   <h1 class="display-5">Esti sigur ca vrei sa stergi scadentul {{scadent.numeScadent}}?</h1>
-  <p class="lead">
     <div class="text-center">
-      <a class="btn btn-success btn-lg" href="#" role="button">Da</a>
-      <a class="btn btn-danger btn-lg" href="#" role="button">Nu</a>
+      <a class="btn float-left btn-primary" href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=IDMasina)}}">Inapoi</a>
+      <a class="btn btn-success btn-lg" href="{{ url_for('scadente.removeScadentYes', email=current_user.email, IDMasina=IDMasina, IDScadent=IDScadent)}}" role="button">Da</a>
+      <a class="btn btn-danger btn-lg" href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=IDMasina)}}" role="button">Nu</a>
     </div>
-  </p>
 </div>
 
 {% endblock %}

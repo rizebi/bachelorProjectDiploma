@@ -2,7 +2,14 @@
 {% block content %}
 
 
-<h1>Remove Vehicle</h1>
+<div class="container jumbotron bg-transparent">
+  <h1 class="display-5">Esti sigur ca vrei sa stergi masina cu numarul {{masina.numarInmatriculare}}?</h1>
+    <div class="text-center">
+      <a class="btn float-left btn-primary" href="{{ url_for('useri.userhome', email=current_user.email) }}">Inapoi</a>
+      <a class="btn btn-success btn-lg" href="{{ url_for('masini.removeVehicleYes', email=current_user.email, IDMasina=IDMasina)}}" role="button">Da</a>
+      <a class="btn btn-danger btn-lg" href="{{ url_for('useri.userhome', email=current_user.email) }}" role="button">Nu</a>
+    </div>
+</div>
 
 
 {% endblock %}

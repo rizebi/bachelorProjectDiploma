@@ -52,3 +52,32 @@ class AddVehicleForm(FlaskForm):
   def validate_anFabricatie(form, field):
     if field.data != "" and RepresentsInt(field.data) is False:
       raise ValidationError('Anul de fabricatie trebuie sa fie un numar')
+
+class EditVehicleForm(FlaskForm):
+
+  choicesCombustibil = [("Benzina", "Benzina"), ("Motorina","Motorina"), ("Electric","Electric"), ("Hibrid","Hibrid"), ("Benzina + GPL","Benzina + GPL"), ("Hidrogen","Hidrogen")]
+
+
+  numarInmatriculare = StringField(validators=[DataRequired(message = "Introduceti numarul de inmatriculare")], render_kw={"placeholder": "Numar Inmatriculare*"})
+  kilometraj = StringField(validators=[DataRequired(message = "Introduceti kilometrajul")], render_kw={"placeholder": "Kilometraj*"})
+  anFabricatie = StringField(render_kw={"placeholder": "An Fabricatie"})
+  combustibil = SelectField('combustibil', choices=choicesCombustibil, render_kw={"placeholder": "Combustibil"})
+  capacitateCilindrica = StringField(render_kw={"placeholder": "Capacitate Cilindrica"})
+  codMotor = StringField(render_kw={"placeholder": "Cod Motor"})
+  VIN = StringField(render_kw={"placeholder": "VIN"})
+  detaliiMasina = StringField(render_kw={"placeholder": "Detalii Vehicul"})
+
+  submit = SubmitField('Actualizeaza Vehicul')
+
+
+  def validate_kilometraj(form, field):
+    if RepresentsInt(field.data) is False:
+      raise ValidationError('Kilometrajul trebuie sa fie un numar')
+
+  def validate_capacitateCilindrica(form, field):
+    if field.data != "" and RepresentsInt(field.data) is False:
+      raise ValidationError('Capacitatea cilindrica trebuie sa fie un numar')
+
+  def validate_anFabricatie(form, field):
+    if field.data != "" and RepresentsInt(field.data) is False:
+      raise ValidationError('Anul de fabricatie trebuie sa fie un numar')

@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from carplanner import db, app
 from carplanner.models import Masina, Marca, Scadent
 
-from carplanner.masini.forms import AddVehicleForm
+from carplanner.masini.forms import AddVehicleForm, EditVehicleForm
 
 masini = Blueprint('masini',__name__)
 
@@ -46,9 +46,6 @@ def addVehicle(email):
     flash("Vehicul adaugat cu succes")
 
     return redirect(url_for('scadente.defaultScadent', email=current_user.email, numarInmatriculare=form.numarInmatriculare.data))
-
-
-
 
 
   return render_template('addvehicle.html',form=form)
@@ -103,8 +100,84 @@ def detailsVehicle(email, IDMasina):
 
 
 
+
   return render_template('detailsvehicle.html', masina=masinaPregatita, scadente=scadente)
 
+
+@masini.route('/<email>/<IDMasina>/edit',methods=['GET','POST'])
+@login_required
+def editVehicle(email, IDMasina):
+  form = EditVehicleForm()
+
+
+  masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).first()
+
+  '''choicesCombustibil = []
+  choicesCombustibil.append(masina.combustibil)
+
+  for choice in [("Benzina", "Motorina", "Electric", "Hibrid", "Benzina + GPL", "Hidrogen"]:
+    if choice not in choicesCombustibil:
+      choicesCombustibil.append(masina.combustibil)'''
+
+  if form.validate_on_submit():
+
+    if form.anFabricatie.data == "":
+      form.anFabricatie.data = 0
+    if form.capacitateCilindrica.data == "":
+      form.capacitateCilindrica.data = 0
+    if form.codMotor.data == "":
+      form.codMotor.data = " "
+    if form.VIN.data == "":
+      form.VIN.data = " "
+    if form.detaliiMasina.data == "":
+      form.detaliiMasina.data = " "
+
+    masina.numarInmatriculare = form.numarInmatriculare.data
+    masina.kilometraj = form.kilometraj.data
+    masina.anFabricatie = form.anFabricatie.data
+    masina.combustibil = form.combustibil.data
+    masina.capacitateCilindrica = form.capacitateCilindrica.data
+    masina.codMotor = form.codMotor.data
+    masina.VIN = form.VIN.data
+    masina.detaliiMasina = form.detaliiMasina.data
+
+    db.session.commit()
+    flash("Vehicul editat cu succes")
+
+    return redirect(url_for('useri.userhome', email=current_user.email))
+
+  elif request.method == 'GET':
+    form.numarInmatriculare.data = masina.numarInmatriculare
+    form.kilometraj.data = masina.kilometraj
+    form.combustibil.data = masina.combustibil
+
+    if masina.anFabricatie == "0" or masina.anFabricatie == 0:
+      form.anFabricatie.data = ""
+    else:
+      form.anFabricatie.data = masina.anFabricatie
+
+    if masina.capacitateCilindrica == "0" or masina.capacitateCilindrica == 0:
+      form.capacitateCilindrica.data = ""
+    else:
+      form.capacitateCilindrica.data = masina.capacitateCilindrica
+
+    if masina.codMotor == " ":
+      form.codMotor.data = ""
+    else:
+      form.codMotor.data = masina.codMotor
+
+    if masina.VIN == " ":
+      form.VIN.data = ""
+    else:
+      form.VIN.data = masina.VIN
+
+    if masina.detaliiMasina == " ":
+      form.detaliiMasina.data = ""
+    else:
+      form.detaliiMasina.data = masina.detaliiMasina
+
+
+  return render_template('editvehicle.html', form=form, email=email, IDMasina=IDMasina)
 
 
 
@@ -112,13 +185,22 @@ def detailsVehicle(email, IDMasina):
 @masini.route('/<email>/<IDMasina>/remove',methods=['GET','POST'])
 @login_required
 def removeVehicle(email, IDMasina):
-  return render_template('removevehicle.html')
+  masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).first()
+
+  return render_template('removevehicle.html', masina=masina, IDMasina=IDMasina)
 
 
-@masini.route('/<email>/<IDMasina>/edit',methods=['GET','POST'])
+@masini.route('/<email>/<IDMasina>/remove/yes',methods=['GET','POST'])
 @login_required
-def editVehicle(email, IDMasina):
-  return render_template('editvehicle.html')
+def removeVehicleYes(email, IDMasina):
+
+  scadente = db.session.query(Scadent).filter(Scadent.IDMasina == IDMasina).delete()#.all()
+  masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).delete()#.first()
+  flash("Masina si scadentele aferente au fost sterse cu succces")
+
+  db.session.commit()
+
+  return redirect(url_for('useri.userhome', email=current_user.email))
 
 
 '''

@@ -33,6 +33,8 @@ Probleme mysql cu python3, a trebuit sa instalez
 pip install mysql-connector
 pip install ConfigParser ??
 
+Statistica github: nr commits si proportie cod
+
 Securitate:
 app.config['SECRET_KEY'] = 'mysecret'
 hiddentag, crtf, sqlalchemy (care face sanitize), parola stocata in hash
@@ -69,3 +71,14 @@ Buton special acualizat km
 Reminder sa actualizeze kilomatrajul
 
 Se poate face ceva cu SMS pentru a trimite nr masinii + kilometraj
+
+Pus limita la lungimea intregilor din formulare
+
+Grija la "date out of value" cand se baga o valoare mare
+
+Mare cacat!!!!!!! Cum se da refresh cand s-a facut un schimb???
+
+Screenuri de pe telefon
+
+Parca crapa conexiunea cu baza de date cand sta mult in idle
+set global connect_timeout=28800;    <- Probabil asta

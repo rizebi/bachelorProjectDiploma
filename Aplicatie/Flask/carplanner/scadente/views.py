@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 
 from carplanner import db, app
 from carplanner.models import Scadent, Masina, RevizieDefault
-from carplanner.scadente.forms import DefaultScadentForm, AddScadentForm
+from carplanner.scadente.forms import DefaultScadentForm, AddScadentForm, EditScadentForm
 import datetime
 
 scadente = Blueprint('scadente',__name__)
@@ -26,25 +26,25 @@ def defaultScadent(email, numarInmatriculare):
     if form.default1.data is True:
       masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
       revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Ulei + filtre").first()
-      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm, revizieDefault.viataZile, revizieDefault.viataKm)
       scadente.append(scadenta)
 
     if form.default2.data is True:
       masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
       revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Distributie").first()
-      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm, revizieDefault.viataZile, revizieDefault.viataKm)
       scadente.append(scadenta)
 
     if form.default3.data is True:
       masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
       revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Elemente franare").first()
-      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm, revizieDefault.viataZile, revizieDefault.viataKm)
       scadente.append(scadenta)
 
     if form.default4.data is True:
       masina = Masina.query.filter_by(numarInmatriculare = numarInmatriculare, IDUser = current_user.IDUser).first()
       revizieDefault = RevizieDefault.query.filter_by(IDAuto = masina.IDAuto, numeSchimb="Baterie").first()
-      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm)
+      scadenta = Scadent(revizieDefault.IDRevizie, revizieDefault.numeSchimb, masina.IDMasina, now + datetime.timedelta(revizieDefault.viataZile), True, masina.kilometraj + revizieDefault.viataKm, revizieDefault.viataZile, revizieDefault.viataKm)
       scadente.append(scadenta)
 
 
@@ -70,9 +70,9 @@ def addScadent(email, IDMasina):
     now = datetime.datetime.now()
     masina = Masina.query.filter_by(IDMasina = IDMasina).first()
     if form.viataKm.data == 0 or form.viataKm.data is None or form.viataKm.data == "" :
-      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), False, 0)
+      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), False, 0, int(form.viataZile.data), 0)
     else:
-      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), True, masina.kilometraj + int(form.viataKm.data))
+      scadent = Scadent(1, form.numeScadent.data, IDMasina, now + datetime.timedelta(int(form.viataZile.data)), True, masina.kilometraj + int(form.viataKm.data), int(form.viataZile.data), int(form.viataKm.data))
 
     db.session.add(scadent)
     db.session.commit()
@@ -80,8 +80,7 @@ def addScadent(email, IDMasina):
     return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))
 
 
-
-  return render_template('addscadent.html', form=form)
+  return render_template('addscadent.html', form=form, IDMasina=IDMasina)
 
 
 
@@ -91,7 +90,47 @@ def addScadent(email, IDMasina):
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/edit',methods=['GET','POST'])
 @login_required
 def editScadent(email, IDMasina, IDScadent):
-  return render_template('editscadent.html')
+
+  form = EditScadentForm()
+  scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
+  now = datetime.datetime.now()
+  masina = Masina.query.filter_by(IDMasina = IDMasina).first()
+
+  if form.validate_on_submit():
+
+
+    scadent.numeScadent = form.numeScadent.data
+    scadent.dataExp = now + datetime.timedelta(int(form.viataZile.data))
+
+    if form.viataKm.data == 0 or form.viataKm.data is None or form.viataKm.data == "" :
+      scadent.areKM = False
+      scadent.kmExp = 0
+    else:
+      scadent.areKM = True
+      scadent.kmExp = masina.kilometraj + int(form.viataKm.data)
+
+
+    db.session.commit()
+    flash('Datele scadentului au fost actualizate cu succes.')
+    return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))
+
+  elif request.method == 'GET':
+    form.numeScadent.data = scadent.numeScadent
+    form.viataZile.data = scadent.viataZile
+    form.viataKm.data = scadent.viataKm
+
+
+  return render_template('editscadent.html', form=form, IDMasina=IDMasina)
+
+
+
+
+
+
+
+
+
+
 
 
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/remove',methods=['GET','POST'])
@@ -99,7 +138,20 @@ def editScadent(email, IDMasina, IDScadent):
 def removeScadent(email, IDMasina, IDScadent):
 
   scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
-  return render_template('removescadent.html', scadent=scadent)
+  return render_template('removescadent.html', IDMasina=IDMasina, IDScadent=IDScadent, scadent=scadent)
+
+@scadente.route('/<email>/<IDMasina>/<IDScadent>/remove/yes',methods=['GET','POST'])
+@login_required
+def removeScadentYes(email, IDMasina, IDScadent):
+
+  scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
+  db.session.delete(scadent)
+  db.session.commit()
+  flash("Scadentul a fost sters cu success")
+
+  return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))
+
+
 
 
 '''

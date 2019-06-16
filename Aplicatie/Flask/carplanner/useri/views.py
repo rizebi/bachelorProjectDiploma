@@ -28,6 +28,7 @@ def register():
     return redirect(url_for('useri.login'))
   return render_template('register.html', form=form)
 
+
 @useri.route('/login', methods=['GET', 'POST'])
 def login():
   form = LoginForm()
@@ -79,13 +80,11 @@ def uitatparola():
   return render_template('uitatparola.html', form=form)
 
 
-
 @useri.route("/logout")
 @login_required
 def logout():
   logout_user()
   return redirect(url_for('core.index'))
-
 
 
 @useri.route("/<email>/updateuser", methods=['GET', 'POST'])
@@ -125,6 +124,31 @@ def updateuser(email):
     nume = current_user.email.split("@")[0]
   imagineProfil = url_for('static', filename='profile_pics/' + current_user.imagineProfil)
   return render_template('updateuser.html', imagineProfil=imagineProfil, form=form, nume=nume)
+
+
+@useri.route("/<email>/removeuser", methods=['GET', 'POST'])
+@login_required
+def removeuser(email):
+    return render_template('removeuser.html', email=email)
+
+@useri.route("/<email>/removeuseryes", methods=['GET', 'POST'])
+@login_required
+def removeuseryes(email):
+
+  user = db.session.query(User).filter(User.email == email).first()
+  masini = db.session.query(Masina).filter(Masina.IDUser == user.IDUser).all()
+  for masina in masini:
+    scadente = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina).delete()
+    masina = db.session.query(Masina).filter(Masina.IDMasina == masina.IDMasina).delete()
+  db.session.delete(user)
+
+  db.session.commit()
+
+
+  flash("Ne pare rau ca pleci! Contul tau a fost sters cu scucces")
+
+  return render_template('index.html')
+
 
 
 @useri.route("/<email>")

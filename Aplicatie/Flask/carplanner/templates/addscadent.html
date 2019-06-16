@@ -72,16 +72,13 @@
 					<div class="form-group">
             {{ form.submit(class_="btn float-right login_btn") }}
 					</div>
+          <a class="btn float-left btn-primary" href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=IDMasina)}}">Inapoi</a>
 
 				</form>
 			</div>
 		</div>
 	</div>
 </div>
-
-
-
-<h1>Add Scadent</h1>
 
 
 {% endblock %}
