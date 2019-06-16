@@ -12,7 +12,7 @@ def RepresentsInt(s):
     return False
 
 class AddVehicleForm(FlaskForm):
-
+  '''
   marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
   marciModele = Marca.query.filter_by().all()
 
@@ -22,11 +22,11 @@ class AddVehicleForm(FlaskForm):
 
   marciModeleForm = []
   for marca in marciModele:
-    marciModeleForm.append((marca.IDAuto, marca.modelMasina))
+    marciModeleForm.append((marca.IDAuto, marca.modelMasina))'''
 
   choicesCombustibil = [("Benzina", "Benzina"), ("Motorina","Motorina"), ("Electric","Electric"), ("Hibrid","Hibrid"), ("Benzina + GPL","Benzina + GPL"), ("Hidrogen","Hidrogen")]
 
-  marcaMasina = SelectField('marca', choices=marciForm, render_kw={"placeholder": "Marca Vehicul"})
+  marcaMasina = SelectField('marca', choices=[], render_kw={"placeholder": "Marca Vehicul"})
   modelMasina = SelectField('model', coerce=str, choices=[], render_kw={"placeholder": "Model Vehicul"})
   numarInmatriculare = StringField(validators=[DataRequired(message = "Introduceti numarul de inmatriculare")], render_kw={"placeholder": "Numar Inmatriculare*"})
   kilometraj = StringField(validators=[DataRequired(message = "Introduceti kilometrajul")], render_kw={"placeholder": "Kilometraj*"})

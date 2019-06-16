@@ -13,7 +13,16 @@ masini = Blueprint('masini',__name__)
 @login_required
 def addVehicle(email):
   form = AddVehicleForm()
+  marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
+
+  marcaChoices = []
+  for marca in marci:
+    marcaChoices.append((marca[0], marca[0]))
+
   form.modelMasina.choices = [(str(marca.IDAuto), marca.modelMasina) for marca in Marca.query.filter_by().all()]
+  form.marcaMasina.choices = marcaChoices
+
+
   if form.validate_on_submit():
 
     if form.anFabricatie.data == "":
