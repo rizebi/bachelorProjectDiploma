@@ -1,10 +1,11 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify
+from flask import render_template, url_for, flash, redirect, request, Blueprint, jsonify, abort
 from flask_login import current_user, login_required
 
 from carplanner import db, app
 from carplanner.models import Masina, Marca, Scadent
-
 from carplanner.masini.forms import AddVehicleForm, EditVehicleForm
+import datetime
+import math
 
 masini = Blueprint('masini',__name__)
 
@@ -12,6 +13,9 @@ masini = Blueprint('masini',__name__)
 @masini.route('/<email>/addvehicle',methods=['GET','POST'])
 @login_required
 def addVehicle(email):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   form = AddVehicleForm()
   marci = db.session.query(Marca.marcaMasina).distinct(Marca.marcaMasina).all()
 
@@ -21,6 +25,8 @@ def addVehicle(email):
 
   form.modelMasina.choices = [(str(marca.IDAuto), marca.modelMasina) for marca in Marca.query.filter_by().all()]
   form.marcaMasina.choices = marcaChoices
+
+  now = datetime.datetime.now()
 
 
   if form.validate_on_submit():
@@ -36,7 +42,7 @@ def addVehicle(email):
     if form.detaliiMasina.data == "":
       form.detaliiMasina.data = " "
 
-    masina = Masina(current_user.IDUser, form.modelMasina.data, form.detaliiMasina.data, form.VIN.data, form.combustibil.data, form.capacitateCilindrica.data, form.anFabricatie.data, form.codMotor.data, form.numarInmatriculare.data, form.kilometraj.data, 0)
+    masina = Masina(current_user.IDUser, form.modelMasina.data, form.detaliiMasina.data, form.VIN.data, form.combustibil.data, form.capacitateCilindrica.data, form.anFabricatie.data, form.codMotor.data, form.numarInmatriculare.data, form.kilometraj.data, 0, now)
     db.session.add(masina)
     db.session.commit()
     flash("Vehicul adaugat cu succes")
@@ -67,7 +73,9 @@ def model(marca):
 @masini.route('/<email>/<IDMasina>/details',methods=['GET','POST'])
 @login_required
 def detailsVehicle(email, IDMasina):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   masina, marca = db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.IDMasina == IDMasina).first()
   scadentMaximDate = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).first()
   scadentMaximKm = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina, Scadent.areKM == 1).order_by(Scadent.kmExp.asc()).first()
@@ -87,7 +95,7 @@ def detailsVehicle(email, IDMasina):
                      "detaliiMasina" : masina.detaliiMasina, "VIN" : masina.VIN,
                      "combustibil" : masina.combustibil, "capacitateCilindrica" : masina.capacitateCilindrica,
                      "anFabricatie" : masina.anFabricatie, "codMotor" : masina.codMotor,
-                     "crestereZilnica" : masina.crestereZilnica, "IDMasina" : masina.IDMasina}
+                     "crestereZilnica" : masina.crestereZilnica, "IDMasina" : masina.IDMasina, "lastUpdate" : masina.lastUpdate}
 
   scadente = Scadent.query.filter_by(IDMasina = masina.IDMasina).order_by(Scadent.dataExp.asc()).all()
 
@@ -100,17 +108,11 @@ def detailsVehicle(email, IDMasina):
 @masini.route('/<email>/<IDMasina>/edit',methods=['GET','POST'])
 @login_required
 def editVehicle(email, IDMasina):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   form = EditVehicleForm()
-
-
   masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).first()
-
-  '''choicesCombustibil = []
-  choicesCombustibil.append(masina.combustibil)
-
-  for choice in [("Benzina", "Motorina", "Electric", "Hibrid", "Benzina + GPL", "Hidrogen"]:
-    if choice not in choicesCombustibil:
-      choicesCombustibil.append(masina.combustibil)'''
 
   if form.validate_on_submit():
 
@@ -126,13 +128,25 @@ def editVehicle(email, IDMasina):
       form.detaliiMasina.data = " "
 
     masina.numarInmatriculare = form.numarInmatriculare.data
-    masina.kilometraj = form.kilometraj.data
     masina.anFabricatie = form.anFabricatie.data
     masina.combustibil = form.combustibil.data
     masina.capacitateCilindrica = form.capacitateCilindrica.data
     masina.codMotor = form.codMotor.data
     masina.VIN = form.VIN.data
     masina.detaliiMasina = form.detaliiMasina.data
+
+    if masina.kilometraj != form.kilometraj.data:
+      # We must update the lastUpdate and crestereZilnica
+      now = datetime.datetime.now().date()
+      daysBetween = (now - masina.lastUpdate).days
+
+      crestereNoua = math.floor((int(form.kilometraj.data) - masina.kilometraj) / daysBetween)
+      if crestereNoua <= 0:
+        masina.crestereZilnica = 0
+      else:
+        masina.crestereZilnica = crestereNoua
+      masina.kilometraj = form.kilometraj.data
+      masina.lastUpdate = now
 
     db.session.commit()
     flash("Vehicul editat cu succes")
@@ -178,6 +192,9 @@ def editVehicle(email, IDMasina):
 @masini.route('/<email>/<IDMasina>/remove',methods=['GET','POST'])
 @login_required
 def removeVehicle(email, IDMasina):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).first()
 
   return render_template('removevehicle.html', masina=masina, IDMasina=IDMasina)
@@ -186,7 +203,9 @@ def removeVehicle(email, IDMasina):
 @masini.route('/<email>/<IDMasina>/remove/yes',methods=['GET','POST'])
 @login_required
 def removeVehicleYes(email, IDMasina):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   scadente = db.session.query(Scadent).filter(Scadent.IDMasina == IDMasina).delete()#.all()
   masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).delete()#.first()
   flash("Masina si scadentele aferente au fost sterse cu succces")
@@ -194,51 +213,3 @@ def removeVehicleYes(email, IDMasina):
   db.session.commit()
 
   return redirect(url_for('useri.userhome', email=current_user.email))
-
-
-'''
-# int: makes sure that the blog_post_id gets passed as in integer
-# instead of a string so we can look it up later.
-@blog_posts.route('/<int:blog_post_id>')
-def blog_post(blog_post_id):
-    # grab the requested blog post by id number or return 404
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    return render_template('blog_post.html',title=blog_post.title,
-                            date=blog_post.date,post=blog_post
-    )
-
-@blog_posts.route("/<int:blog_post_id>/update", methods=['GET', 'POST'])
-@login_required
-def update(blog_post_id):
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    if blog_post.author != current_user:
-        # Forbidden, No Access
-        abort(403)
-
-    form = BlogPostForm()
-    if form.validate_on_submit():
-        blog_post.title = form.title.data
-        blog_post.text = form.text.data
-        db.session.commit()
-        flash('Post Updated')
-        return redirect(url_for('blog_posts.blog_post', blog_post_id=blog_post.id))
-    # Pass back the old blog post information so they can start again with
-    # the old text and title.
-    elif request.method == 'GET':
-        form.title.data = blog_post.title
-        form.text.data = blog_post.text
-    return render_template('create_post.html', title='Update',
-                           form=form)
-
-
-@blog_posts.route("/<int:blog_post_id>/delete", methods=['POST'])
-@login_required
-def delete_post(blog_post_id):
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    if blog_post.author != current_user:
-        abort(403)
-    db.session.delete(blog_post)
-    db.session.commit()
-    flash('Post has been deleted')
-    return redirect(url_for('core.index'))
-'''

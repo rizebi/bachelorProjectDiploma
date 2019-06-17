@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container jumbotron bg-transparent">
+  <h1 class="display-5">Esti sigur ca vrei sa reimprospatezi scadentul {{scadent.numeScadent}}?</h1>
+    <div class="text-center">
+      <a class="btn float-left btn-primary" href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=IDMasina)}}">Inapoi</a>
+      <a class="btn btn-success btn-lg" href="{{ url_for('scadente.refreshScadentYes', email=current_user.email, IDMasina=IDMasina, IDScadent=IDScadent)}}" role="button">Da</a>
+      <a class="btn btn-danger btn-lg" href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=IDMasina)}}" role="button">Nu</a>
+    </div>
+</div>
+
+{% endblock %}

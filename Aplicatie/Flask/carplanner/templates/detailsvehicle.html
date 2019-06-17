@@ -59,6 +59,10 @@
         <td>{{ masina["crestereZilnica"]}} km</td>
       </tr>
       <tr>
+        <th scope="row">Ultima actualizare a kilometrajului</th>
+        <td>{{ masina["lastUpdate"]}}</td>
+      </tr>
+      <tr>
         <th scope="row">Detalii</th>
         <td>{{ masina["detaliiMasina"]}}</td>
       </tr>
@@ -73,6 +77,7 @@
       <th scope="col">Nume Scadent</th>
       <th scope="col">Data Expirare</th>
       <th scope="col">Km Expirare</th>
+      <th scope="col">Reimprospateaza Scadent</th>
       <th scope="col">Editeaza Scadent</th>
       <th scope="col">Sterge Scadent</th>
     </tr>
@@ -87,6 +92,7 @@
         {% else %}
           <td>{{ scadent.kmExp }}</td>
         {% endif %}
+        <td><a href="{{ url_for('scadente.refreshScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent)}}">Reactualizeaza</a></td>
         <td><a href="{{ url_for('scadente.editScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent)}}">Editeaza</a></td>
         <td><a href="{{ url_for('scadente.removeScadent', email=current_user.email, IDMasina=masina['IDMasina'], IDScadent=scadent.IDScadent )}}">Sterge</a></td>
 

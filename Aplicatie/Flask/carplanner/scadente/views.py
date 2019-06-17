@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import current_user, login_required
 
 from carplanner import db, app
@@ -12,7 +12,9 @@ scadente = Blueprint('scadente',__name__)
 @scadente.route('/<email>/<numarInmatriculare>/defaultscadent',methods=['GET','POST'])
 @login_required
 def defaultScadent(email, numarInmatriculare):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   now = datetime.datetime.now()
   form = DefaultScadentForm()
 
@@ -58,7 +60,9 @@ def defaultScadent(email, numarInmatriculare):
 @scadente.route('/<email>/<IDMasina>/add',methods=['GET','POST'])
 @login_required
 def addScadent(email, IDMasina):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
 
   form = AddScadentForm()
 
@@ -86,7 +90,9 @@ def addScadent(email, IDMasina):
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/edit',methods=['GET','POST'])
 @login_required
 def editScadent(email, IDMasina, IDScadent):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   form = EditScadentForm()
   scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
   now = datetime.datetime.now()
@@ -119,27 +125,22 @@ def editScadent(email, IDMasina, IDScadent):
   return render_template('editscadent.html', form=form, IDMasina=IDMasina)
 
 
-
-
-
-
-
-
-
-
-
-
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/remove',methods=['GET','POST'])
 @login_required
 def removeScadent(email, IDMasina, IDScadent):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
   return render_template('removescadent.html', IDMasina=IDMasina, IDScadent=IDScadent, scadent=scadent)
+
 
 @scadente.route('/<email>/<IDMasina>/<IDScadent>/remove/yes',methods=['GET','POST'])
 @login_required
 def removeScadentYes(email, IDMasina, IDScadent):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
   db.session.delete(scadent)
   db.session.commit()
@@ -148,71 +149,29 @@ def removeScadentYes(email, IDMasina, IDScadent):
   return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))
 
 
-
-
-'''
-@scadente.route('/create',methods=['GET','POST'])
-
+@scadente.route('/<email>/<IDMasina>/<IDScadent>/refresh',methods=['GET','POST'])
 @login_required
-def create_post():
-    form = BlogPostForm()
+def refreshScadent(email, IDMasina, IDScadent):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
+  scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
+  return render_template('refreshscadent.html', IDMasina=IDMasina, IDScadent=IDScadent, scadent=scadent)
 
-    if form.validate_on_submit():
-
-        blog_post = BlogPost(title=form.title.data,
-                             text=form.text.data,
-                             user_id=current_user.id
-                             )
-        db.session.add(blog_post)
-        db.session.commit()
-        flash("Blog Post Created")
-        return redirect(url_for('core.index'))
-
-    return render_template('create_post.html',form=form)
-
-
-# int: makes sure that the blog_post_id gets passed as in integer
-# instead of a string so we can look it up later.
-@blog_posts.route('/<int:blog_post_id>')
-def blog_post(blog_post_id):
-    # grab the requested blog post by id number or return 404
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    return render_template('blog_post.html',title=blog_post.title,
-                            date=blog_post.date,post=blog_post
-    )
-
-@blog_posts.route("/<int:blog_post_id>/update", methods=['GET', 'POST'])
+@scadente.route('/<email>/<IDMasina>/<IDScadent>/refresh/yes',methods=['GET','POST'])
 @login_required
-def update(blog_post_id):
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    if blog_post.author != current_user:
-        # Forbidden, No Access
-        abort(403)
+def refreshScadentYes(email, IDMasina, IDScadent):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
+  masina = db.session.query(Masina).filter(Masina.IDMasina == IDMasina).first()
+  scadent = db.session.query(Scadent).filter(Scadent.IDScadent == IDScadent).first()
 
-    form = BlogPostForm()
-    if form.validate_on_submit():
-        blog_post.title = form.title.data
-        blog_post.text = form.text.data
-        db.session.commit()
-        flash('Post Updated')
-        return redirect(url_for('blog_posts.blog_post', blog_post_id=blog_post.id))
-    # Pass back the old blog post information so they can start again with
-    # the old text and title.
-    elif request.method == 'GET':
-        form.title.data = blog_post.title
-        form.text.data = blog_post.text
-    return render_template('create_post.html', title='Update',
-                           form=form)
+  now = datetime.datetime.now()
+  scadent.dataExp = now + datetime.timedelta(int(scadent.viataZile))
+  scadent.kmExp = int(masina.kilometraj) + int(scadent.viataKm)
 
+  db.session.commit()
+  flash("Scadentul a fost reimprospatat cu success")
 
-@blog_posts.route("/<int:blog_post_id>/delete", methods=['POST'])
-@login_required
-def delete_post(blog_post_id):
-    blog_post = BlogPost.query.get_or_404(blog_post_id)
-    if blog_post.author != current_user:
-        abort(403)
-    db.session.delete(blog_post)
-    db.session.commit()
-    flash('Post has been deleted')
-    return redirect(url_for('core.index'))
-'''
+  return redirect(url_for('masini.detailsVehicle', email=email, IDMasina=IDMasina))

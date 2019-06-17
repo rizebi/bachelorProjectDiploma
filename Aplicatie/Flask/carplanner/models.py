@@ -66,10 +66,11 @@ class Masina(db.Model):
   numarInmatriculare = db.Column(db.String(20), nullable=False)
   kilometraj = db.Column(db.Integer, nullable=False)
   crestereZilnica = db.Column(db.Integer)
-
+  lastUpdate = db.Column(db.Date)
+  
   scadente = db.relationship('Scadent', backref='masina', lazy='dynamic')
 
-  def __init__(self, IDUser, IDAuto, detaliiMasina, VIN, combustibil, capacitateCilindrica, anFabricatie, codMotor, numarInmatriculare, kilometraj, crestereZilnica):
+  def __init__(self, IDUser, IDAuto, detaliiMasina, VIN, combustibil, capacitateCilindrica, anFabricatie, codMotor, numarInmatriculare, kilometraj, crestereZilnica, lastUpdate):
     self.IDUser = IDUser
     self.IDAuto = IDAuto
     self.detaliiMasina = detaliiMasina
@@ -81,6 +82,7 @@ class Masina(db.Model):
     self.numarInmatriculare = numarInmatriculare
     self.kilometraj = kilometraj
     self.crestereZilnica = crestereZilnica
+    self.lastUpdate = lastUpdate
 
   def __repr__(self):
     return f"IDMasina: {self.IDMasina}, IDAuto: {self.IDAuto}"

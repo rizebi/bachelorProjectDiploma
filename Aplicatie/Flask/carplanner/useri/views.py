@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from carplanner import db, app
 from werkzeug.security import generate_password_hash,check_password_hash
@@ -83,6 +83,9 @@ def logout():
 @useri.route("/<email>/updateuser", methods=['GET', 'POST'])
 @login_required
 def updateuser(email):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   form = UpdateUserForm()
 
   if form.validate_on_submit():
@@ -116,12 +119,17 @@ def updateuser(email):
 @useri.route("/<email>/removeuser", methods=['GET', 'POST'])
 @login_required
 def removeuser(email):
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
     return render_template('removeuser.html', email=email)
 
 @useri.route("/<email>/removeuseryes", methods=['GET', 'POST'])
 @login_required
 def removeuseryes(email):
-
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
   user = db.session.query(User).filter(User.email == email).first()
   masini = db.session.query(Masina).filter(Masina.IDUser == user.IDUser).all()
   for masina in masini:
@@ -144,7 +152,11 @@ def removeuseryes(email):
 @useri.route("/<email>")
 @login_required
 def userhome(email):
-  page = request.args.get('page', 1, type=int)
+
+  if email != current_user.email:
+    # Forbidden, No Access
+    abort(403)
+
   user = User.query.filter_by(email=email).first_or_404()
   masini = []
   i = 0
