@@ -3,6 +3,10 @@ localhost:444/v2/hello/tags/list
 
 mysql -h mysql -pmypassword car-planner
 
+carplannertest1@gmail
+carplannertest1@gmail
+carplannerroot@gmail
+samsungS3
 
 Net in containere la munca:
 /etc/default/docker

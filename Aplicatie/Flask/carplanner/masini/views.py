@@ -139,12 +139,15 @@ def editVehicle(email, IDMasina):
       # We must update the lastUpdate and crestereZilnica
       now = datetime.datetime.now().date()
       daysBetween = (now - masina.lastUpdate).days
-
-      crestereNoua = math.floor((int(form.kilometraj.data) - masina.kilometraj) / daysBetween)
-      if crestereNoua <= 0:
-        masina.crestereZilnica = 0
+      if daysBetween != 0:
+        crestereNoua = math.floor((int(form.kilometraj.data) - masina.kilometraj) / daysBetween)
+        if crestereNoua <= 0:
+          masina.crestereZilnica = 0
+        else:
+          masina.crestereZilnica = crestereNoua
       else:
-        masina.crestereZilnica = crestereNoua
+        masina.crestereZilnica = int(form.kilometraj.data) - masina.kilometraj
+
       masina.kilometraj = form.kilometraj.data
       masina.lastUpdate = now
 

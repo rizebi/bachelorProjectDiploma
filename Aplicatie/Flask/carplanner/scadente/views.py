@@ -169,7 +169,8 @@ def refreshScadentYes(email, IDMasina, IDScadent):
 
   now = datetime.datetime.now()
   scadent.dataExp = now + datetime.timedelta(int(scadent.viataZile))
-  scadent.kmExp = int(masina.kilometraj) + int(scadent.viataKm)
+  if scadent.areKM == True:
+    scadent.kmExp = int(masina.kilometraj) + int(scadent.viataKm)
 
   db.session.commit()
   flash("Scadentul a fost reimprospatat cu success")

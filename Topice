@@ -85,3 +85,7 @@ set global connect_timeout=28800;    <- Probabil asta
 Nu a mers, am facut apoi si pe net_read_timeout si pe net_write_timeout
 
 Daca facem faza cu sa trimita mail la creare cont trebuie sa facem asta si la update
+
+Diagrama cu paginile
+
+Actualizat poza cu DB config (un date schimbat, viata zile, viata km, lastUpdate)
