@@ -89,3 +89,9 @@ Daca facem faza cu sa trimita mail la creare cont trebuie sa facem asta si la up
 Diagrama cu paginile
 
 Actualizat poza cu DB config (un date schimbat, viata zile, viata km, lastUpdate)
+
+Aiurit despre Certificat, self signed etc
+
+https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority/21340898#21340898
+
+https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https

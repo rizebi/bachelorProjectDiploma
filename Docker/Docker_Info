@@ -8,6 +8,17 @@ carplannertest1@gmail
 carplannerroot@gmail
 samsungS3
 
+
+
+openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
+openssl ca -config openssl-ca.cnf -policy signing_policy -extensions signing_req -out servercert.pem -infiles servercert.csr
+
+Apoi adaugat carplanner.ro in HOSTS de pe windwos si adaugat certificat mama la chrome la trusted
+
+
+https://192.168.0.179:80/
+
+
 Net in containere la munca:
 /etc/default/docker
 DOCKER_OPTS="--dns 10.17.8.8 --dns 10.18.68.22"

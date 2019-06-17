@@ -50,7 +50,7 @@ services:
       restart_policy:
         condition: on-failure
     ports:
-      - '80:5000'
+      - '443:5000'
     depends_on:
       - mysql
     volumes:

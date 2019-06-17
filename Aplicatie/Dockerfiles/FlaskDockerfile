@@ -2,7 +2,7 @@ from alpine:latest
 
 RUN apk update
 
-RUN apk add --no-cache python3-dev gcc mysql-client libffi-dev musl-dev zlib-dev jpeg-dev curl
+RUN apk add --no-cache python3-dev gcc libffi-dev musl-dev zlib-dev jpeg-dev curl openssl-dev
 
 RUN pip3 install --upgrade pip
 
