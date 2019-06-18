@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/detailsvehicle.css"/>
 
 
+<div class="container jumbotron bg-transparent">
 <h2>Detalii suplimentare</h2>
 
 <table class="table">
@@ -106,12 +107,8 @@
   <a class="btn btn-success btn-lg" href="{{ url_for('scadente.addScadent', email=current_user.email, IDMasina=masina['IDMasina'])}}">Adauga Scadent Nou</a>
 </div>
 
+</div>
 
 
-
-<br>
-<br>
-<br>
-<br>
 
 {% endblock %}

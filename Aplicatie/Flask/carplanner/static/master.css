@@ -6,3 +6,13 @@ height: 100%;
 width: 100%;
 font-family: 'Numans', sans-serif;
 }
+
+.footer_cust {
+ bottom: 0;
+ color: #707070;
+ height: 2em;
+ left: 0;
+ position: relative; /* OldProperty */
+ font-size: small;
+ width:100%;
+}

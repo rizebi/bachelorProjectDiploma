@@ -40,9 +40,6 @@ app.config['SECRET_KEY'] = 'mysecret'
 hiddentag, crtf, sqlalchemy (care face sanitize), parola stocata in hash
 certficcate
 Link de confirmare a mail-ului? Facut + documentatie
-Problema la login required. Ma loghez pe unu, schimb linkul si merge. WTF?
-
-backref relationship
 
 Putem face si cutsomizabile reviziile, modificat putin baza de date, si populat cu intervalele date de producator
 

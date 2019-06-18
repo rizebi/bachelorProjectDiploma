@@ -57,9 +57,9 @@
   {% endif %}
 </form>
 
-
+<br><br>
 <div class="container">
-	<div class="d-flex justify-content-center h-100">
+	<div class="d-flex justify-content-center">
 		<div class="card">
 			<div class="card-header">
 				<h3>Editare cont</h3>
@@ -127,9 +127,9 @@
 		</div>
 	</div>
 </div>
-
+<br><br>
 <div align='center'>
   <a class="btn btn-danger" href="{{ url_for('useri.removeuser', email=current_user.email)}}" role="button">Stergere Cont</a>
 </div>
-
+<br><br>
 {% endblock content %}
