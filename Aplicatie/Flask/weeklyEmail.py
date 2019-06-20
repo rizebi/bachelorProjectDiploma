@@ -30,13 +30,10 @@ def sendMail(email, subject, body):
     print('Something went wrong when sending email to ' + email)
 
 
+def sortDate(obj):
+  return obj["dataExp"]
+
 def getBody(user):
-
-  #masini = db.session.query(Masina).filter(Masina.IDUser == user.IDUser).all()
-
-  #masini, marci = db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
-
-  #print(masini)
 
   scadenteLista = []
 
@@ -44,9 +41,18 @@ def getBody(user):
     scadente = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina).all()
 
     for scadent in scadente:
-      scadentObj = {}
-      print(scadent.numeScadent, masina.numarInmatriculare, marca.marcaMasina, marca.modelMasina)
+      if scadent.areKM is False:
+        scadenteLista.append({"areKm":False, "numeScadent":scadent.numeScadent, "marcaMasina":marca.marcaMasina, "modelMasina":marca.modelMasina, "numarInmatriculare":masina.numarInmatriculare, "dataExp":scadent.dataExp, "kmExp":"NA"})
+      else:
+        scadenteLista.append({"areKm":True, "numeScadent":scadent.numeScadent, "marcaMasina":marca.marcaMasina, "modelMasina":marca.modelMasina, "numarInmatriculare":masina.numarInmatriculare, "dataExp":scadent.dataExp, "kmExp":scadent.kmExp})
 
+  if len(scadenteLista) == 0:
+    return "Lista goala"
+  else:
+
+    scadenteLista = scadenteLista.sort(key=sortDate)
+    for scadent in scadenteLista:
+      print(scadent)
 
   body = """\
 <html>
