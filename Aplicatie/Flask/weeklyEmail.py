@@ -30,7 +30,22 @@ def sendMail(email, subject, body):
     print('Something went wrong when sending email to ' + email)
 
 
-def getBody(mail):
+def getBody(user):
+
+  #masini = db.session.query(Masina).filter(Masina.IDUser == user.IDUser).all()
+
+  #masini, marci = db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
+
+  #print(masini)
+
+  scadenteLista = []
+
+  for masina, marca in db.session.query(Masina, Marca).filter(Masina.IDAuto == Marca.IDAuto, Masina.proprietar == user).all():
+    scadente = db.session.query(Scadent).filter(Scadent.IDMasina == masina.IDMasina).all()
+
+    for scadent in scadente:
+      scadentObj = {}
+      print(scadent.numeScadent, masina.numarInmatriculare, marca.marcaMasina, marca.modelMasina)
 
 
   body = """\
@@ -70,7 +85,10 @@ def getBody(mail):
 
 
 if __name__ == '__main__':
-  email = "carplannertest1@gmail.com"
-  body = getBody(email)
-  subject = "Mata"
-  sendMail(email, subject, body)
+
+  subject = "Notificare saptamanala status scadente"
+  users = db.session.query(User).all()
+  for user in users:
+    print("Starting " + user.email)
+    body = getBody(user)
+    #sendMail(email, subject, body)
