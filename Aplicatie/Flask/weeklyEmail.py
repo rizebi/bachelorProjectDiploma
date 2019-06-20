@@ -46,47 +46,55 @@ def getBody(user):
       else:
         scadenteLista.append({"areKm":True, "numeScadent":scadent.numeScadent, "marcaMasina":marca.marcaMasina, "modelMasina":marca.modelMasina, "numarInmatriculare":masina.numarInmatriculare, "dataExp":scadent.dataExp, "kmExp":scadent.kmExp})
 
-  if len(scadenteLista) == 0:
-    return "Lista goala"
+  if user.prenumeUser is None or user.prenumeUser == "" or user.prenumeUser == " ":
+    nume = user.email.split("@")[0]
   else:
+    nume = user.prenumeUser
 
-    scadenteLista = scadenteLista.sort(key=sortDate)
+  body = ""
+
+  if len(scadenteLista) == 0:
+    body += "<b>Salut " + nume + "!</b><br>"
+    body += "<br>"
+    body += "Din pacate nu ai nici un scadent in baza noastra de date."
+    body += "<br>"
+    body += "Pentru mai multe detalii si pentru a adauga scadente, intra in <a href='https://carplanner.ro/" + user.email + "'>contul tau</a></b>"
+  else:
+    scadenteLista.sort(key=sortDate)
+    scadenteLista = scadenteLista[:10]
+
+    body += "<style> \ntable, th, td { \nborder: 1px solid black; \nborder-collapse: collapse; \n} \n th, td { \npadding: 5px; \ntext-align: left; \n" + " white-space:pre \n} \n</style>";
+    body += "<b>Salut " + nume + "!</b><br><br>"
+    body += "Mai jos gasesti o lista cu urmatoarele 10 scadente pentru masinile tale:<br><br>"
+
+    body += "\n\n<table style=\"border: 1px solid black\">";
+    body += "\n<tr>";
+    body += "<th>Marca masina</th>";
+    body += "<th>Model masina</th>";
+    body += "<th>Numar Inmatriculare</th>";
+    body += "<th>Nume Scadent</th>";
+    body += "<th>Data expiraare</th>";
+    body += "<th>Km expirare</th>";
+    body += "</tr>"
+
     for scadent in scadenteLista:
-      print(scadent)
+      body += "<tr>"
+      body += "<td>" + scadent["marcaMasina"] + "</td>"
+      body += "<td>" + scadent["modelMasina"] + "</td>"
+      body += "<td><b>" + scadent["numarInmatriculare"] + "</b></td>"
+      body += "<td>" + scadent["numeScadent"] + "</td>"
+      body += "<td>" + str(scadent["dataExp"]) + "</td>"
+      body += "<td>" + str(scadent["kmExp"]) + "</td>"
+      body += "</tr>"
 
-  body = """\
-<html>
-  <head></head>
-  <body>
 
-  <h2>Basic HTML Table</h2>
+    body += "</table>"
+    body += "<br><br>"
 
-  <table style="width:100%">
-    <tr>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Age</th>
-    </tr>
-    <tr>
-      <td>Jill</td>
-      <td>Smith</td>
-      <td>50</td>
-    </tr>
-    <tr>
-      <td>Eve</td>
-      <td>Jackson</td>
-      <td>94</td>
-    </tr>
-    <tr>
-      <td>John</td>
-      <td>Doe</td>
-      <td>80</td>
-    </tr>
-  </table>
+    body += "<b>Pentru mai multe detalii poti intra in <a href='https://carplanner.ro/" + user.email + "'>contul tau</a></b>"
 
-  </body>
-</html>
-"""
+
+
   return body
 
 
@@ -97,4 +105,5 @@ if __name__ == '__main__':
   for user in users:
     print("Starting " + user.email)
     body = getBody(user)
-    #sendMail(email, subject, body)
+    #print(body)
+    sendMail(user.email, subject, body)
