@@ -35,9 +35,9 @@ def populateRevizieDefault():
 
 def populateUser():
   useri = []
-  user = User("Unulescu", "Unu", "1@1.com", "1", "Unu.SRL")
-  user.imagineProfil='1@1.com.jpg'
-  useri.append(User("Popescu", "Ion", "carplannertest1@gmail.com", "parola1", "Personal"))
+  user = User("Popescu", "Ion", "carplannertest1@gmail.com", "parola1", "Personal")
+  user.imagineProfil='carplannertest1@gmail.com.jpg'
+  useri.append(user)
   useri.append(User("Georgescu", "Alexandru", "carplannertest2@gmail.com", "parola2", "TransportMarfa.SRL"))
 
   db.session.add_all(useri)

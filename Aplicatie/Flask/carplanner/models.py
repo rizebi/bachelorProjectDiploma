@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
   __tablename__ = 'useri'
 
   IDUser = db.Column(db.Integer, primary_key = True)
-  imagineProfil = db.Column(db.String(20), nullable=False, default='default_profile.png')
+  imagineProfil = db.Column(db.String(50), nullable=False, default='default_profile.png')
   numeUser = db.Column(db.String(30), nullable=False)
   prenumeUser = db.Column(db.String(30), nullable=False)
   email = db.Column(db.String(30), nullable=False)
@@ -67,7 +67,7 @@ class Masina(db.Model):
   kilometraj = db.Column(db.Integer, nullable=False)
   crestereZilnica = db.Column(db.Integer)
   lastUpdate = db.Column(db.Date)
-  
+
   scadente = db.relationship('Scadent', backref='masina', lazy='dynamic')
 
   def __init__(self, IDUser, IDAuto, detaliiMasina, VIN, combustibil, capacitateCilindrica, anFabricatie, codMotor, numarInmatriculare, kilometraj, crestereZilnica, lastUpdate):

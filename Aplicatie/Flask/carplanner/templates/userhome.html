@@ -13,40 +13,40 @@
   </div>
 </div>
 
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Item</th>
-      <th scope="col">Marca</th>
-      <th scope="col">Model</th>
-      <th scope="col">Nr. Inmatriculare</th>
-      <th scope="col">Kilometraj</th>
-      <th scope="col">Urm. Scadent (Data)</th>
-      <th scope="col">Urm. Scadent (Km)</th>
-      <th scope="col">Detalii</th>
-      <th scope="col">Editeaza</th>
-      <th scope="col">Sterge</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for masina in masini %}
+<div class="container jumbotron bg-transparent">
+  <table class="table">
+    <thead>
       <tr>
-        <th scope="row">{{ masina["id"]}}</th>
-        <td>{{ masina["marcaMasina"]}}</td>
-        <td>{{ masina["modelMasina"]}}</td>
-        <td>{{ masina["numarInmatriculare"]}}</td>
-        <td>{{ masina["kilometraj"]}}</td>
-        <td>{{ masina["scadentData"]}}</td>
-        <td>{{ masina["scadentKm"]}}</td>
-        <td><a href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Detalii</a></td>
-        <td><a href="{{ url_for('masini.editVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Editeaza</a></td>
-        <td><a href="{{ url_for('masini.removeVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Sterge</a></td>
-
+        <th scope="col">Item</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Model</th>
+        <th scope="col">Nr. Inmatriculare</th>
+        <th scope="col">Kilometraj</th>
+        <th scope="col">Urm. Scadent (Data)</th>
+        <th scope="col">Urm. Scadent (Km)</th>
+        <th scope="col">Detalii</th>
+        <th scope="col">Editeaza</th>
+        <th scope="col">Sterge</th>
       </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {% for masina in masini %}
+        <tr>
+          <th scope="row">{{ masina["id"]}}</th>
+          <td>{{ masina["marcaMasina"]}}</td>
+          <td>{{ masina["modelMasina"]}}</td>
+          <td>{{ masina["numarInmatriculare"]}}</td>
+          <td>{{ masina["kilometraj"]}}</td>
+          <td>{{ masina["scadentData"]}}</td>
+          <td>{{ masina["scadentKm"]}}</td>
+          <td><a href="{{ url_for('masini.detailsVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Detalii</a></td>
+          <td><a href="{{ url_for('masini.editVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Editeaza</a></td>
+          <td><a href="{{ url_for('masini.removeVehicle', email=current_user.email, IDMasina=masina['IDMasina'])}}">Sterge</a></td>
 
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
