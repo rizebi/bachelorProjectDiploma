@@ -17,18 +17,22 @@ useri = Blueprint('useri', __name__)
 gmail_user = 'carplannerroot@gmail.com'
 gmail_password = 'samsungS3'
 
-def sendMail(email, subject, hash):
+def sendMail(email, subject, hash, tip):
 
   msg = MIMEMultipart('alternative')
   msg['Subject'] = subject
   msg['From'] = gmail_user
   msg['To'] = email
 
-
-  body = "<b>Salut " + email.split("@")[0] + "!</b><br>"
-  body += "<br><br>Contul a fost creat cu succes, insa necesita activare pentru a putea fi folosit!"
-  body += "<br> Pentru a il activa, acceseaza link-ul <a href='https://carplanner.ro/" + email + "/" + hash + "/activate" + "'>urmator</a></b><br><br>"
-
+  if tip == "activate":
+    body = "<b>Salut " + email.split("@")[0] + "!</b><br>"
+    body += "<br><br>Contul a fost creat cu succes, insa necesita activare pentru a putea fi folosit!"
+    body += "<br> Pentru a il activa, acceseaza link-ul <a href='https://carplanner.ro/" + email + "/" + hash + "/activate" + "'>urmator</a></b><br><br>"
+  elif tip == "forgot":
+    body = "<b>Salut " + email.split("@")[0] + "!</b><br>"
+    body += "<br><br>Ai solicitat resetarea parolei!"
+    body += "<br> Pentru a alege o noua parola, acceseaza link-ul <a href='https://carplanner.ro/" + email + "/" + hash + "/forgot" + "'>urmator</a></b><br><br>"
+    body += "<br><br>Daca nu tu ai solicitat resetarea parolei, ignora acest mail, contul tau este in siguranta"
 
   HTMLpart = MIMEText(body, 'html')
   msg.attach(HTMLpart)
@@ -61,7 +65,7 @@ def register():
 
     db.session.add(user)
     db.session.commit()
-    sendMail(form.email.data, "Activare cont carplanner.ro", hashString)
+    sendMail(form.email.data, "Activare cont carplanner.ro", hashString, "activate")
     flash('Multumim pentru inregistrare! Pentru a finaliza crearea contului, te rog verifica mailul si acceseaza link-ul de activare')
     return redirect(url_for('useri.login'))
   return render_template('register.html', form=form)
@@ -113,11 +117,26 @@ def uitatparola():
     user = User.query.filter_by(email=form.email.data).first()
 
     if user is not None:
-      flash('Un mail cu link de activare a fost trimis la mailul introdus')
-      # Trebuie sa trimitem si linkul!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      sendMail(user.email, "Resetare parola carplanner.ro", user.hash, "forgot")
+      flash('Un mail cu link de restare a parolei a fost trimis la mailul introdus')
     else:
       flash('Nu avem in baza de date acest mail')
   return render_template('uitatparola.html', form=form)
+
+@useri.route('/<email>/<hash>/forgot', methods=['GET', 'POST'])
+def resetparola(email, hash):
+
+  # Grab the user from our User Models table
+  user = User.query.filter_by(email=email).first()
+
+  if user is not None and hash == user.hash:
+    login_user(user)
+    flash("Actualizeaza-ti parola!")
+    return redirect(url_for('useri.updateuser', email=email))
+  else:
+    flash("Nu s-a putut reseta parola. Te rugam sa accesezi din nou linkul din email!")
+    return redirect(url_for('useri.updateuser', email=email))
+
 
 
 @useri.route("/logout")
