@@ -5,24 +5,64 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from carplanner.models import User, Masina, Marca, Scadent
 from carplanner.useri.forms import RegistrationForm, LoginForm, UpdateUserForm, ForgotForm
 from carplanner.useri.picture_handler import add_profile_pic
-
+import time
+import hashlib
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 useri = Blueprint('useri', __name__)
+
+
+gmail_user = 'carplannerroot@gmail.com'
+gmail_password = 'samsungS3'
+
+def sendMail(email, subject, hash):
+
+  msg = MIMEMultipart('alternative')
+  msg['Subject'] = subject
+  msg['From'] = gmail_user
+  msg['To'] = email
+
+
+  body = "<b>Salut " + email.split("@")[0] + "!</b><br>"
+  body += "<br><br>Contul a fost creat cu succes, insa necesita activare pentru a putea fi folosit!"
+  body += "<br> Pentru a il activa, acceseaza link-ul <a href='https://carplanner.ro/" + email + "/" + hash + "/activate" + "'>urmator</a></b><br><br>"
+
+
+  HTMLpart = MIMEText(body, 'html')
+  msg.attach(HTMLpart)
+
+  try:
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server.ehlo()
+    server.login(gmail_user, gmail_password)
+    server.sendmail(gmail_user, email, msg.as_string())
+    server.close()
+
+    print('Email sent to ' + email)
+  except:
+    print('Something went wrong when sending email to ' + email)
 
 
 @useri.route('/register', methods=['GET', 'POST'])
 def register():
   form = RegistrationForm()
   if form.validate_on_submit():
+    forHash = str(form.email.data).encode('utf-8') + str(time.time()).encode('utf-8')
+    hashObj = hashlib.sha1(forHash)
+    hashString = str(hashObj.hexdigest())
     user = User(email=form.email.data,
                 numeUser=form.numeUser.data,
                 prenumeUser=form.prenumeUser.data,
                 numeCompanie=form.numeCompanie.data,
-                parola=form.parola.data)
+                parola=form.parola.data,
+                hash=hashString)
 
     db.session.add(user)
     db.session.commit()
-    flash('Multumim pentru inregistrare! Te poti loga acum.')
+    sendMail(form.email.data, "Activare cont carplanner.ro", hashString)
+    flash('Multumim pentru inregistrare! Pentru a finaliza crearea contului, te rog verifica mailul si acceseaza link-ul de activare')
     return redirect(url_for('useri.login'))
   return render_template('register.html', form=form)
 
@@ -37,22 +77,29 @@ def login():
     # Check that the user was supplied and the password is right
     # The verify_password method comes from the User object
     # https://stackoverflow.com/questions/2209755/python-operation-vs-is-not
-    if user is not None and user.check_password(form.parola.data):
-      #Log in the user
-      login_user(user)
 
-      # If a user was trying to visit a page that requires a login
-      # flask saves that URL as 'next'.
-      next = request.args.get('next')
+    if user is not None:
+      if user.activated is True and user.check_password(form.parola.data):
+        #Log in the user
+        login_user(user)
 
-      # So let's now check if that next exists, otherwise we'll go to
-      # the welcome page.
-      if next == None or not next[0]=='/':
-        next = url_for('useri.userhome', email=user.email)
+        # If a user was trying to visit a page that requires a login
+        # flask saves that URL as 'next'.
+        next = request.args.get('next')
 
-      return redirect(next)
+        # So let's now check if that next exists, otherwise we'll go to
+        # the welcome page.
+        if next == None or not next[0]=='/':
+          next = url_for('useri.userhome', email=user.email)
+
+        return redirect(next)
+      else:
+        if user.activated is False:
+          flash('Contul nu a fost inca activat')
+        else:
+          flash('Email sau parola gresita!')
     else:
-      flash('Email sau parola gresita!')
+      flash('Email-ul nu este gasit in baza de date!')
 
   return render_template('login.html', form=form)
 
@@ -78,6 +125,24 @@ def uitatparola():
 def logout():
   logout_user()
   return redirect(url_for('core.index'))
+
+
+@useri.route("/<email>/<hash>/activate", methods=['GET', 'POST'])
+def activateuser(email, hash):
+  form = LoginForm()
+
+  user = User.query.filter_by(email = email).first()
+  if user is not None and hash == user.hash:
+    user.activated = True
+    db.session.commit()
+    flash("Felicitari! Contul a fost activat cu success! Te poti autentifica")
+    return redirect(url_for('useri.userhome', email=email))
+  else:
+    flash("Nu s-a putut activa contul. Te rugam sa accesezi din nou linkul din email!")
+    return redirect(url_for('useri.userhome', email=email))
+
+
+
 
 
 @useri.route("/<email>/updateuser", methods=['GET', 'POST'])

@@ -59,18 +59,18 @@ services:
       - webnet
 
 
-#  emailer:
-#    image: emailer-image
-#    deploy:
-#      replicas: 1
-#      restart_policy:
-#        condition: on-failure
-#    depends_on:
-#      - mysql
-#    volumes:
-#      - /home/ebi/Desktop/Git/licenta/Aplicatie/Emailer:/app
-#    networks:
-#      - webnet
+  emailer:
+    image: emailer-image
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - mysql
+    volumes:
+      - /home/ebi/Desktop/Git/licenta/Aplicatie/Emailer:/app
+    networks:
+      - webnet
 
 networks:
   webnet:

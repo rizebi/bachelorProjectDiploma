@@ -29,15 +29,19 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(30), nullable=False)
   parola = db.Column(db.String(128))
   numeCompanie = db.Column(db.String(30))
+  activated = db.Column(db.Boolean)
+  hash = db.Column(db.String(50))
 
   masini = db.relationship('Masina', backref='proprietar', lazy='dynamic')
 
-  def __init__(self, numeUser, prenumeUser, email, parola, numeCompanie):
+  def __init__(self, numeUser, prenumeUser, email, parola, numeCompanie, hash):
     self.numeUser = numeUser
     self.prenumeUser = prenumeUser
     self.email = email
     self.numeCompanie = numeCompanie
     self.parola = generate_password_hash(parola)
+    self.activated = False
+    self.hash = hash
 
   def check_password(self, parola):
     # https://stackoverflow.com/questions/23432478/flask-generate-password-hash-not-constant-output
