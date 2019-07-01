@@ -67,7 +67,7 @@ def populateScadent():
   scadente = []
   #self, IDRevizie, numeScadent, IDMasina, dataExp, areKM, kmExp, viataZile, viataKm
 
-  scadente.append(Scadent(2246, "Ulei + Filtre", 1, datetime.datetime(2019, 7, 24, 0, 0), True, 115435, 365, 15000))
+  scadente.append(Scadent(2246, "Ulei + Filtre", 1, datetime.datetime(2019, 7, 4, 0, 0), True, 115435, 365, 15000))
   scadente.append(Scadent(2247, "Distributie", 1, datetime.datetime(2022, 5, 24, 0, 0), True, 145430, 1825, 60000))
   scadente.append(Scadent(2248, "Elemente franare", 1, datetime.datetime(2019, 8, 20, 0, 0), True, 135035, 1095, 40000))
   scadente.append(Scadent(2249, "Baterie", 1, datetime.datetime(2021, 1, 10, 0, 0), True, 215430, 1825, 60000))
@@ -82,7 +82,7 @@ def populateScadent():
   scadente.append(Scadent(2145, "Baterie", 2, datetime.datetime(2022, 2, 15, 0, 0), True, 215430, 205004, 60000))
   scadente.append(Scadent(1, "Asigurare", 2, datetime.datetime(2020, 2, 10, 0, 0), False, 0, 365, 0))
   scadente.append(Scadent(1, "ITP", 2, datetime.datetime(2019, 12, 19, 0, 0), False, 0, 730, 0))
-  scadente.append(Scadent(1, "Rovigneta", 2, datetime.datetime(2020, 1, 23, 0, 0), False, 0, 365, 0))
+  scadente.append(Scadent(1, "Rovigneta", 2, datetime.datetime(2019, 7, 4, 0, 0), False, 0, 365, 0))
 
 
   scadente.append(Scadent(1938, "Ulei + Filtre", 3, datetime.datetime(2020, 6, 24, 0, 0), True, 75430, 365, 15000))

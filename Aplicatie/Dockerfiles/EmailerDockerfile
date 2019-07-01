@@ -2,17 +2,16 @@ from alpine:latest
 
 RUN apk update
 
-RUN apk add --no-cache python3-dev curl\
-    && pip3 install --upgrade pip
+RUN apk add --no-cache python3-dev gcc libffi-dev musl-dev zlib-dev jpeg-dev curl openssl-dev
 
-RUN apk add --no-cache mysql-client
+RUN pip3 install --upgrade pip
 
 WORKDIR /app
 
 COPY EmailerRequirements.txt /app
 
+RUN (crontab -l 2> /dev/null; echo "0 9 * * * python3 /app/dailyEmail.py >> /app/dailyEmail.log") | crontab -
+
+RUN (crontab -l 2> /dev/null; echo "0 10 * * 1 python3 /app/weeklyEmail.py >> /app/weeklyEmail.log") | crontab -
+
 RUN pip3 --no-cache-dir install -r EmailerRequirements.txt
-
-ENTRYPOINT  ["python3"]
-
-CMD ["app.py"]

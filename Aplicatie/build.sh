@@ -41,12 +41,12 @@ if [ "$1" == "first" ]; then
   sudo mkdir /var/lib/car-planner
   sudo mkdir /var/lib/car-planner/registry
   sudo mkdir /var/lib/car-planner/mysql
+  sudo mkdir /var/lib/car-planner/mysql-conf
   sudo mkdir /var/lib/car-planner/flask
-  sudo mkdir /var/lib/car-planner/emailer
 
   # copy application files
   sudo cp -R ./Flask/* /var/lib/car-planner/flask
-  sudo cp -R ./Emailer/* /var/lib/car-planner/emailer
+  sudo cp -R ./MySQL/* /var/lib/car-planner/mysql-conf
 
   sleep 1
 fi
@@ -54,12 +54,13 @@ fi
 if [ "$1" != "stop" ] && [ "$1" != "first" ]; then
   echo "Removing /var/lib/car-planner/flask/*"
   sudo rm -rf /var/lib/car-planner/flask/*
-  echo "Removing /var/lib/car-planner/emailer/*"
-  sudo rm -rf /var/lib/car-planner/emailer/*
+  echo "Removing /var/lib/car-planner/mysql-conf/*"
+  sudo rm -rf /var/lib/car-planner/mysql-conf/*
+
   echo "Copying to /var/lib/car-planner/flask/*"
   sudo cp -R ./Flask/* /var/lib/car-planner/flask/
-  echo "Copying to /var/lib/car-planner/emailer/*"
-  sudo cp -R ./Emailer/* /var/lib/car-planner/emailer/
+  echo "Copying to /var/lib/car-planner/mysql-conf/*"
+  sudo cp -R ./MySQL/* /var/lib/car-planner/mysql-conf/
 fi
 
 if [ "$1" == "flask" ] || [ "$1" == "first" ]; then
