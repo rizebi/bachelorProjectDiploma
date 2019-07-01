@@ -11,18 +11,67 @@ if [ "$1" == "help" ]; then
   echo "./build.sh start     <-  start docker compose"
   echo "./build.sh stop      <-  stop docker compose"
   echo "./build.sh populate  <-  populate database tables"
+  echo "./build.sh push      <-  tag and push images to private docker registry"
+  echo "./build.sh pull      <-  pull and tag images from private docker registry"
+  echo "./build.sh images    <-  query private docker registry for existing images"
   exit
 fi
+
+if [ "$1" == "push" ]; then
+  sudo docker image rm localhost:444/flask-image
+  sudo docker image rm localhost:444/emailer-image
+  sudo docker image rm localhost:444/mysql:5.7
+  sudo docker image rm localhost:444/alpine
+
+  sudo docker tag flask-image localhost:444/flask-image
+  sudo docker tag emailer-image localhost:444/emailer-image
+  sudo docker tag $(docker images | grep mysql | tr -s " " | cut -d" " -f3) localhost:444/mysql:5.7
+  sudo docker tag alpine localhost:444/alpine
+
+  sudo docker push localhost:444/flask-image
+  sudo docker push localhost:444/emailer-image
+  sudo docker push localhost:444/mysql:5.7
+  sudo docker push localhost:444/alpine
+
+  exit
+fi
+
+if [ "$1" == "pull" ]; then
+
+  sudo docker image rm flask-image
+  sudo docker image rm emailer-image
+  sudo docker image rm $(docker images | grep mysql | tr -s " " | cut -d" " -f3)
+  sudo docker image rm alpine
+
+  sudo docker pull localhost:444/flask-image
+  sudo docker pull localhost:444/emailer-image
+  sudo docker pull localhost:444/mysql:5.7
+  sudo docker pull localhost:444/alpine
+
+  sudo docker tag localhost:444/flask-image flask-image
+  sudo docker tag localhost:444/emailer-image emailer-image
+  sudo docker tag localhost:444/mysql:5.7 mysql:5.7
+  sudo docker tag localhost:444/alpine alpine
+
+  exit
+fi
+
+if [ "$1" == "images" ]; then
+  curl localhost:444/v2/_catalog
+
+  exit
+fi
+
 
 if [ "$1" != "populate" ]; then
   echo Exit Docker Swarm
   sudo docker swarm leave --force
-  sleep 3
+  sleep 1
   if [ "$1" != "stop" ]; then
     echo Init Docker Swarm
     sudo docker swarm init
   fi
-  sleep 3
+  sleep 1
 fi
 
 if [ "$1" == "first" ]; then

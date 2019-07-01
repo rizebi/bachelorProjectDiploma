@@ -1,31 +1,23 @@
 version: '3.2'
 services:
-#  registry:
-#    image: registry:2
-#    deploy:
-#      replicas: 1
-#      resources:
-#        limits:
-#          cpus: "0.2"
-#          memory: 100M
-#      restart_policy:
-#        condition: on-failure
-#    ports:
-#      - '444:444'
-#    environment:
-#      REGISTRY_HTTP_ADDR: 0.0.0.0:444
-#      REGISTRY_STORAGE_MAINTENANCE: |-
-#          uploadpurging:
-#              enabled: false
-#          readonly:
-#              enabled: false
-#    volumes:
-#      - /var/lib/car-planner/registry:/var/lib/registry
-      # sub replicas
-      #resources:
-      #  limits:
-      #    cpus: "0.2"
-      #    memory: 100M
+  registry:
+    image: registry:2
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '444:444'
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:444
+      REGISTRY_STORAGE_MAINTENANCE: |-
+          uploadpurging:
+              enabled: false
+          readonly:
+              enabled: false
+    volumes:
+      - /var/lib/car-planner/registry:/var/lib/registry
+
 
   mysql:
     image: mysql:5.7
