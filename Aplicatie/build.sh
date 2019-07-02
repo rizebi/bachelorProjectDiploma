@@ -14,6 +14,14 @@ if [ "$1" == "help" ]; then
   echo "./build.sh push      <-  tag and push images to private docker registry"
   echo "./build.sh pull      <-  pull and tag images from private docker registry"
   echo "./build.sh images    <-  query private docker registry for existing images"
+  echo "./build.sh daily     <-  send daily notification emails"
+  echo "./build.sh weekly    <-  send weekly notification emails"
+  exit
+fi
+
+if [ "$1" == "populate" ]; then
+  docker exec $(docker ps | grep flask | cut -d " " -f1 | head -1) python3 populateTables.py
+
   exit
 fi
 
@@ -62,17 +70,27 @@ if [ "$1" == "images" ]; then
   exit
 fi
 
+if [ "$1" == "daily" ]; then
+  docker exec $(docker ps | grep flask | cut -d " " -f1 | head -1) python3 dailyEmail.py
 
-if [ "$1" != "populate" ]; then
-  echo Exit Docker Swarm
-  sudo docker swarm leave --force
-  sleep 1
-  if [ "$1" != "stop" ]; then
-    echo Init Docker Swarm
-    sudo docker swarm init
-  fi
-  sleep 1
+  exit
 fi
+
+if [ "$1" == "weekly" ]; then
+  docker exec $(docker ps | grep flask | cut -d " " -f1 | head -1) python3 weeklyEmail.py
+
+  exit
+fi
+
+
+echo Exit Docker Swarm
+sudo docker swarm leave --force
+sleep 1
+if [ "$1" != "stop" ]; then
+  echo Init Docker Swarm
+  sudo docker swarm init
+fi
+sleep 1
 
 if [ "$1" == "first" ]; then
   # delete all containers
@@ -139,8 +157,4 @@ if [ "$1" == "stop" ]; then
   # delete all containers
   echo "Delete all containers"
   sudo docker rm -f $(docker ps -a -q)
-fi
-
-if [ "$1" == "populate" ]; then
-  docker exec $(docker ps | grep flask | cut -d " " -f1 | head -1) python3 populateTables.py
 fi
