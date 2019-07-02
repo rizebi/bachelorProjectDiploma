@@ -206,7 +206,7 @@ def removeuser(email):
   if email != current_user.email:
     # Forbidden, No Access
     abort(403)
-    return render_template('removeuser.html', email=email)
+  return render_template('removeuser.html', email=email)
 
 @useri.route("/<email>/removeuseryes", methods=['GET', 'POST'])
 @login_required
