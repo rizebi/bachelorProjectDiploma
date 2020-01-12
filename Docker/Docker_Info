@@ -8,13 +8,28 @@ carplannertest1@gmail
 carplannerroot@gmail
 samsungS3
 
+####################################################################
+Pentru CA nou si certificate noi:
+Info:
+https://stackoverflow.com/questions/21297139/how-do-you-sign-a-certificate-signing-request-with-your-certification-authority
 
-
+1) In folder nou copiem fisierele openssl-ca.cnf si openssl-server.cnf
+2) Cream CA nou
+openssl req -x509 -config openssl-ca.cnf -newkey rsa:4096 -sha256 -nodes -out cacert.pem -outform PEM -days 3650
+3) Verificam cate zile avem la certificat:
+openssl x509 -in cacert.pem -text -noout
+4) Urmatoarele 2 comenzi:
+touch index.txt
+echo '01' > serial.txt
+5) Generam csr
 openssl req -config openssl-server.cnf -newkey rsa:2048 -sha256 -nodes -out servercert.csr -outform PEM
+6) Semnam sau ce ma-sa facem
 openssl ca -config openssl-ca.cnf -policy signing_policy -extensions signing_req -out servercert.pem -infiles servercert.csr
+####################################################################
 
-Apoi adaugat carplanner.ro in HOSTS de pe windwos si adaugat certificat mama la chrome la trusted
-
+Apoi adaugat carplanner.ro in HOSTS de pe Windows si adaugat certificat mama la chrome la trusted
+Si dezactivat din Bitdefender -> Settings -> Advanced _> Check hosts file
+Pentru ca comenteaza linia
 
 https://192.168.0.179:80/
 
