@@ -46,7 +46,7 @@ services:
     depends_on:
       - mysql
     volumes:
-      - /home/ebi/Desktop/Git/licenta/Aplicatie/Flask:/app
+      - /var/lib/car-planner/flask:/app
     networks:
       - webnet
 
@@ -61,7 +61,21 @@ services:
     depends_on:
       - mysql
     volumes:
-      - /home/ebi/Desktop/Git/licenta/Aplicatie/Flask:/app
+      - /var/lib/car-planner/flask:/app
+    networks:
+      - webnet
+
+
+  prometheus:
+    image: prom/prometheus
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '9090:9090'
+    volumes:
+      - /var/lib/car-planner/prometheus:/etc/prometheus
     networks:
       - webnet
 
