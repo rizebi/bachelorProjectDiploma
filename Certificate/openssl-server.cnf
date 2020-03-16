@@ -4,6 +4,7 @@ RANDFILE        = $ENV::HOME/.rnd
 ####################################################################
 [ req ]
 default_bits       = 2048
+default_days       = 3650
 default_keyfile    = serverkey.pem
 distinguished_name = server_distinguished_name
 req_extensions     = server_req_extensions
@@ -21,13 +22,13 @@ localityName         = Locality Name (eg, city)
 localityName_default = Bucharest
 
 organizationName            = Organization Name (eg, company)
-organizationName_default    = Carplanner SRL
+organizationName_default    = Home SRL
 
 commonName           = Common Name (e.g. server FQDN or YOUR name)
-commonName_default   = carplanner.ro
+commonName_default   = eusebiuebi.duckdns.org
 
 emailAddress         = Email Address
-emailAddress_default = carplannerrot@gmail.com
+emailAddress_default = rizescueusebiu@gmail.com
 
 ####################################################################
 [ server_req_extensions ]
@@ -41,5 +42,6 @@ nsComment            = "OpenSSL Generated Certificate"
 ####################################################################
 [ alternate_names ]
 
-DNS.1  = localhost
-DNS.2  = carplanner.ro
+DNS.1  = eusebiuebi.duckdns.org
+DNS.2  = localnetflix
+DNS.3  = IP:192.168.100.150

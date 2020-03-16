@@ -1,1 +1,4 @@
 V	221008153432Z		01	unknown	/C=RO/ST=Bucharest/L=Bucharest/O=Carplanner SRL/CN=carplanner.ro
+V	221211211530Z		02	unknown	/C=RO/ST=Bucharest/L=Bucharest/O=Home SRL/CN=localnetflix
+V	221211231334Z		03	unknown	/C=RO/ST=Bucharest/L=Bucharest/O=Home SRL/CN=eusebiuebi.duckdns.org
+V	300314232648Z		04	unknown	/C=RO/ST=Bucharest/L=Bucharest/O=Home SRL/CN=eusebiuebi.duckdns.org
