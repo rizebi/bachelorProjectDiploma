@@ -6,8 +6,9 @@ from carplanner import db
 from carplanner.models import Marca, RevizieDefault, User, Masina, Scadent
 
 
-gmail_user = 'carplannerroot@gmail.com'
-gmail_password = 'samsungS3'
+gmail_user = 'SENDER@EMAIL.com'
+gmail_password = 'password'
+
 
 def sendMail(email, subject, body):
 
